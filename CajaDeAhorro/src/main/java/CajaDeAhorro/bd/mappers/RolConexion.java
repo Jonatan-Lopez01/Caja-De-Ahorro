@@ -18,8 +18,6 @@ import java.util.List;
  */
 public class RolConexion implements RolInterface {
     
-    
-    
 
     @Override
     public void crearRol(Rol rol) {
@@ -33,30 +31,28 @@ public class RolConexion implements RolInterface {
             lineaParametros.setString(2, rol.getDescripcion());
 
             int flag = lineaParametros.executeUpdate();
-            
-             
             if (flag > 0) {
-                System.out.println("Rol insertado Correctamente... ");
+                System.out.println("Rol insertado correctamente.");
             } else {
-                System.out.println("Rol no insertado...");
+                System.out.println("Rol no insertado,");
             }
             enlace.Desconectar();
         } catch (SQLException e) {
-            System.out.println(e);
+            System.out.println("SQLException " + e);
         }
     }
 
     @Override
-    public void actualizarRol(Rol rol) {
+    public void actualizarRol(int id, Rol rol) {
         try {
             ConexionBd enlace = new ConexionBd();
             Connection enlaceActivo = enlace.Conectar();
-            String sql = "UPDATE rol SET id_rol = ?, nombre = ?, descripcion = ? ";
+            String sql = "UPDATE rol SET nombre = ?, descripcion = ? WHERE id_rol = ?";
             PreparedStatement lineaParametros = enlaceActivo.prepareStatement(sql);
 
-            lineaParametros.setInt(1, rol.getIdRol());
-            lineaParametros.setString(2, rol.getNombre());
-            lineaParametros.setString(3, rol.getDescripcion());
+            lineaParametros.setString(1, rol.getNombre());
+            lineaParametros.setString(2, rol.getDescripcion());
+            lineaParametros.setInt(3, id);
 
             int flag = lineaParametros.executeUpdate();
 
@@ -72,27 +68,41 @@ public class RolConexion implements RolInterface {
     }
 
     @Override
-    public void eliminarRol(int id) {
+    public Rol eliminarRol(int id) {
+        Rol rolEliminado = null;
 
         try {
             ConexionBd enlace = new ConexionBd();
             Connection enlaceActivo = enlace.Conectar();
-            String sql = "DELETE FROM rol WHERE rol = ?";
-            PreparedStatement lineaParametros = enlaceActivo.prepareStatement(sql);
 
-            lineaParametros.setInt(1, id);
+            // Primero, obtenemos los datos del rol antes de eliminarlo
+            rolEliminado = this.obtenerRolPorId(id);
 
-            int flag = lineaParametros.executeUpdate();
+            // Si el rol existe, procede a eliminarlo
+            if (rolEliminado != null) {
+                String deleteSql = "DELETE FROM rol WHERE id_rol = ?";
+                PreparedStatement lineaParametros = enlaceActivo.prepareStatement(deleteSql);
+                lineaParametros.setInt(1, id);
+                int flag = lineaParametros.executeUpdate();
 
-            if (flag > 0) {
-                System.out.println("Rol eliminado correctamente.");
+                if (flag > 0) {
+                    System.out.println("Rol eliminado correctamente.");
+                } else {
+                    System.out.println("No se pudo eliminar el Rol.");
+                    rolEliminado = null; // Si no se pudo eliminar, no devolvemos el rol
+                }
             } else {
-                System.out.println("No se pudo eliminar el Rol.");
+                System.out.println("No se encontró el Rol con el ID proporcionado.");
             }
+
             enlace.Desconectar();
         } catch (SQLException e) {
-            System.out.println(e);
+            
+            System.out.println("SQL Exception:: " + e);
+            rolEliminado = null; // Si ocurre una excepción, no devolvemos el rol
         }
+
+      return rolEliminado;
     }
 
     @Override
@@ -106,19 +116,18 @@ public class RolConexion implements RolInterface {
             lineaParametros.setInt(1, id);
 
             ResultSet resultado = lineaParametros.executeQuery(); //Resultado apunta al inicio de el conjunto de tuplas, tipo como en la posicion -1
+          
 
             if (resultado.next()) { //Se mueve a la fila 0 y devuelve true si hay una fila, pero sino devuelve false
                 consultarRol = new Rol();
                 consultarRol.setIdRol(resultado.getInt("id_rol"));
                 consultarRol.setNombre(resultado.getString("nombre"));
                 consultarRol.setDescripcion(resultado.getString("descripcion"));
-
+                System.out.println("Se obtuvo correctamente el rol");
+                enlace.Desconectar();
             }
-            System.out.println("Se obtuvo correctamente el rol");
-            enlace.Desconectar();
         } catch (SQLException e) {
-            System.out.println("No se pudo obtener el rol");
-            System.out.println(e);
+            System.out.println("SQL Exception:: " + e);
         }
         return consultarRol;
     }
@@ -141,8 +150,8 @@ public class RolConexion implements RolInterface {
                 rol.setNombre(resultado.getString("nombre"));
                 rol.setDescripcion(resultado.getString("descripcion"));
                 listaUsuarios.add(rol);
-            }
-            System.out.println("Se obtuvo correctamente la lista de roles");
+                
+            } 
             enlace.Desconectar();
         } catch (SQLException e) {
             System.out.println("No se obtuvo la lista de roles");
@@ -150,18 +159,17 @@ public class RolConexion implements RolInterface {
         }
         return listaUsuarios;
     }
-    
+
     @Override
-     public Rol obtenerUltimoRol(){
-         Rol consultarRol = null;
-         try {
+    public Rol obtenerUltimoRol() {
+        Rol consultarRol = null;
+        try {
             ConexionBd enlace = new ConexionBd();
             Connection enlaceActivo = enlace.Conectar();
             String sql = "SELECT * FROM rol ORDER BY id_rol DESC LIMIT 1";
             PreparedStatement lineaParametros = enlaceActivo.prepareStatement(sql);
 
-            ResultSet resultado = lineaParametros.executeQuery(); 
-           
+            ResultSet resultado = lineaParametros.executeQuery();
 
             if (resultado.next()) { //Se mueve a la fila 0 y devuelve true si hay una fila, pero sino devuelve false
                 consultarRol = new Rol();
@@ -176,6 +184,6 @@ public class RolConexion implements RolInterface {
             System.out.println(e);
         }
         return consultarRol;
-         
-     }
+
+    }
 }

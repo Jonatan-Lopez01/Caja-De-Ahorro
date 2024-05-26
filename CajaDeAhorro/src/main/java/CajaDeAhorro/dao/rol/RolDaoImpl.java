@@ -21,15 +21,17 @@ public class RolDaoImpl implements RolDao {
     }
 
     @Override
-    public void actualizarRol(Rol rol) {
+    public void actualizarRol(int id, Rol rol) {
         RolConexion conexion = new RolConexion();
-        conexion.actualizarRol(rol);
+        conexion.actualizarRol( id, rol);
     }
 
     @Override
-    public void eliminarRol(int id) {
+    public Rol eliminarRol(int id) {
+        Rol rolEliminado = new Rol();
         RolConexion conexion = new RolConexion();
-        conexion.eliminarRol(id);
+        rolEliminado = conexion.eliminarRol(id);
+        return rolEliminado;
     }
 
     @Override

@@ -17,10 +17,10 @@ public interface RolInterface {
     void crearRol(Rol rol);
     // Método para actualizar un usuario existente
 
-    void actualizarRol(Rol rol);
+    void actualizarRol(int id, Rol rol);
 
     // Método para eliminar un rol por el id
-    void eliminarRol(int id);
+    Rol eliminarRol(int id);
 
     // Método para obtener un rol por su id
     Rol obtenerRolPorId(int id);

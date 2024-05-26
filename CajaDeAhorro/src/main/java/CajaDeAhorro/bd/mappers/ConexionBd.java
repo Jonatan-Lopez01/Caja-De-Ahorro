@@ -34,9 +34,9 @@ public class ConexionBd {
         try {
             Class.forName(driver);
             enlace = DriverManager.getConnection(url + database, user, password);
-            System.out.println("Se conecto a la base de datos: " + database);
+            System.out.println("Se conecto a la base de datos.");
         } catch (ClassNotFoundException | SQLException ex) {
-            System.out.println("No se pudo conectar a la base de datos");
+            System.out.println("No se pudo conectar a la base de datos.");
             Logger.getLogger(ConexionBd.class.getName()).log(Level.SEVERE, null, ex);
             enlace=null;
         }
