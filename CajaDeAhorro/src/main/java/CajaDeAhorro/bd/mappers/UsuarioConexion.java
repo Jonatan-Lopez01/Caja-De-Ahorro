@@ -22,7 +22,7 @@ public class UsuarioConexion implements UsuarioInterface {
         try {
             ConexionBd enlace = new ConexionBd();
             Connection enlaceActivo = enlace.Conectar();
-            String sql = "INSERT INTO usuario (correo, id_rol, nombre, contrasena) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO usuario (correo, id_rol, nombre, password) VALUES (?, ?, ?, ?)";
             PreparedStatement lineaParametros = enlaceActivo.prepareStatement(sql);
 
             lineaParametros.setString(1, usuario.getCorreo());
@@ -47,7 +47,7 @@ public void actualizarUsuario(Usuario usuario) {
     try {
         ConexionBd enlace = new ConexionBd();
         Connection enlaceActivo = enlace.Conectar();
-        String sql = "UPDATE usuario SET id_usuario = ?, correo = ?, nombre = ?, contrasena = ?, id_rol = ? WHERE id_usuario = ?";
+        String sql = "UPDATE usuario SET id_usuario = ?, correo = ?, nombre = ?, password = ?, id_rol = ? WHERE id_usuario = ?";
         PreparedStatement lineaParametros = enlaceActivo.prepareStatement(sql);
 
         lineaParametros.setInt(1, usuario.getIdUsuario());
@@ -112,7 +112,7 @@ public void actualizarUsuario(Usuario usuario) {
                 consultarUsuario.setCorreo(resultado.getString("correo"));
                 consultarUsuario.setIdRol(resultado.getInt("id_rol"));
                 consultarUsuario.setNombre(resultado.getString("nombre"));
-                consultarUsuario.setContraseña(resultado.getString("contrasena"));
+                consultarUsuario.setContraseña(resultado.getString("password"));
             }
             System.out.println("Se obtuvo correctamente el usuario");
             enlace.Desconectar();
@@ -140,7 +140,7 @@ public void actualizarUsuario(Usuario usuario) {
                 usuario.setCorreo(resultado.getString("correo"));
                 usuario.setIdRol(resultado.getInt("id_rol"));
                 usuario.setNombre(resultado.getString("nombre"));
-                usuario.setContraseña(resultado.getString("contrasena"));
+                usuario.setContraseña(resultado.getString("password"));
                 listaUsuarios.add(usuario);
             }
             System.out.println("Se obtuvo correctamente la lista de usuarios");
