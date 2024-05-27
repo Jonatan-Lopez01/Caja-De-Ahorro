@@ -8,6 +8,10 @@ import CajaDeAhorro.bd.domain.Usuario;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.xml.stream.events.EntityDeclaration;
 
 /**
  *
@@ -15,83 +19,95 @@ import java.util.List;
  */
 public class UsuarioConexion implements UsuarioInterface {
 
-    //Metodos implementados con las consultas a la base de datos.
     @Override
     public void crearUsuario(Usuario usuario) {
-
         try {
             ConexionBd enlace = new ConexionBd();
             Connection enlaceActivo = enlace.Conectar();
-            String sql = "INSERT INTO usuario (correo, id_rol, nombre, password) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO usuario (id_usuario, id_rol, nombre, correo, password) VALUES (?,?,?,?,?)";
             PreparedStatement lineaParametros = enlaceActivo.prepareStatement(sql);
 
-            lineaParametros.setString(1, usuario.getCorreo());
+            lineaParametros.setInt(1, usuario.getIdUsuario());
             lineaParametros.setInt(2, usuario.getIdRol());
             lineaParametros.setString(3, usuario.getNombre());
-            lineaParametros.setString(4, usuario.getContraseña());
+            lineaParametros.setString(4, usuario.getCorreo());
+            lineaParametros.setString(5, usuario.getContraseña());
 
             int flag = lineaParametros.executeUpdate();
             if (flag > 0) {
-                System.out.println("Usuario insertado Correctamente... ");
+                System.out.println("Usuario insertado correctamente.");
             } else {
-                System.out.println("Usuario no insertado...");
+                System.out.println("Usuario no insertado,");
             }
+
             enlace.Desconectar();
         } catch (SQLException e) {
-            System.out.println(e);
+            System.out.println("SQL Exception" + e);
         }
+
     }
 
     @Override
-public void actualizarUsuario(Usuario usuario) {
-    try {
-        ConexionBd enlace = new ConexionBd();
-        Connection enlaceActivo = enlace.Conectar();
-        String sql = "UPDATE usuario SET id_usuario = ?, correo = ?, nombre = ?, password = ?, id_rol = ? WHERE id_usuario = ?";
-        PreparedStatement lineaParametros = enlaceActivo.prepareStatement(sql);
-
-        lineaParametros.setInt(1, usuario.getIdUsuario());
-        lineaParametros.setString(2, usuario.getCorreo());
-        lineaParametros.setString(3, usuario.getNombre());
-        lineaParametros.setString(4, usuario.getContraseña());
-        lineaParametros.setInt(5, usuario.getIdRol());
-        lineaParametros.setInt(6, usuario.getIdUsuario());
-
-        int flag = lineaParametros.executeUpdate();
-
-        if (flag > 0) {
-            System.out.println("Usuario actualizado correctamente.");
-        } else {
-            System.out.println("No se pudo actualizar el usuario.");
-        }
-        enlace.Desconectar();
-    } catch (SQLException e) {
-        System.out.println(e);
-    }
-}
-
-
-    @Override
-    public void eliminarUsuario(int id) {
+    public void actualizarUsuario(int id, Usuario usuario) {
         try {
             ConexionBd enlace = new ConexionBd();
             Connection enlaceActivo = enlace.Conectar();
-            String sql = "DELETE FROM usuario WHERE id_usuario = ?";
+            String sql = "UPDATE usuario SET id_rol = ?, nombre = ?, correo = ?, password = ? WHERE id_usuario = ?";
             PreparedStatement lineaParametros = enlaceActivo.prepareStatement(sql);
 
-            lineaParametros.setInt(1, id);
+            lineaParametros.setInt(1, usuario.getIdRol());
+            lineaParametros.setString(2, usuario.getNombre());
+            lineaParametros.setString(3, usuario.getCorreo());
+            lineaParametros.setString(4, usuario.getContraseña());
+            lineaParametros.setInt(5, id);
 
             int flag = lineaParametros.executeUpdate();
 
             if (flag > 0) {
-                System.out.println("Usuario eliminado correctamente.");
+                System.out.println("Usuario actualizado correctamente.");
             } else {
-                System.out.println("No se pudo eliminar el usuario.");
+                System.out.println("No se pudo actualizar el Usuario.");
+            }
+
+            enlace.Desconectar();
+        } catch (SQLException e) {
+            System.out.println("SQLException " + e);
+        }
+
+    }
+
+    @Override
+    public Usuario eliminarUsuario(int id) {
+        Usuario usuarioEliminado = null;
+
+        try {
+            ConexionBd enlace = new ConexionBd();
+            Connection enlaceActivo = enlace.Conectar();
+
+            // Primero, obtenemos los datos del usuario antes de eliminarlo
+            usuarioEliminado = this.obtenerUsuarioPorId(id);
+
+            // Si el usuario existe, procede a eliminarlo
+            if (usuarioEliminado != null) {
+                String sql = "DELETE FROM usuario WHERE id_usuario = ?";
+                PreparedStatement lineaParametros = enlaceActivo.prepareStatement(sql);
+                lineaParametros.setInt(1, id);
+
+                int flag = lineaParametros.executeUpdate();
+                if (flag > 0) {
+                    System.out.println("Usuario eliminado correctamente.");
+                } else {
+                    System.out.println("No se pudo eliminar el Rol.");
+                    usuarioEliminado = null; // Si no se pudo eliminar, no devolvemos el usuario
+                }
+            } else {
+                System.out.println("No se encontró el usuario con el ID proporcionado.");
             }
             enlace.Desconectar();
         } catch (SQLException e) {
-            System.out.println(e);
+            System.out.println("SQL Exception:: " + e);
         }
+        return usuarioEliminado;
     }
 
     @Override
@@ -109,18 +125,18 @@ public void actualizarUsuario(Usuario usuario) {
             if (resultado.next()) { //Se mueve a la fila 0 y devuelve true si hay una fila, pero sino devuelve false
                 consultarUsuario = new Usuario();
                 consultarUsuario.setIdUsuario(resultado.getInt("id_usuario"));
-                consultarUsuario.setCorreo(resultado.getString("correo"));
                 consultarUsuario.setIdRol(resultado.getInt("id_rol"));
                 consultarUsuario.setNombre(resultado.getString("nombre"));
+                consultarUsuario.setCorreo(resultado.getString("correo"));
                 consultarUsuario.setContraseña(resultado.getString("password"));
+                System.out.println("Se obtuvo correctamente el rol");
+                enlace.Desconectar();
             }
-            System.out.println("Se obtuvo correctamente el usuario");
-            enlace.Desconectar();
         } catch (SQLException e) {
-            System.out.println("No se pudo obtener el usuario");
-            System.out.println(e);
+            System.out.println("SQL Exception:: " + e);
         }
         return consultarUsuario;
+
     }
 
     @Override
@@ -137,19 +153,46 @@ public void actualizarUsuario(Usuario usuario) {
             while (resultado.next()) {
                 Usuario usuario = new Usuario();
                 usuario.setIdUsuario(resultado.getInt("id_usuario"));
-                usuario.setCorreo(resultado.getString("correo"));
                 usuario.setIdRol(resultado.getInt("id_rol"));
                 usuario.setNombre(resultado.getString("nombre"));
+                usuario.setCorreo(resultado.getString("correo"));
                 usuario.setContraseña(resultado.getString("password"));
+
                 listaUsuarios.add(usuario);
             }
-            System.out.println("Se obtuvo correctamente la lista de usuarios");
             enlace.Desconectar();
         } catch (SQLException e) {
-            System.out.println("No se obtuvo la lista de usuarios");
+            System.out.println("No se obtuvo la lista de roles");
             System.out.println(e);
         }
         return listaUsuarios;
     }
 
+    @Override
+    public Usuario obtenerUltimoUsuario() {
+        Usuario consultarUsuario = null;
+        try {
+            ConexionBd enlace = new ConexionBd();
+            Connection enlaceActivo = enlace.Conectar();
+            String sql = "SELECT * FROM usuario ORDER BY id_usuario DESC LIMIT 1";
+            PreparedStatement lineaParametros = enlaceActivo.prepareStatement(sql);
+
+            ResultSet resultado = lineaParametros.executeQuery();
+
+            if (resultado.next()) { //Se mueve a la fila 0 y devuelve true si hay una fila, pero sino devuelve false
+                consultarUsuario = new Usuario();
+                consultarUsuario.setIdUsuario(resultado.getInt("id_usuario"));
+                consultarUsuario.setIdRol(resultado.getInt("id_rol"));
+                consultarUsuario.setNombre(resultado.getString("nombre"));
+                consultarUsuario.setCorreo(resultado.getString("correo"));
+                consultarUsuario.setContraseña(resultado.getString("password"));
+            }
+            System.out.println("Se obtuvo correctamente el usuario");
+            enlace.Desconectar();
+        } catch (SQLException e) {
+            System.out.println("No se pudo obtener el usuario");
+            System.out.println(e);
+        }
+        return consultarUsuario;
+    }
 }

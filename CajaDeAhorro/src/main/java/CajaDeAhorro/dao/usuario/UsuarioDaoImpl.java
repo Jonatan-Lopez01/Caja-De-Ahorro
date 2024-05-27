@@ -17,22 +17,22 @@ public class UsuarioDaoImpl implements UsuarioDao {
     public void crearUsuario(Usuario usuario) {
         UsuarioConexion conexion = new UsuarioConexion();
         conexion.crearUsuario(usuario);
-        
-    }
-
-    @Override
-    public void actualizarUsuario(Usuario usuario) {
-        UsuarioConexion conexion = new UsuarioConexion();
-        conexion.actualizarUsuario(usuario);
-      
 
     }
 
     @Override
-    public void eliminarUsuario(int id) {
+    public void actualizarUsuario(int id, Usuario usuario) {
         UsuarioConexion conexion = new UsuarioConexion();
-        conexion.eliminarUsuario(id);
-        
+        conexion.actualizarUsuario(id, usuario);
+
+    }
+
+    @Override
+    public Usuario eliminarUsuario(int id) {
+        Usuario usuarioEliminado = null;
+        UsuarioConexion conexion = new UsuarioConexion();
+        usuarioEliminado = conexion.eliminarUsuario(id);
+        return usuarioEliminado;
     }
 
     @Override
@@ -40,19 +40,23 @@ public class UsuarioDaoImpl implements UsuarioDao {
         Usuario usuarioById;
         UsuarioConexion conexion = new UsuarioConexion();
         usuarioById = conexion.obtenerUsuarioPorId(id);
-        
+
         return usuarioById;
     }
 
     @Override
     public List<Usuario> obtenerTodosLosUsuarios() {
-
         List listaDeUsuarios = null;
         UsuarioConexion conexion = new UsuarioConexion();
         listaDeUsuarios = conexion.obtenerTodosLosUsuarios();
-        
         return listaDeUsuarios;
-
     }
 
+    @Override
+    public Usuario obtenerUltimoUsuario() {
+        Usuario ultimoUsuario = new Usuario();
+        UsuarioConexion conexion = new UsuarioConexion();
+        ultimoUsuario = conexion.obtenerUltimoUsuario();
+        return ultimoUsuario;
+    }
 }
