@@ -11,11 +11,11 @@ package CajaDeAhorro.bd.domain;
 public class Usuario {
 
     //Atributos
-    int id_usuario;
-    String correo;
-    int id_rol;
-    String nombre;
-    String contraseña;
+    private int id_usuario;
+    private String correo;
+    private int id_rol;
+    private String nombre;
+    private String contraseña;
 
     //Constructor
     public Usuario() {

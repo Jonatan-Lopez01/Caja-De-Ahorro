@@ -11,15 +11,13 @@ package CajaDeAhorro.bd.domain;
 public class Rol {
     //Atributos
 
-    int id_rol = -1;
-    String nombre = "";
-    String descripcion = "";
+    private int id_rol = -1;
+    private String nombre = "";
+    private String descripcion = "";
 
     //Constructor
-    public Rol(int nuevoIdRol, String nuevoNombre, String nuevaDescrip) {
-        this.setIdRol(nuevoIdRol);
-        this.setNombre(nuevoNombre);
-        this.setDescripcion(nuevaDescrip);
+    public Rol() {
+
     }
 
     //Metodos, unicamente Getters y Setters.
