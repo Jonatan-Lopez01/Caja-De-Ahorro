@@ -16,6 +16,7 @@ public class Usuario {
     private int id_rol;
     private String nombre;
     private String contraseña;
+    
 
     //Constructor
     public Usuario() {

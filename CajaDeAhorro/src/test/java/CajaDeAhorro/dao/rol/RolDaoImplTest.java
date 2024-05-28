@@ -8,6 +8,7 @@ import CajaDeAhorro.bd.domain.Rol;
 import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Before;
 
 /**
  *
@@ -18,12 +19,11 @@ public class RolDaoImplTest {
     public RolDaoImplTest() {
     }
 
-    @Test
-    public void testCrearRol() {
-        // Crear un nuevo rol localmente, esto simula que desde un formulario se obtienen los datos :)
+    private Rol crearRol(String nombre, String descripcion) {
+        // Crear un nuevo rol localmente
         Rol nuevoRol = new Rol();
-        nuevoRol.setNombre("Gerente");
-        nuevoRol.setDescripcion("El encargado de los  cajeros.");
+        nuevoRol.setNombre(nombre);
+        nuevoRol.setDescripcion(descripcion);
 
         // Instanciar la clase RolDaoImpl
         RolDaoImpl rolBaseDatos = new RolDaoImpl();
@@ -34,10 +34,17 @@ public class RolDaoImplTest {
         // Obtener el último rol creado en la base de datos
         Rol rolCreado = rolBaseDatos.obtenerUltimoRol();
 
-        // Definimos las condiciones de fallo:
+        // Verificar que el rol se haya creado correctamente
         assertNotNull("Fallo: El rol creado es nulo, porque no se pudo obtener de la base de datos", rolCreado);
         assertEquals("El nombre del rol no coincide", nuevoRol.getNombre(), rolCreado.getNombre());
         assertEquals("La descripción del rol no coincide", nuevoRol.getDescripcion(), rolCreado.getDescripcion());
+
+        return rolCreado;
+    }
+
+    @Test
+    public void testCrearRol() {
+        Rol rolCreado = crearRol("Administrador2", "El encargado de suministrar las redes2");
 
         System.out.println("\n El rol insertado a la base de datos es : \n");
         System.out.println("id_rol: " + rolCreado.getIdRol());
@@ -46,8 +53,39 @@ public class RolDaoImplTest {
     }
 
     @Test
+    public void testEliminarRol() {
+        // Crear un nuevo rol antes de eliminarlo
+        Rol rolCreado = crearRol("Temporal", "Rol temporal para pruebas");
+
+        // Ahora procedemos a eliminar el rol recién creado
+        int id = rolCreado.getIdRol(); // obtenemos el id del rol creado
+
+        // Instanciar la clase RolDaoImpl
+        RolDaoImpl rolBaseDatos = new RolDaoImpl();
+
+        // Guardamos localmente el rol que se va a eliminar de la base de datos
+        Rol rolRespaldo = rolCreado; // usamos el rol creado como respaldo
+
+        // Procedemos a eliminar el rol
+        Rol rolEliminado = rolBaseDatos.eliminarRol(id);
+
+        // Definimos las condiciones de fallo para la eliminación:
+        assertNotNull("El rol obtenido para respaldo es nulo", rolRespaldo);
+        assertNotNull("El rol eliminado es nulo", rolEliminado);
+        assertEquals("El id_rol no coincide", rolRespaldo.getIdRol(), rolEliminado.getIdRol());
+        assertEquals("El nombre no coincide", rolRespaldo.getNombre(), rolEliminado.getNombre());
+        assertEquals("La descripción del rol no coincide", rolRespaldo.getDescripcion(), rolEliminado.getDescripcion());
+
+        // Mandamos a imprimir los detalles del rol eliminado a consola
+        System.out.println("\n La tupla eliminada fue: \n");
+        System.out.println("id_rol: " + rolEliminado.getIdRol());
+        System.out.println("nombre: " + rolEliminado.getNombre());
+        System.out.println("descripción: " + rolEliminado.getDescripcion());
+    }
+
+    @Test
     public void testObtenerRolPorId() {
-        int id = 21; // id del rol a buiscar
+        int id = 24; // id del rol a buiscar
         System.out.println("Buscando el rol con id= " + id + "\n");
 
         // Instanciar la clase RolDaoImpl
@@ -67,37 +105,10 @@ public class RolDaoImplTest {
     }
 
     @Test
-    public void testEliminarRol() {
-        int id = 20; //id del rol a eliminar
-
-        // Guardamos localmente el rol que se va a eliminar de la base de datos
-        Rol rolRespaldo = new Rol();
-        RolDaoImpl rolBaseDatos = new RolDaoImpl();
-        rolRespaldo = rolBaseDatos.obtenerRolPorId(id);
-
-        // Procedemos a eliminar el rol
-        Rol rolEliminado = rolBaseDatos.eliminarRol(id);
-
-        // Definimos las condiciones de fallo:
-        assertNotNull("El rol obtenido para respaldo es nulo", rolRespaldo);
-        assertNotNull("El rol eliminado es nulo", rolEliminado);
-        assertEquals("El id_rol no coincide", rolRespaldo.getIdRol(), rolEliminado.getIdRol());
-        assertEquals("El nombre no coincide", rolRespaldo.getNombre(), rolEliminado.getNombre());
-        assertEquals("La descripción del rol no coincide", rolRespaldo.getDescripcion(), rolEliminado.getDescripcion());
-
-        // Mandamos a imprimir los detalles del rol eliminado a consola
-        System.out.println("\n La tupla eliminada fue: \n");
-        System.out.println("id_rol: " + rolEliminado.getIdRol());
-        System.out.println("nombre: " + rolEliminado.getNombre());
-        System.out.println("descripción: " + rolEliminado.getDescripcion());
-
-    }
-
-    @Test
     public void testObtenerTodosLosRoles() {
 
         RolDaoImpl rolBaseDatos = new RolDaoImpl();
-        
+
         // El metodo obtenerTodosLosRoles devuelve una lista vacia sino encuentra nada en la base de datos
         List<Rol> listaDeRoles = rolBaseDatos.obtenerTodosLosRoles();
 
@@ -114,15 +125,15 @@ public class RolDaoImplTest {
         }
     }
 
-     @Test
+    @Test
     public void testActualizarRol() {
-        int id = 19; // id del rol a actualizar
-        
+        int id = 25; // id del rol a actualizar
+
         // Crear un nuevo rol localmente, simulando la obtención de datos desde un formulario
         Rol rolLocal = new Rol();
         rolLocal.setNombre("Patrón");
         rolLocal.setDescripcion("El mero mero de todos");
-        
+
         // Obtener el rol actual de la base de datos
         RolDaoImpl rolBaseDatos = new RolDaoImpl();
         Rol rolDeLaBaseDeDatos = rolBaseDatos.obtenerRolPorId(id);
@@ -149,7 +160,7 @@ public class RolDaoImplTest {
         // Definir las condiciones de fallo
         assertEquals("El nombre del rol no coincide", rolLocal.getNombre(), rolDeLaBaseDeDatos.getNombre());
         assertEquals("La descripción del rol no coincide", rolLocal.getDescripcion(), rolDeLaBaseDeDatos.getDescripcion());
-        
+
         // Mostrar en consola los cambios en los detalles del rol en la base de datos
         System.out.println("\nDetalles del rol actualizado en la base de datos\n");
         System.out.println("Nombre: " + rolDeLaBaseDeDatos.getNombre());

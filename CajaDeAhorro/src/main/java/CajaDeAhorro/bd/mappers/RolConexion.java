@@ -97,9 +97,7 @@ public class RolConexion implements RolInterface {
 
             enlace.Desconectar();
         } catch (SQLException e) {
-            
             System.out.println("SQL Exception:: " + e);
-            rolEliminado = null; // Si ocurre una excepción, no devolvemos el rol
         }
 
       return rolEliminado;
@@ -135,7 +133,7 @@ public class RolConexion implements RolInterface {
     @Override
     public List<Rol> obtenerTodosLosRoles() {
 
-        List<Rol> listaUsuarios = new ArrayList<>();
+        List<Rol> listaRoles = new ArrayList<>();
         try {
             ConexionBd enlace = new ConexionBd();
             Connection enlaceActivo = enlace.Conectar();
@@ -149,7 +147,7 @@ public class RolConexion implements RolInterface {
                 rol.setIdRol(resultado.getInt("id_rol"));
                 rol.setNombre(resultado.getString("nombre"));
                 rol.setDescripcion(resultado.getString("descripcion"));
-                listaUsuarios.add(rol);
+                listaRoles.add(rol);
                 
             } 
             enlace.Desconectar();
@@ -157,7 +155,7 @@ public class RolConexion implements RolInterface {
             System.out.println("No se obtuvo la lista de roles");
             System.out.println(e);
         }
-        return listaUsuarios;
+        return listaRoles;
     }
 
     @Override
@@ -184,6 +182,5 @@ public class RolConexion implements RolInterface {
             System.out.println(e);
         }
         return consultarRol;
-
     }
 }

@@ -16,15 +16,21 @@ public interface UsuarioInterface {
     void crearUsuario(Usuario usuario);
     // Método para actualizar un usuario existente
 
-    void actualizarUsuario(Usuario usuario);
+    void actualizarUsuario(int id, Usuario usuario);
 
     // Método para eliminar un usuario por su id
-    void eliminarUsuario(int id);
+    Usuario eliminarUsuario(int id);
 
     // Método para obtener un usuario por su id
     Usuario obtenerUsuarioPorId(int id);
 
     // Método para obtener todos los usuarios, 
     List<Usuario> obtenerTodosLosUsuarios();
+   
+    //Metodo para obtener el ultimo usuario
+    Usuario obtenerUltimoUsuario();
+    
+    //Metodo para iniciar sesion
+    boolean login (String correo,String password );
     
 }
