@@ -143,8 +143,10 @@ CREATE TABLE IF NOT EXISTS `socio` (
 
 DROP TABLE IF EXISTS `socio_cuenta`;
 CREATE TABLE IF NOT EXISTS `socio_cuenta` (
+  `id_socio_cuenta` bigint NOT NULL,
   `id_socio` bigint NOT NULL,
   `id_cuenta` bigint NOT NULL,
+  PRIMARY KEY (`id_socio_cuenta`),
   KEY `id_socio_fk` (`id_socio`),
   KEY `id_cuenta_fk` (`id_cuenta`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

@@ -7,7 +7,6 @@ package CajaDeAhorro.dao.rol;
 import CajaDeAhorro.bd.domain.Rol;
 import java.util.List;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
