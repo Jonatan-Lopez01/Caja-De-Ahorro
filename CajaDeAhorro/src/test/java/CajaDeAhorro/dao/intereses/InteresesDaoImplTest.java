@@ -26,13 +26,13 @@ public class InteresesDaoImplTest {
     public void testCrearInteres() {
         // Crear un nuevo interes localmente, esto simula que desde un formulario se obtienen los datos :)
         Intereses nuevoInteres = new Intereses();
-        nuevoInteres.setTasaInteres(5.0);
+        nuevoInteres.setTasaInteres(10.0);
 
         // Establecer fechas específicas
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
-            Date fechaInicio = dateFormat.parse("2023-01-01");
-            Date fechaFin = dateFormat.parse("2023-12-31");
+            Date fechaInicio = dateFormat.parse("2024-05-01");
+            Date fechaFin = dateFormat.parse("2028-12-31");
             nuevoInteres.setFechaInicio(fechaInicio);
             nuevoInteres.setFechaFin(fechaFin);
         } catch (ParseException e) {
@@ -85,7 +85,7 @@ public class InteresesDaoImplTest {
 
     @Test
     public void testEliminarInteres() {
-        int id = 1; //id del interes a eliminar
+        int id = 4; //id del interes a eliminar
 
         // Guardamos localmente el interes que se va a eliminar de la base de datos
         Intereses interesRespaldo = new Intereses();
