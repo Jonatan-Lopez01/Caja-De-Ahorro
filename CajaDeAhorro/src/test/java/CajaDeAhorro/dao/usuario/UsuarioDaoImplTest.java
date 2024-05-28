@@ -189,4 +189,15 @@ public class UsuarioDaoImplTest {
             System.out.println("\n");
         }
     }
+    
+    @Test
+    public void testLogin() {
+        String correo = "Alberto@gmail.com";
+        String password = "chanchitofeliz12345678";
+        boolean flag = false;
+        UsuarioDaoImpl usuarioBaseDatos = new UsuarioDaoImpl();
+        flag = usuarioBaseDatos.login(correo, password);
+        assertTrue("El login debería ser exitoso", flag);
+        System.out.println("Logueo exitoso");
+    }
 }

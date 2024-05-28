@@ -30,4 +30,7 @@ public interface UsuarioInterface {
     //Metodo para obtener el ultimo usuario
     Usuario obtenerUltimoUsuario();
     
+    //Metodo para iniciar sesion
+    boolean login (String correo,String password );
+    
 }

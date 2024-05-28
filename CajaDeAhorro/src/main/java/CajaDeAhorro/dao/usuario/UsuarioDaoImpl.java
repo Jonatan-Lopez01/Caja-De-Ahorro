@@ -59,4 +59,11 @@ public class UsuarioDaoImpl implements UsuarioDao {
         ultimoUsuario = conexion.obtenerUltimoUsuario();
         return ultimoUsuario;
     }
+    
+    @Override
+    public boolean login (String correo,String password )
+    {
+        UsuarioConexion conexion = new UsuarioConexion();
+        return conexion.login(correo, password);//devuelve true o false
+    }
 }
