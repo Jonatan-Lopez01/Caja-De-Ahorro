@@ -195,4 +195,29 @@ public class UsuarioConexion implements UsuarioInterface {
         }
         return consultarUsuario;
     }
+
+    @Override
+    public boolean login(String correo, String password) {
+        boolean flag = false;
+
+        try {
+            ConexionBd enlace = new ConexionBd();
+            Connection enlaceActivo = enlace.Conectar();
+            String sql = "SELECT * FROM usuario WHERE correo = ? AND password = ?";
+            PreparedStatement lineaParametros = enlaceActivo.prepareStatement(sql);
+            lineaParametros.setString(1, correo);
+            lineaParametros.setString(2, password);
+
+            ResultSet resultado = lineaParametros.executeQuery();
+            if (resultado.next()) // El usuario existe y la contraseña es correcta
+                flag = true;
+            
+            enlace.Desconectar();
+        } catch (SQLException e) {
+            System.out.println("No se pudo iniciar sesion");
+            System.out.println(e);
+        }
+        return flag;
+    }
+
 }
