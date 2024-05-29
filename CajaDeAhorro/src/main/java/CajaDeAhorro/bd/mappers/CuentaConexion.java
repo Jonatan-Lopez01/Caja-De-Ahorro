@@ -19,13 +19,12 @@ public class CuentaConexion {
         try {
             ConexionBd enlace = new ConexionBd();
             Connection enlaceActivo = enlace.Conectar();
-            String sql = "INSERT INTO cuenta (id_socio, tasa_interes, estatus_cuenta, saldo) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO cuenta (tasa_interes, estatus_cuenta, saldo) VALUES (?, ?, ?)";
             PreparedStatement lineaParametros = enlaceActivo.prepareStatement(sql);
 
-            lineaParametros.setInt(1, cuenta.getIdSocio());
-            lineaParametros.setFloat(2, cuenta.getTasaInteres());
-            lineaParametros.setInt(3, cuenta.getEstatusCuenta());
-            lineaParametros.setFloat(4, cuenta.getSaldo());
+            lineaParametros.setFloat(1, cuenta.getTasaInteres());
+            lineaParametros.setInt(2, cuenta.getEstatusCuenta());
+            lineaParametros.setFloat(3, cuenta.getSaldo());
 
             int flag = lineaParametros.executeUpdate();
             if (flag > 0) {
@@ -43,14 +42,13 @@ public class CuentaConexion {
         try {
             ConexionBd enlace = new ConexionBd();
             Connection enlaceActivo = enlace.Conectar();
-            String sql = "UPDATE cuenta SET id_socio = ?, tasa_interes = ?, estatus_cuenta = ?, saldo = ? WHERE numero_cuenta = ?";
+            String sql = "UPDATE cuenta SET tasa_interes = ?, estatus_cuenta = ?, saldo = ? WHERE numero_cuenta = ?";
             PreparedStatement lineaParametros = enlaceActivo.prepareStatement(sql);
 
-            lineaParametros.setInt(1, cuenta.getIdSocio());
-            lineaParametros.setFloat(2, cuenta.getTasaInteres());
-            lineaParametros.setInt(3, cuenta.getEstatusCuenta());
-            lineaParametros.setFloat(4, cuenta.getSaldo());
-            lineaParametros.setInt(5, numeroCuenta);
+            lineaParametros.setFloat(1, cuenta.getTasaInteres());
+            lineaParametros.setInt(2, cuenta.getEstatusCuenta());
+            lineaParametros.setFloat(3, cuenta.getSaldo());
+            lineaParametros.setInt(4, numeroCuenta);
 
             int flag = lineaParametros.executeUpdate();
             if (flag > 0) {
@@ -107,7 +105,6 @@ public class CuentaConexion {
             if (resultado.next()) {
                 cuenta = new Cuenta();
                 cuenta.setNumeroCuenta(resultado.getInt("numero_cuenta"));
-                cuenta.setIdSocio(resultado.getInt("id_socio"));
                 cuenta.setTasaInteres(resultado.getFloat("tasa_interes"));
                 cuenta.setEstatusCuenta(resultado.getInt("estatus_cuenta"));
                 cuenta.setSaldo(resultado.getFloat("saldo"));
@@ -131,7 +128,6 @@ public class CuentaConexion {
             while (resultado.next()) {
                 Cuenta cuenta = new Cuenta();
                 cuenta.setNumeroCuenta(resultado.getInt("numero_cuenta"));
-                cuenta.setIdSocio(resultado.getInt("id_socio"));
                 cuenta.setTasaInteres(resultado.getFloat("tasa_interes"));
                 cuenta.setEstatusCuenta(resultado.getInt("estatus_cuenta"));
                 cuenta.setSaldo(resultado.getFloat("saldo"));
@@ -157,7 +153,6 @@ public class CuentaConexion {
             if (resultado.next()) { // Se mueve a la fila 0 y devuelve true si hay una fila, sino devuelve false
                 ultimaCuenta = new Cuenta();
                 ultimaCuenta.setNumeroCuenta(resultado.getInt("numero_cuenta"));
-                ultimaCuenta.setIdSocio(resultado.getInt("id_socio"));
                 ultimaCuenta.setTasaInteres(resultado.getFloat("tasa_interes"));
                 ultimaCuenta.setEstatusCuenta(resultado.getInt("estatus_cuenta"));
                 ultimaCuenta.setSaldo(resultado.getFloat("saldo"));

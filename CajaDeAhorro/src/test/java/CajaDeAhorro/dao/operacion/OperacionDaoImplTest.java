@@ -68,7 +68,7 @@ public class OperacionDaoImplTest {
 
     @Test
     public void testObtenerOperacionPorId() {
-        int id = 6; // id de la operación a buscar
+        int id = 1; // id de la operación a buscar
         System.out.println("Buscando la operación con id= " + id + "\n");
 
         // Instanciar la clase OperacionDaoImpl
@@ -109,7 +109,7 @@ public class OperacionDaoImplTest {
 
     @Test
     public void testActualizarOperacion() {
-        int id = 6; // id de la operación a actualizar
+        int id = 1; // id de la operación a actualizar
 
         // Crear una nueva operación localmente, simulando la obtención de datos desde un formulario
         Operacion operacionLocal = new Operacion();

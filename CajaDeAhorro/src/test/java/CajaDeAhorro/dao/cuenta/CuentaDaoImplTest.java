@@ -20,7 +20,6 @@ public class CuentaDaoImplTest {
     public void testCrearCuenta() {
         // Crear una nueva cuenta localmente
         Cuenta nuevaCuenta = new Cuenta();
-        nuevaCuenta.setIdSocio(10);
         nuevaCuenta.setTasaInteres(0.00f);
         nuevaCuenta.setEstatusCuenta(1);
         nuevaCuenta.setSaldo(20000.0f);
@@ -37,7 +36,6 @@ public class CuentaDaoImplTest {
 
         System.out.println("\nLa cuenta insertada en la base de datos es:\n");
         System.out.println("Número de cuenta: " + cuentaCreada.getNumeroCuenta());
-        System.out.println("Id Socio: " + cuentaCreada.getIdSocio());
         System.out.println("Tasa de interés: " + cuentaCreada.getTasaInteres());
         System.out.println("Estatus de cuenta: " + cuentaCreada.getEstatusCuenta());
         System.out.println("Saldo: " + cuentaCreada.getSaldo());
@@ -60,7 +58,6 @@ public class CuentaDaoImplTest {
         // Mostrar los detalles de la cuenta obtenida
         System.out.println("\nLa cuenta obtenida es:\n");
         System.out.println("Número de cuenta: " + cuentaObtenida.getNumeroCuenta());
-        System.out.println("Id Socio: " + cuentaObtenida.getIdSocio());
         System.out.println("Tasa de interés: " + cuentaObtenida.getTasaInteres());
         System.out.println("Estatus de cuenta: " + cuentaObtenida.getEstatusCuenta());
         System.out.println("Saldo: " + cuentaObtenida.getSaldo());
@@ -92,7 +89,6 @@ public class CuentaDaoImplTest {
         // Mostrar los detalles de la cuenta eliminada
         System.out.println("\nLa cuenta eliminada fue:\n");
         System.out.println("Número de cuenta: " + cuentaEliminada.getNumeroCuenta());
-        System.out.println("Id Socio: " + cuentaEliminada.getIdSocio());
         System.out.println("Tasa de interés: " + cuentaEliminada.getTasaInteres());
         System.out.println("Estatus de cuenta: " + cuentaEliminada.getEstatusCuenta());
         System.out.println("Saldo: " + cuentaEliminada.getSaldo());
@@ -113,7 +109,6 @@ public class CuentaDaoImplTest {
         System.out.println("\nListado de las cuentas:\n");
         for (Cuenta cuentaIndividual : listaDeCuentas) {
             System.out.println("Número de cuenta: " + cuentaIndividual.getNumeroCuenta());
-            System.out.println("Id Socio: " + cuentaIndividual.getIdSocio());
             System.out.println("Tasa de interés: " + cuentaIndividual.getTasaInteres());
             System.out.println("Estatus de cuenta: " + cuentaIndividual.getEstatusCuenta());
             System.out.println("Saldo: " + cuentaIndividual.getSaldo());
@@ -127,7 +122,6 @@ public class CuentaDaoImplTest {
 
         // Crear una nueva cuenta localmente con cambios simulados
         Cuenta cuentaLocal = new Cuenta();
-        cuentaLocal.setIdSocio(2);
         cuentaLocal.setTasaInteres(0.700f);
         cuentaLocal.setEstatusCuenta(2);
         cuentaLocal.setSaldo(15000000.0f);
@@ -144,7 +138,6 @@ public class CuentaDaoImplTest {
         // Mostrar los detalles de la cuenta actual
         System.out.println("\nDetalles de la cuenta actual\n");
         System.out.println("Número de cuenta: " + cuentaDeLaBaseDeDatos.getNumeroCuenta());
-        System.out.println("Id Socio: " + cuentaDeLaBaseDeDatos.getIdSocio());
         System.out.println("Tasa de interés: " + cuentaDeLaBaseDeDatos.getTasaInteres());
         System.out.println("Estatus de cuenta: " + cuentaDeLaBaseDeDatos.getEstatusCuenta());
         System.out.println("Saldo: " + cuentaDeLaBaseDeDatos.getSaldo());
@@ -152,7 +145,6 @@ public class CuentaDaoImplTest {
         // Mostrar los cambios en los detalles de la cuenta (localmente)
         System.out.println("\nCambios en los detalles para la cuenta (localmente)\n");
         System.out.println("Número de cuenta: " + numeroCuenta);
-        System.out.println("Id Socio: " + cuentaLocal.getIdSocio());
         System.out.println("Tasa de interés: " + cuentaLocal.getTasaInteres());
         System.out.println("Estatus de cuenta: " + cuentaLocal.getEstatusCuenta());
         System.out.println("Saldo: " + cuentaLocal.getSaldo() + "\n");
@@ -165,7 +157,6 @@ public class CuentaDaoImplTest {
 
         // Definir las condiciones de fallo
         assertEquals("El número de cuenta no coincide", numeroCuenta, cuentaDeLaBaseDeDatos.getNumeroCuenta());
-        assertEquals("El id del socio no coincide", cuentaLocal.getIdSocio(), cuentaDeLaBaseDeDatos.getIdSocio());
         assertEquals("La tasa de interés no coincide", cuentaLocal.getTasaInteres(), cuentaDeLaBaseDeDatos.getTasaInteres(), 0.0);
         assertEquals("El estatus de la cuenta no coincide", cuentaLocal.getEstatusCuenta(), cuentaDeLaBaseDeDatos.getEstatusCuenta());
         assertEquals("El saldo de la cuenta no coincide", cuentaLocal.getSaldo(), cuentaDeLaBaseDeDatos.getSaldo(), 0.0);
@@ -173,7 +164,6 @@ public class CuentaDaoImplTest {
         // Mostrar en consola los detalles de la cuenta actualizada en la base de datos
         System.out.println("\nDetalles de la cuenta actualizada en la base de datos\n");
         System.out.println("Número de cuenta: " + cuentaDeLaBaseDeDatos.getNumeroCuenta());
-        System.out.println("Id Socio: " + cuentaDeLaBaseDeDatos.getIdSocio());
         System.out.println("Tasa de interés: " + cuentaDeLaBaseDeDatos.getTasaInteres());
         System.out.println("Estatus de cuenta: " + cuentaDeLaBaseDeDatos.getEstatusCuenta());
         System.out.println("Saldo: " + cuentaDeLaBaseDeDatos.getSaldo());

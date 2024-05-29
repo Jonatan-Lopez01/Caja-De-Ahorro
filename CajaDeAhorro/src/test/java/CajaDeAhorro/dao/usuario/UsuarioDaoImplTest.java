@@ -59,7 +59,7 @@ public class UsuarioDaoImplTest {
 
     @Test
     public void testActualizarUsuario() {
-        int id = 9; // id del usuario a actualizar
+        int id = 4; // id del usuario a actualizar
 
         // Obtener el rol actual de la base de datos
         UsuarioDaoImpl usuarioBaseDatos = new UsuarioDaoImpl();
@@ -79,7 +79,7 @@ public class UsuarioDaoImplTest {
         // Definir los cambios para actualizar
         Usuario usuarioLocal = new Usuario();
         usuarioLocal.setIdUsuario(id);
-        usuarioLocal.setIdRol(26);
+        usuarioLocal.setIdRol(24);
         usuarioLocal.setNombre("Mario Alberto Perez Cortes");
         usuarioLocal.setCorreo("Alberto@gmail.com");
         usuarioLocal.setContraseña("chanchitofeliz12345678");
@@ -115,7 +115,7 @@ public class UsuarioDaoImplTest {
     @Test
     public void testEliminarUsuario() {
         // Crear un nuevo rol antes de eliminarlo
-        Usuario usuarioCreado = crearUsuario(26, "Jonatan Eduardo Ramirez", "jony@gmail.com", "jon1qwe%1");
+        Usuario usuarioCreado = crearUsuario(27, "Jonatan Eduardo Ramirez", "jony@gmail.com", "jon1qwe%1");
 
         // Ahora procedemos a eliminar el usuario recién creado
         int id = usuarioCreado.getIdUsuario(); // obtenemos el id del rol creado
@@ -124,13 +124,15 @@ public class UsuarioDaoImplTest {
         UsuarioDaoImpl usuarioBaseDatos = new UsuarioDaoImpl();
 
         // Guardamos localmente el usuario que se va a eliminar de la base de datos
-        Usuario usuarioRespaldo = usuarioCreado; // usamos el usuario creado como respaldo
+        Usuario usuarioRespaldo = usuarioBaseDatos.obtenerUsuarioPorId(id); // usamos el usuario creado como respaldo
+        assertNotNull("El usuario eliminado es nulo", usuarioRespaldo);
 
         // Procedemos a eliminar el usuario
         Usuario usuarioEliminado = usuarioBaseDatos.eliminarUsuario(id);
 
         // Definimos las condiciones de fallo para la eliminación:
         assertNotNull("El usuario eliminado es nulo", usuarioEliminado);
+        
         assertEquals("El id_rol no coincide", usuarioRespaldo.getIdRol(), usuarioEliminado.getIdRol());
         assertEquals("El nombre no coincide", usuarioRespaldo.getNombre(), usuarioEliminado.getNombre());
         assertEquals("La correo del usuario no coincide", usuarioRespaldo.getCorreo(), usuarioEliminado.getCorreo());

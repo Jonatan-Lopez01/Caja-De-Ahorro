@@ -54,7 +54,7 @@ public class RolDaoImplTest {
 
     @Test
     public void testEliminarRol() {
-        // Crear un nuevo rol antes de eliminarlo
+        // Crear un nuevo rol local para insertarlo a la base de datos y depseus para eliminarlo
         Rol rolCreado = crearRol("Temporal", "Rol temporal para pruebas");
 
         // Ahora procedemos a eliminar el rol recién creado
@@ -64,13 +64,13 @@ public class RolDaoImplTest {
         RolDaoImpl rolBaseDatos = new RolDaoImpl();
 
         // Guardamos localmente el rol que se va a eliminar de la base de datos
-        Rol rolRespaldo = rolCreado; // usamos el rol creado como respaldo
+        Rol rolRespaldo = rolBaseDatos.obtenerRolPorId(id); // usamos el rol creado como respaldo
+        assertNotNull("El rol obtenido para respaldo es nulo", rolRespaldo);
 
         // Procedemos a eliminar el rol
         Rol rolEliminado = rolBaseDatos.eliminarRol(id);
 
-        // Definimos las condiciones de fallo para la eliminación:
-        assertNotNull("El rol obtenido para respaldo es nulo", rolRespaldo);
+        // Definimos las condiciones de fallo para la eliminación
         assertNotNull("El rol eliminado es nulo", rolEliminado);
         assertEquals("El id_rol no coincide", rolRespaldo.getIdRol(), rolEliminado.getIdRol());
         assertEquals("El nombre no coincide", rolRespaldo.getNombre(), rolEliminado.getNombre());
@@ -127,7 +127,7 @@ public class RolDaoImplTest {
 
     @Test
     public void testActualizarRol() {
-        int id = 25; // id del rol a actualizar
+        int id = 24; // id del rol a actualizar
 
         // Crear un nuevo rol localmente, simulando la obtención de datos desde un formulario
         Rol rolLocal = new Rol();

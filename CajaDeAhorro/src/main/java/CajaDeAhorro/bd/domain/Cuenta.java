@@ -11,7 +11,6 @@ package CajaDeAhorro.bd.domain;
 public class Cuenta {
     // Atributos
     private int numero_cuenta = -1;
-    private int id_socio = -1;
     private float tasa_interes = 0.0f;
     private int estatus_cuenta = -1;
     private float saldo = 0;
@@ -28,14 +27,6 @@ public class Cuenta {
 
     public void setNumeroCuenta(int numero_cuenta) {
         this.numero_cuenta = numero_cuenta;
-    }
-
-    public int getIdSocio() {
-        return id_socio;
-    }
-
-    public void setIdSocio(int id_socio) {
-        this.id_socio = id_socio;
     }
 
     public float getTasaInteres() {
