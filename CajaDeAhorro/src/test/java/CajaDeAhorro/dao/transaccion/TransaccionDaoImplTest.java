@@ -46,7 +46,7 @@ public class TransaccionDaoImplTest {
 
     @Test
     public void testObtenerTransaccionPorId() {
-        int idTransaccion = 3; // ID de la transacción a buscar
+        int idTransaccion = 1; // ID de la transacción a buscar
         System.out.println("Buscando la transacción con ID = " + idTransaccion + "\n");
 
         // Instanciar la clase TransaccionConexion
@@ -121,7 +121,7 @@ public class TransaccionDaoImplTest {
 
     @Test
     public void testActualizarTransaccion() {
-        int idTransaccion = 3; // ID de la transacción a actualizar
+        int idTransaccion = 2; // ID de la transacción a actualizar
 
         // Crear una nueva transacción localmente con cambios simulados
         Transaccion transaccionLocal = new Transaccion();

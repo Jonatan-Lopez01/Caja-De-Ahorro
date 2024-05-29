@@ -25,7 +25,7 @@ public class Usuario {
 
     //Metodos, Getters y Setters unicamente
     public int getIdUsuario() {
-        return id_usuario;
+        return this.id_usuario;
     }
 
     public void setIdUsuario(int id_usuario) {
@@ -34,7 +34,7 @@ public class Usuario {
 
     // Getter y Setter para correo
     public String getCorreo() {
-        return correo;
+        return this.correo;
     }
 
     public void setCorreo(String correo) {
@@ -43,7 +43,7 @@ public class Usuario {
 
     // Getter y Setter para id_rol
     public int getIdRol() {
-        return id_rol;
+        return this.id_rol;
     }
 
     public void setIdRol(int id_rol) {
@@ -52,7 +52,7 @@ public class Usuario {
 
     // Getter y Setter para nombre
     public String getNombre() {
-        return nombre;
+        return this.nombre;
     }
 
     public void setNombre(String nombre) {
@@ -61,7 +61,7 @@ public class Usuario {
 
     // Getter y Setter para contraseña
     public String getContraseña() {
-        return contraseña;
+        return this.contraseña;
     }
 
     public void setContraseña(String contraseña) {

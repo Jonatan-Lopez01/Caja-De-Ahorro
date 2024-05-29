@@ -36,6 +36,7 @@ public class SolicitudPrestamoDaoImplTest {
 
         // Subir la solicitud local a la base de datos
         solicitudBaseDatos.crearSolicitudPrestamo(nuevaSolicitud);
+        
 
         // Obtener la última solicitud creada en la base de datos
         SolicitudPrestamo solicitudCreada = solicitudBaseDatos.obtenerUltimaSolicitudPrestamo();
@@ -99,7 +100,7 @@ public void testEliminarSolicitudPrestamo() {
 }
 @Test
 public void testObtenerSolicitudPrestamoPorId() {
-    int id = 2; // id de la solicitud a buscar
+    int id = 12; // id de la solicitud a buscar
     System.out.println("Buscando la solicitud con id= " + id + "\n");
 
     // Instanciar la clase SolicitudPrestamoDaoImpl
@@ -150,7 +151,7 @@ public void testObtenerTodasLasSolicitudesPrestamo() {
 }
 @Test
 public void testActualizarSolicitudPrestamo() {
-    int id = 2; // id de la solicitud a actualizar
+    int id = 12; // id de la solicitud a actualizar
 
     // Crear una nueva solicitud localmente, simulando la obtención de datos desde un formulario
     SolicitudPrestamo solicitudLocal = new SolicitudPrestamo();
