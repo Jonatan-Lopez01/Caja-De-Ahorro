@@ -10,11 +10,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.*;
 
 /**
  *
  * @author Arce
  */
+
 
 public class InteresesConexion implements InteresesInterface {
 
@@ -24,21 +26,31 @@ public class InteresesConexion implements InteresesInterface {
             ConexionBd enlace = new ConexionBd();
             Connection enlaceActivo = enlace.Conectar();
             String sql = "INSERT INTO intereses (tasa_interes, fecha_inicio, fecha_fin) VALUES (?, ?, ?)";
-            PreparedStatement lineaParametros = enlaceActivo.prepareStatement(sql);
+            PreparedStatement lineaParametros = enlaceActivo.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             lineaParametros.setDouble(1, interes.getTasaInteres());
             lineaParametros.setDate(2, new java.sql.Date(interes.getFechaInicio().getTime()));
             lineaParametros.setDate(3, new java.sql.Date(interes.getFechaFin().getTime()));
 
             int flag = lineaParametros.executeUpdate();
+
             if (flag > 0) {
-                System.out.println("Interes insertado correctamente.");
+                System.out.println("Interés insertado correctamente.");
+
+                // Obtener el ID generado automáticamente
+                try (ResultSet generatedKeys = lineaParametros.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        interes.setIdInteres(generatedKeys.getInt(1));
+                    } else {
+                        throw new SQLException("Error al obtener el ID del interés insertado.");
+                    }
+                }
             } else {
-                System.out.println("Interes no insertado.");
+                System.out.println("Interés no insertado.");
             }
             enlace.Desconectar();
         } catch (SQLException e) {
-            System.out.println("SQLException " + e);
+            System.out.println("SQLException: " + e);
         }
     }
 

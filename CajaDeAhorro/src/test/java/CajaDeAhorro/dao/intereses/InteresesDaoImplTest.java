@@ -5,6 +5,9 @@
 package CajaDeAhorro.dao.intereses;
 
 import CajaDeAhorro.bd.domain.Intereses;
+import CajaDeAhorro.bd.domain.Rol;
+import CajaDeAhorro.bd.mappers.InteresesConexion;
+import CajaDeAhorro.dao.rol.RolDaoImpl;
 import java.util.List;
 import java.util.Date;
 import org.junit.Test;
@@ -85,12 +88,27 @@ public class InteresesDaoImplTest {
 
     @Test
     public void testEliminarInteres() {
-        int id = 4; //id del interes a eliminar
-
-        // Guardamos localmente el interes que se va a eliminar de la base de datos
-        Intereses interesRespaldo = new Intereses();
+           // Guardamos localmente el interes que se va a eliminar de la base de datos
+        Intereses nuevoInteres = new Intereses();
+        nuevoInteres.setTasaInteres(15.0);
+        
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date fechaInicio = dateFormat.parse("2024-01-14");
+            Date fechaFin = dateFormat.parse("2027-09-30");
+            nuevoInteres.setFechaInicio(fechaInicio);
+            nuevoInteres.setFechaFin(fechaFin);
+        } catch (ParseException e) {
+            fail("Error al parsear las fechas: " + e.getMessage());
+        }
+         
         InteresesDaoImpl interesesBaseDatos = new InteresesDaoImpl();
-        interesRespaldo = interesesBaseDatos.obtenerInteresPorId(id);
+       // Agregar el nuevo interés a la base de datos
+        interesesBaseDatos.crearInteres(nuevoInteres);
+        int id = nuevoInteres.getIdInteres(); // obtenemos el id del interes creado
+
+        // Respaldar el interés creado desde la base de datos
+        Intereses interesRespaldo = interesesBaseDatos.obtenerInteresPorId(id);
 
         // Procedemos a eliminar el interes
         Intereses interesEliminado = interesesBaseDatos.eliminarInteres(id);
@@ -135,7 +153,7 @@ public class InteresesDaoImplTest {
 
      @Test
     public void testActualizarInteres() {
-        int id = 1; // id del interes a actualizar
+        int id = 2; // id del interes a actualizar
         
         // Crear un nuevo interes localmente, simulando la obtención de datos desde un formulario
         Intereses interesLocal = new Intereses();
