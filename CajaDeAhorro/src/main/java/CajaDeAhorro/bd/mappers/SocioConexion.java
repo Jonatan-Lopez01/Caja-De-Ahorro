@@ -16,7 +16,8 @@ import java.util.List;
  *
  * @author Jonatan Eduardo
  */
-public class SocioConexion implements SocioInterface{
+public class SocioConexion implements SocioInterface {
+
     //Metodos implementados con las consultas a la base de datos.
     @Override
     public void crearSocio(Socio socio) {
@@ -46,7 +47,7 @@ public class SocioConexion implements SocioInterface{
     }
 
     @Override
-    public void actualizarSocio(Socio socio) {
+    public void actualizarSocio(int id, Socio socio) {
         try {
             ConexionBd enlace = new ConexionBd();
             Connection enlaceActivo = enlace.Conectar();
@@ -57,38 +58,14 @@ public class SocioConexion implements SocioInterface{
             lineaParametros.setString(3, socio.getDireccion());
             lineaParametros.setString(4, socio.getTelefono());
             lineaParametros.setString(5, socio.getCorreo());
-            lineaParametros.setInt(6, socio.getId_socio());
+            lineaParametros.setInt(6, id);
 
             int flag = lineaParametros.executeUpdate();
 
             if (flag > 0) {
                 System.out.println("Socio actualizado correctamente.");
-        } else {
-            System.out.println("No se pudo actualizar el socio.");
-        }
-        enlace.Desconectar();
-    } catch (SQLException e) {
-        System.out.println(e);
-    }
-}
-
-
-    @Override
-    public void eliminarSocio(int id) {
-        try {
-            ConexionBd enlace = new ConexionBd();
-            Connection enlaceActivo = enlace.Conectar();
-            String sql = "DELETE FROM socio WHERE id_socio = ?";
-            PreparedStatement lineaParametros = enlaceActivo.prepareStatement(sql);
-
-            lineaParametros.setInt(1, id);
-
-            int flag = lineaParametros.executeUpdate();
-
-            if (flag > 0) {
-                System.out.println("Socio eliminado correctamente.");
             } else {
-                System.out.println("No se pudo eliminar el socio.");
+                System.out.println("No se pudo actualizar el socio.");
             }
             enlace.Desconectar();
         } catch (SQLException e) {
@@ -96,34 +73,62 @@ public class SocioConexion implements SocioInterface{
         }
     }
 
-    @Override
+   // Método para eliminar un socio por su ID
+    public Socio eliminarSocio(int id) {
+        Socio socioEliminado = obtenerSocioPorId(id); // Obtener el socio antes de eliminarlo
+
+        if (socioEliminado != null) {
+            try {
+                ConexionBd enlace = new ConexionBd();
+                Connection enlaceActivo = enlace.Conectar();
+                String sql = "DELETE FROM socio WHERE id_socio = ?";
+                PreparedStatement lineaParametros = enlaceActivo.prepareStatement(sql);
+                lineaParametros.setInt(1, id);
+                int flag = lineaParametros.executeUpdate();
+                
+                if (flag > 0) {
+                    System.out.println("Socio eliminado correctamente.");
+                } else {
+                    System.out.println("No se pudo eliminar el socio.");
+                    socioEliminado = null; // Si no se pudo eliminar, no devolvemos el socio
+                }
+                enlace.Desconectar();
+            } catch (SQLException e) {
+                System.out.println("Error al eliminar el socio: " + e);
+                socioEliminado = null; // En caso de error, devolvemos null
+            }
+        } else {
+            System.out.println("No se encontró el socio con el ID proporcionado.");
+        }
+
+        return socioEliminado;
+    }
+
+    // Método para obtener un socio por su ID
     public Socio obtenerSocioPorId(int id) {
-        Socio consultarSocio = null;
+        Socio socio = null;
         try {
             ConexionBd enlace = new ConexionBd();
             Connection enlaceActivo = enlace.Conectar();
             String sql = "SELECT * FROM socio WHERE id_socio = ?";
             PreparedStatement lineaParametros = enlaceActivo.prepareStatement(sql);
             lineaParametros.setInt(1, id);
+            ResultSet resultado = lineaParametros.executeQuery();
 
-            ResultSet resultado = lineaParametros.executeQuery(); //Resultado apunta al inicio de el conjunto de tuplas, tipo como en la posicion -1
-
-            if (resultado.next()) { //Se mueve a la fila 0 y devuelve true si hay una fila, pero sino devuelve false
-                consultarSocio = new Socio();
-                consultarSocio.setId_socio(resultado.getInt("id_socio"));
-                consultarSocio.setNombre(resultado.getString("nombre"));
-                consultarSocio.setApellidos(resultado.getString("apellidos"));
-                consultarSocio.setDireccion(resultado.getString("direccion"));
-                consultarSocio.setTelefono(resultado.getString("telefono"));
-                consultarSocio.setCorreo(resultado.getString("correo"));
+            if (resultado.next()) {
+                socio = new Socio();
+                socio.setId_socio(resultado.getInt("id_socio"));
+                socio.setNombre(resultado.getString("nombre"));
+                socio.setApellidos(resultado.getString("apellidos"));
+                socio.setDireccion(resultado.getString("direccion"));
+                socio.setTelefono(resultado.getString("telefono"));
+                socio.setCorreo(resultado.getString("correo"));
             }
-            System.out.println("Se obtuvo correctamente el socio");
             enlace.Desconectar();
         } catch (SQLException e) {
-            System.out.println("No se pudo obtener el socio");
-            System.out.println(e);
+            System.out.println("Error al obtener el socio: " + e);
         }
-        return consultarSocio;
+        return socio;
     }
 
     @Override
@@ -155,5 +160,34 @@ public class SocioConexion implements SocioInterface{
         }
         return listaSocios;
     }
-    
+
+    @Override
+    public Socio obtenerUltimoSocio() {
+        Socio consultarSocio = null;
+        try {
+            ConexionBd enlace = new ConexionBd();
+            Connection enlaceActivo = enlace.Conectar();
+            String sql = "SELECT * FROM socio ORDER BY id_socio DESC LIMIT 1";
+            PreparedStatement lineaParametros = enlaceActivo.prepareStatement(sql);
+
+            ResultSet resultado = lineaParametros.executeQuery();
+
+            if (resultado.next()) { // Se mueve a la fila 0 y devuelve true si hay una fila, pero sino devuelve false
+                consultarSocio = new Socio();
+                consultarSocio.setId_socio(resultado.getInt("id_socio"));
+                consultarSocio.setNombre(resultado.getString("nombre"));
+                consultarSocio.setApellidos(resultado.getString("apellidos"));
+                consultarSocio.setDireccion(resultado.getString("direccion"));
+                consultarSocio.setTelefono(resultado.getString("telefono"));
+                consultarSocio.setCorreo(resultado.getString("correo"));
+            }
+            System.out.println("Se obtuvo correctamente el socio");
+            enlace.Desconectar();
+        } catch (SQLException e) {
+            System.out.println("No se pudo obtener el socio");
+            System.out.println(e);
+        }
+        return consultarSocio;
+    }
+
 }
