@@ -99,7 +99,6 @@ public class RolConexion implements RolInterface {
         } catch (SQLException e) {
             System.out.println("SQL Exception:: " + e);
         }
-
       return rolEliminado;
     }
 
