@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package CajaDeAhorro.bd.mappers;
+package CajaDeAhorro.dao.socio_cuenta;
 
 import CajaDeAhorro.bd.domain.SocioCuenta;
 import java.util.List;
@@ -11,8 +11,9 @@ import java.util.List;
  *
  * @author Jonatan Eduardo
  */
-public interface SocioCuentaInterface {
-        // Método para crear un nuevo socioCuenta
+public interface SocioCuentaDao {
+    // Método para crear un nuevo socioCuenta
+
     void crearSocioCuenta(SocioCuenta socioCuenta);
     // Método para actualizar un socioCuenta existente
 
@@ -28,5 +29,5 @@ public interface SocioCuentaInterface {
     List<SocioCuenta> obtenerTodosLosSocioCuentas();
     
     SocioCuenta obtenerUltimoSocioCuenta();
-    
+
 }

@@ -45,13 +45,13 @@ public class CuentaDaoImpl implements CuentaDao {
         listaDeCuentas = conexion.obtenerTodasLasCuentas();
         return listaDeCuentas;
     }
-    
-        @Override
-public Cuenta obtenerUltimaCuenta() {
-    Cuenta ultimaCuenta;
-    CuentaConexion conexion = new CuentaConexion();
-    ultimaCuenta = conexion.obtenerUltimaCuenta();
-    return ultimaCuenta;
-}
+
+    @Override
+    public Cuenta obtenerUltimaCuenta() {
+        Cuenta ultimaCuenta;
+        CuentaConexion conexion = new CuentaConexion();
+        ultimaCuenta = conexion.obtenerUltimaCuenta();
+        return ultimaCuenta;
+    }
 
 }
