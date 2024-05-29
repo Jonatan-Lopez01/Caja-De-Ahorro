@@ -11,6 +11,7 @@ import java.sql.Timestamp;
  *
  * @author Arce
  */
+
 public class Prestamo {
     // Atributos
     private long id_prestamo = -1;
