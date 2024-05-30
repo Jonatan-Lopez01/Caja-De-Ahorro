@@ -157,6 +157,31 @@ public class SolicitudPrestamoConexion implements SolicitudPrestamoInterface {
         }
         return listaSolicitudesPrestamo;
     }
+    
+    @Override
+    public void actualizarEstadoSolicitudPrestamo(int id_solicitud_prestamo) {
+        try {
+            ConexionBd enlace = new ConexionBd();
+            Connection enlaceActivo = enlace.Conectar();
+            
+            String sql = "UPDATE solicitud_prestamo SET estado = 'Aceptado' WHERE id_solicitud_prestamo = ?";
+            PreparedStatement lineaParametros = enlaceActivo.prepareStatement(sql);
+            
+            lineaParametros.setInt(1, id_solicitud_prestamo);
+            
+            int flag = lineaParametros.executeUpdate();
+            
+            if (flag > 0) {
+                System.out.println("Estado de la solicitud de préstamo actualizado correctamente.");
+            } else {
+                System.out.println("No se pudo actualizar el estado de la solicitud de préstamo.");
+            }
+            
+            enlace.Desconectar();
+        } catch (SQLException e) {
+            System.out.println("SQLException: " + e);
+       }
+    }
 
     @Override
     public SolicitudPrestamo obtenerUltimaSolicitudPrestamo() {
