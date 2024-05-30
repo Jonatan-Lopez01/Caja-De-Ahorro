@@ -187,4 +187,35 @@ public class SolicitudPrestamoConexion implements SolicitudPrestamoInterface {
         }
         return ultimaSolicitudPrestamo;
     }
+    
+    @Override
+    public String verificarTerminosCondicionesAprobadas(long idSocio) {
+        String mensaje = "Términos y condiciones no aprobadas";
+        try {
+            ConexionBd enlace = new ConexionBd();
+            Connection enlaceActivo = enlace.Conectar();
+
+            String sql = "SELECT sp.id_solicitud_prestamo " +
+                         "FROM solicitud_prestamo sp " +
+                         "JOIN socio s ON sp.id_socio = s.id_socio " +
+                         "JOIN socio_cuenta sc ON s.id_socio = sc.id_socio " +
+                         "JOIN cuenta c ON sc.id_cuenta = c.numero_cuenta " +
+                         "WHERE s.id_socio = ? AND c.estatus_cuenta != 0";
+
+            PreparedStatement stmt = enlaceActivo.prepareStatement(sql);
+            stmt.setLong(1, idSocio);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                mensaje = "Términos y condiciones aprobadas";
+            }
+
+            enlace.Desconectar();
+        } 
+        catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return mensaje;
+    }
 }

@@ -216,4 +216,22 @@ public void testActualizarSolicitudPrestamo() {
     System.out.println("Estado: " + solicitudDeLaBaseDeDatos.getEstado());
 }
 
+@Test
+    public void testVerificarTerminosCondicionesAprobadas() {
+        System.out.println("verificarTerminosCondicionesAprobadas");
+
+        // Instanciar la clase SolicitudPrestamoDaoImpl
+        SolicitudPrestamoDaoImpl instance = new SolicitudPrestamoDaoImpl();
+
+        // ID del socio para el cual se quieren verificar los términos y condiciones
+        long idSocio = 1; // Ajustar según sea necesario
+
+        // Verificar términos y condiciones
+        String result = instance.verificarTerminosCondicionesAprobadas(idSocio);
+
+        // Verificar el resultado
+        assertEquals("Términos y condiciones aprobadas", result);
+        System.out.println("Terminos y Condiciones Aprobados");
+    }
+
 }

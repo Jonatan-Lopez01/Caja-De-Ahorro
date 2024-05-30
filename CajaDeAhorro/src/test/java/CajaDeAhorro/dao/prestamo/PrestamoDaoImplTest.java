@@ -5,6 +5,7 @@
 package CajaDeAhorro.dao.prestamo;
 
 import CajaDeAhorro.bd.domain.Prestamo;
+import CajaDeAhorro.bd.domain.PrestamoDTO;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
@@ -193,4 +194,33 @@ public class PrestamoDaoImplTest {
     System.out.println("plazo: " + result.getPlazo());
     System.out.println("num_montos: " + result.getNumMontos());
 }
+    
+    @Test
+    public void testObtenerTodosLosDatosPrestamoPorSocio() {
+        System.out.println("obtenerTodosLosDatosPrestamoPorSocio");
+
+        // Instanciar la clase PrestamoDaoImpl
+        PrestamoDaoImpl instance = new PrestamoDaoImpl();
+
+        // ID del socio para el cual se quieren obtener los datos
+        long idSocio = 1; // Ajustar según sea necesario
+
+        // Obtener todos los prestamos para el socio especificado
+        List<PrestamoDTO> result = instance.obtenerTodosLosDatosPrestamoPorSocio(idSocio);
+
+        // Verificar que la lista no esté vacía
+        assertFalse("La lista de prestamos no debería estar vacía", result.isEmpty());
+
+        // Verificar los resultados
+        for (PrestamoDTO prestamoDTO : result) {
+            System.out.println("monto_prestado: " + prestamoDTO.getMontoPrestado());
+            System.out.println("tipo_prestamo: " + prestamoDTO.getTipoPrestamo());
+            System.out.println("plazo: " + prestamoDTO.getPlazo());
+            System.out.println("descripcion: " + prestamoDTO.getDescripcion());
+            System.out.println("fecha_solicitud: " + prestamoDTO.getFechaSolicitud());
+            System.out.println("tasa_interes: " + prestamoDTO.getTasaInteres());
+            System.out.println("pago_actual: " + prestamoDTO.getPagoActual());
+            System.out.println("num_montos: " + prestamoDTO.getNumMontos());
+        }
+    }
 }

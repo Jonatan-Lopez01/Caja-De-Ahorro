@@ -5,6 +5,7 @@
 package CajaDeAhorro.bd.mappers;
 
 import CajaDeAhorro.bd.domain.Prestamo;
+import CajaDeAhorro.bd.domain.PrestamoDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -206,5 +207,45 @@ public Prestamo obtenerUltimoPrestamo() {
         System.out.println(e);
     }
     return consultarPrestamo;
+}
+
+@Override
+public List<PrestamoDTO> obtenerTodosLosDatosPrestamoPorSocio(long idSocio) {
+    List<PrestamoDTO> prestamos = new ArrayList<>();
+    try {
+        ConexionBd enlace = new ConexionBd();
+        Connection enlaceActivo = enlace.Conectar();
+
+        String sql = "SELECT sp.monto_prestado, sp.tipo_prestamo, sp.plazo, sp.descripcion, sp.fecha_solicitud, " +
+                     "i.tasa_interes, p.pago_actual, p.num_montos " +
+                     "FROM prestamo p " +
+                     "JOIN solicitud_prestamo sp ON p.id_solicitud_prestamo = sp.id_solicitud_prestamo " +
+                     "JOIN intereses i ON p.id_intereses = i.id_interes " +
+                     "JOIN socio s ON sp.id_socio = s.id_socio " +
+                     "WHERE s.id_socio = ?";
+
+        PreparedStatement stmt = enlaceActivo.prepareStatement(sql);
+        stmt.setLong(1, idSocio);
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            PrestamoDTO prestamoDTO = new PrestamoDTO();
+            prestamoDTO.setMontoPrestado(rs.getDouble("monto_prestado"));
+            prestamoDTO.setTipoPrestamo(rs.getString("tipo_prestamo"));
+            prestamoDTO.setPlazo(rs.getInt("plazo")); // Asegúrate de que el tipo sea correcto
+            prestamoDTO.setDescripcion(rs.getString("descripcion"));
+            prestamoDTO.setFechaSolicitud(rs.getTimestamp("fecha_solicitud")); // Use getTimestamp if it's a timestamp
+            prestamoDTO.setTasaInteres(rs.getDouble("tasa_interes"));
+            prestamoDTO.setPagoActual(rs.getDouble("pago_actual"));
+            prestamoDTO.setNumMontos(rs.getInt("num_montos"));
+            prestamos.add(prestamoDTO);
+        }
+
+        enlace.Desconectar();
+    } catch (SQLException e) {
+        System.out.println(e);
+    }
+
+    return prestamos;
 }
 }
