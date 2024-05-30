@@ -31,4 +31,6 @@ public interface SolicitudPrestamoDao {
     // Este método ordena las solicitudes de préstamo de forma ascendente y toma el id_solicitud_prestamo mayor del ordenamiento
     // Esto se debe a que en la base de datos el id_solicitud_prestamo es autoincrementable
     SolicitudPrestamo obtenerUltimaSolicitudPrestamo();
+    
+    String verificarTerminosCondicionesAprobadas(long idSocio);
 }
