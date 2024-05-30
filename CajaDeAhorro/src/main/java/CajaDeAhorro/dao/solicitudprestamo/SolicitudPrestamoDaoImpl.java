@@ -48,4 +48,10 @@ public class SolicitudPrestamoDaoImpl implements SolicitudPrestamoDao {
         SolicitudPrestamoConexion conexion = new SolicitudPrestamoConexion();
         return conexion.obtenerUltimaSolicitudPrestamo();
     }
+    
+    @Override
+    public void actualizarEstadoSolicitudPrestamo(int id_solicitud_prestamo) {
+        SolicitudPrestamoConexion conexion = new SolicitudPrestamoConexion();
+        conexion.actualizarEstadoSolicitudPrestamo(id_solicitud_prestamo);
+}
 }
