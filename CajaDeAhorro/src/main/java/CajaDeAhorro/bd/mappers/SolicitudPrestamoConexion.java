@@ -1,7 +1,6 @@
 package CajaDeAhorro.bd.mappers;
 
 import CajaDeAhorro.bd.domain.SolicitudPrestamo;
-import CajaDeAhorro.bd.domain.SolicitudPrestamo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -157,6 +156,30 @@ public class SolicitudPrestamoConexion implements SolicitudPrestamoInterface {
         }
         return listaSolicitudesPrestamo;
     }
+    @Override
+    public void actualizarEstadoSolicitudPrestamo(int id_solicitud_prestamo) {
+        try {
+            ConexionBd enlace = new ConexionBd();
+            Connection enlaceActivo = enlace.Conectar();
+            
+            String sql = "UPDATE solicitud_prestamo SET estado = 'Aceptado' WHERE id_solicitud_prestamo = ?";
+            PreparedStatement lineaParametros = enlaceActivo.prepareStatement(sql);
+            
+            lineaParametros.setInt(1, id_solicitud_prestamo);
+            
+            int flag = lineaParametros.executeUpdate();
+            
+            if (flag > 0) {
+                System.out.println("Estado de la solicitud de préstamo actualizado correctamente.");
+            } else {
+                System.out.println("No se pudo actualizar el estado de la solicitud de préstamo.");
+            }
+            
+            enlace.Desconectar();
+        } catch (SQLException e) {
+            System.out.println("SQLException: " + e);
+       }
+    }
 
     @Override
     public SolicitudPrestamo obtenerUltimaSolicitudPrestamo() {
@@ -186,36 +209,5 @@ public class SolicitudPrestamoConexion implements SolicitudPrestamoInterface {
             System.out.println("SQLException " + e);
         }
         return ultimaSolicitudPrestamo;
-    }
-    
-    @Override
-    public String verificarTerminosCondicionesAprobadas(long idSocio) {
-        String mensaje = "Términos y condiciones no aprobadas";
-        try {
-            ConexionBd enlace = new ConexionBd();
-            Connection enlaceActivo = enlace.Conectar();
-
-            String sql = "SELECT sp.id_solicitud_prestamo " +
-                         "FROM solicitud_prestamo sp " +
-                         "JOIN socio s ON sp.id_socio = s.id_socio " +
-                         "JOIN socio_cuenta sc ON s.id_socio = sc.id_socio " +
-                         "JOIN cuenta c ON sc.id_cuenta = c.numero_cuenta " +
-                         "WHERE s.id_socio = ? AND c.estatus_cuenta != 0";
-
-            PreparedStatement stmt = enlaceActivo.prepareStatement(sql);
-            stmt.setLong(1, idSocio);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                mensaje = "Términos y condiciones aprobadas";
-            }
-
-            enlace.Desconectar();
-        } 
-        catch (SQLException e) {
-            System.out.println(e);
-        }
-
-        return mensaje;
     }
 }
