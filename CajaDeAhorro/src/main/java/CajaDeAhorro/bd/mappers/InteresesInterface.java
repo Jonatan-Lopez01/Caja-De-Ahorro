@@ -19,5 +19,7 @@ public interface InteresesInterface {
     Intereses obtenerInteresPorId(int id);
     List<Intereses> obtenerTodosLosIntereses();
     Intereses obtenerUltimoInteres();
+    double calcularIntereses(double saldo, double intereses);
+    double tasaIntereses(double cantidadIntereses, double saldoInicial); 
 }
 

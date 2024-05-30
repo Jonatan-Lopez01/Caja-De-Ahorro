@@ -57,4 +57,16 @@ public class InteresesDaoImpl implements InteresesDao {
         ultimoInteres = conexion.obtenerUltimoInteres();
         return ultimoInteres;
     }
+
+    @Override
+    public double calcularIntereses(double saldo, double intereses) {
+        InteresesConexion conexion = new InteresesConexion();
+        return conexion.calcularIntereses(saldo, intereses);
+    }
+
+    @Override
+    public double tasaIntereses(double cantidadIntereses, double saldoInicial) {
+       InteresesConexion conexion = new InteresesConexion();
+       return conexion.tasaIntereses(cantidadIntereses, saldoInicial);
+    }
 }

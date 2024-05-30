@@ -17,9 +17,8 @@ import java.text.ParseException;
 
 /**
  *
- * @autor Arce 
+ * @autor Arce
  */
-
 public class InteresesDaoImplTest {
 
     public InteresesDaoImplTest() {
@@ -88,10 +87,10 @@ public class InteresesDaoImplTest {
 
     @Test
     public void testEliminarInteres() {
-           // Guardamos localmente el interes que se va a eliminar de la base de datos
+        // Guardamos localmente el interes que se va a eliminar de la base de datos
         Intereses nuevoInteres = new Intereses();
         nuevoInteres.setTasaInteres(15.0);
-        
+
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
             Date fechaInicio = dateFormat.parse("2024-01-14");
@@ -101,9 +100,9 @@ public class InteresesDaoImplTest {
         } catch (ParseException e) {
             fail("Error al parsear las fechas: " + e.getMessage());
         }
-         
+
         InteresesDaoImpl interesesBaseDatos = new InteresesDaoImpl();
-       // Agregar el nuevo interés a la base de datos
+        // Agregar el nuevo interés a la base de datos
         interesesBaseDatos.crearInteres(nuevoInteres);
         int id = nuevoInteres.getIdInteres(); // obtenemos el id del interes creado
 
@@ -133,7 +132,7 @@ public class InteresesDaoImplTest {
     public void testObtenerTodosLosIntereses() {
 
         InteresesDaoImpl interesesBaseDatos = new InteresesDaoImpl();
-        
+
         // El metodo obtenerTodosLosIntereses devuelve una lista vacia sino encuentra nada en la base de datos
         List<Intereses> listaDeIntereses = interesesBaseDatos.obtenerTodosLosIntereses();
 
@@ -151,14 +150,14 @@ public class InteresesDaoImplTest {
         }
     }
 
-     @Test
+    @Test
     public void testActualizarInteres() {
         int id = 2; // id del interes a actualizar
-        
+
         // Crear un nuevo interes localmente, simulando la obtención de datos desde un formulario
         Intereses interesLocal = new Intereses();
         interesLocal.setTasaInteres(6.0);
-        
+
         // Establecer fechas específicas
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
@@ -169,7 +168,7 @@ public class InteresesDaoImplTest {
         } catch (ParseException e) {
             fail("Error al parsear las fechas: " + e.getMessage());
         }
-        
+
         // Obtener el interes actual de la base de datos
         InteresesDaoImpl interesesBaseDatos = new InteresesDaoImpl();
         Intereses interesDeLaBaseDeDatos = interesesBaseDatos.obtenerInteresPorId(id);
@@ -199,12 +198,46 @@ public class InteresesDaoImplTest {
         assertEquals("La tasa de interes no coincide", interesLocal.getTasaInteres(), interesDeLaBaseDeDatos.getTasaInteres(), 0.01);
         assertEquals("La fecha de inicio no coincide", interesLocal.getFechaInicio(), interesDeLaBaseDeDatos.getFechaInicio());
         assertEquals("La fecha de fin no coincide", interesLocal.getFechaFin(), interesDeLaBaseDeDatos.getFechaFin());
-        
+
         // Mostrar en consola los cambios en los detalles del interes en la base de datos
         System.out.println("\nDetalles del interes actualizado en la base de datos\n");
         System.out.println("Tasa de Interes: " + interesDeLaBaseDeDatos.getTasaInteres());
         System.out.println("Fecha de Inicio: " + interesDeLaBaseDeDatos.getFechaInicio());
         System.out.println("Fecha de Fin: " + interesDeLaBaseDeDatos.getFechaFin());
+    }
+
+    @Test
+    public void testCalcularIntereses() {
+        InteresesDaoImpl interesesBaseDatos = new InteresesDaoImpl();
+        double saldo = 1000.0; // Saldo sobre el cual se calculan los intereses
+        double tasaIntereses = 5.0; // Tasa de intereses en porcentaje
+
+        // Calcular los intereses
+        double interesesCalculados = interesesBaseDatos.calcularIntereses(saldo, tasaIntereses);
+
+        // Calcular los intereses esperados
+        double interesesEsperados = saldo * (tasaIntereses / 100);
+
+        // Definir las condiciones de fallo
+        assertEquals("Los intereses calculados no coinciden", interesesEsperados, interesesCalculados, 0.01);
+        System.out.println("El interes aplicado sobre el saldo es: " + interesesCalculados);
+    }
+
+    @Test
+    public void testTasaIntereses() {
+        InteresesDaoImpl interesesBaseDatos = new InteresesDaoImpl();
+        double cantidadIntereses = 50.0; // Cantidad de intereses
+        double saldoInicial = 1000.0; // Saldo inicial
+
+        // Calcular la tasa de intereses
+        double tasaIntereses = interesesBaseDatos.tasaIntereses(cantidadIntereses, saldoInicial);
+
+        // Calcular la tasa de intereses esperada
+        double tasaEsperada = (cantidadIntereses / saldoInicial) * 100;
+
+        // Definir las condiciones de fallo
+        assertEquals("La tasa de intereses no coincide", tasaEsperada, tasaIntereses, 0.01);
+        System.out.println("El interes a partir de la cantidad de intereses y el saldo inicial es: " + tasaIntereses);
     }
 
 }
