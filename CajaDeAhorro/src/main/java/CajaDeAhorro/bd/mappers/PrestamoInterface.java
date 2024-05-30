@@ -5,6 +5,7 @@
 package CajaDeAhorro.bd.mappers;
 
 import CajaDeAhorro.bd.domain.Prestamo;
+import CajaDeAhorro.bd.domain.PrestamoDTO;
 import java.util.List;
 
 /**
@@ -19,4 +20,5 @@ public interface PrestamoInterface {
     Prestamo obtenerPrestamoPorId(int id);
     List<Prestamo> obtenerTodosLosPrestamos();
     Prestamo obtenerUltimoPrestamo();
+    List<PrestamoDTO> obtenerTodosLosDatosPrestamoPorSocio(long idSocio);
 }
