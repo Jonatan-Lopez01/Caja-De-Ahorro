@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package CajaDeAhorro.bd.mappers;
+
 import CajaDeAhorro.bd.domain.Intereses;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,8 +17,6 @@ import java.sql.*;
  *
  * @author Arce
  */
-
-
 public class InteresesConexion implements InteresesInterface {
 
     @Override
@@ -196,5 +195,18 @@ public class InteresesConexion implements InteresesInterface {
             System.out.println(e);
         }
         return consultarInteres;
+    }
+
+    @Override
+    public double calcularIntereses(double saldo, double intereses) {
+        return saldo * (intereses / 100);
+    }
+
+    @Override
+    public double tasaIntereses(double cantidadIntereses, double saldoInicial) {
+        if (saldoInicial == 0) {
+            throw new IllegalArgumentException("El saldo inicial no puede ser cero");
+        }
+        return (cantidadIntereses / saldoInicial) * 100;
     }
 }
