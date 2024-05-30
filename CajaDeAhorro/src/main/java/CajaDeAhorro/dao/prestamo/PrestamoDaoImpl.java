@@ -5,6 +5,7 @@
 package CajaDeAhorro.dao.prestamo;
 
 import CajaDeAhorro.bd.domain.Prestamo;
+import CajaDeAhorro.bd.domain.PrestamoDTO;
 import CajaDeAhorro.bd.mappers.PrestamoConexion;
 import java.util.List;
 
@@ -51,4 +52,11 @@ public class PrestamoDaoImpl implements PrestamoDao {
         PrestamoConexion conexion = new PrestamoConexion();
         return conexion.obtenerUltimoPrestamo();
     }
+    
+    @Override
+    public List<PrestamoDTO> obtenerTodosLosDatosPrestamoPorSocio(long idSocio) {
+        PrestamoConexion conexion = new PrestamoConexion();
+        return conexion.obtenerTodosLosDatosPrestamoPorSocio(idSocio);
+    }
+    
 }

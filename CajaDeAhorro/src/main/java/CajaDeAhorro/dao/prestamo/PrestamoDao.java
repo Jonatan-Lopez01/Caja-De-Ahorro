@@ -4,6 +4,7 @@
  */
 package CajaDeAhorro.dao.prestamo;
 import CajaDeAhorro.bd.domain.Prestamo;
+import CajaDeAhorro.bd.domain.PrestamoDTO;
 import java.util.List;
 
 /**
@@ -18,4 +19,5 @@ public interface PrestamoDao {
     Prestamo obtenerPrestamoPorId(int id);
     List<Prestamo> obtenerTodosLosPrestamos();
     Prestamo obtenerUltimoPrestamo();
+    List<PrestamoDTO> obtenerTodosLosDatosPrestamoPorSocio(long idSocio);
 }
