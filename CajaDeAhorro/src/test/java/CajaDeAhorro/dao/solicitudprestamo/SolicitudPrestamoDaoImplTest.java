@@ -214,5 +214,21 @@ public void testActualizarSolicitudPrestamo() {
     System.out.println("Descripción: " + solicitudDeLaBaseDeDatos.getDescripcion());
     System.out.println("Estado: " + solicitudDeLaBaseDeDatos.getEstado());
 }
+@Test
+public void testActualizarEstadoSolicitudPrestamo() {
+    int id = 2; // ID de la solicitud a actualizar su estado
 
+    // Instanciar la clase SolicitudPrestamoDaoImpl
+    SolicitudPrestamoDaoImpl solicitudBaseDatos = new SolicitudPrestamoDaoImpl();
+
+    // Llamar a la función actualizarEstadoSolicitudPrestamo
+    solicitudBaseDatos.actualizarEstadoSolicitudPrestamo(id);
+
+    // Obtener la solicitud actualizada de la base de datos
+    SolicitudPrestamo solicitudActualizada = solicitudBaseDatos.obtenerSolicitudPrestamoPorId(id);
+
+    // Verificar que la solicitud fue actualizada correctamente
+    assertNotNull("Fallo: La solicitud actualizada es nula", solicitudActualizada);
+    assertEquals("El estado de la solicitud no se actualizó correctamente", "Aceptado", solicitudActualizada.getEstado());
+}
 }
