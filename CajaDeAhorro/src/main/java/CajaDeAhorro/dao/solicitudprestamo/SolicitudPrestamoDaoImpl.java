@@ -50,8 +50,8 @@ public class SolicitudPrestamoDaoImpl implements SolicitudPrestamoDao {
     }
     
     @Override
-    public String verificarTerminosCondicionesAprobadas(long idSocio) {
+    public void actualizarEstadoSolicitudPrestamo(int id_solicitud_prestamo) {
         SolicitudPrestamoConexion conexion = new SolicitudPrestamoConexion();
-        return conexion.verificarTerminosCondicionesAprobadas(idSocio);
-    }
+        conexion.actualizarEstadoSolicitudPrestamo(id_solicitud_prestamo);
+}
 }
