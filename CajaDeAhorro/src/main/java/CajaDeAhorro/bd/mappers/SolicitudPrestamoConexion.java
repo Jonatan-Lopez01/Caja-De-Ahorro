@@ -1,7 +1,6 @@
 package CajaDeAhorro.bd.mappers;
 
 import CajaDeAhorro.bd.domain.SolicitudPrestamo;
-import CajaDeAhorro.bd.domain.SolicitudPrestamo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -157,7 +156,6 @@ public class SolicitudPrestamoConexion implements SolicitudPrestamoInterface {
         }
         return listaSolicitudesPrestamo;
     }
-    
     @Override
     public void actualizarEstadoSolicitudPrestamo(int id_solicitud_prestamo) {
         try {
