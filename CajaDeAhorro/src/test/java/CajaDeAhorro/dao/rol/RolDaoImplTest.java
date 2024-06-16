@@ -85,7 +85,7 @@ public class RolDaoImplTest {
 
     @Test
     public void testObtenerRolPorId() {
-        int id = 24; // id del rol a buiscar
+        int id = 1; // id del rol a buiscar
         System.out.println("Buscando el rol con id= " + id + "\n");
 
         // Instanciar la clase RolDaoImpl
@@ -127,7 +127,7 @@ public class RolDaoImplTest {
 
     @Test
     public void testActualizarRol() {
-        int id = 24; // id del rol a actualizar
+        int id = 1; // id del rol a actualizar
 
         // Crear un nuevo rol localmente, simulando la obtención de datos desde un formulario
         Rol rolLocal = new Rol();
