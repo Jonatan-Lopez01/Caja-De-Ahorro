@@ -61,7 +61,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
     }
     
     @Override
-    public boolean login (String correo,String password )
+    public int login (String correo,String password )
     {
         UsuarioConexion conexion = new UsuarioConexion();
         return conexion.login(correo, password);//devuelve true o false

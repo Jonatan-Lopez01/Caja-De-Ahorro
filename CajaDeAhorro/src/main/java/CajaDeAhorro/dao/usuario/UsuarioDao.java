@@ -29,6 +29,6 @@ public interface UsuarioDao {
     Usuario obtenerUltimoUsuario();
     
     //Metodo para iniciar sesion
-    boolean login (String correo,String password );
+    int login (String correo,String password );
 
 }
