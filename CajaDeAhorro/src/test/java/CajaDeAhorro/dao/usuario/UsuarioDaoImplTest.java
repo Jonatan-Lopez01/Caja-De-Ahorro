@@ -194,8 +194,8 @@ public class UsuarioDaoImplTest {
     
     @Test
     public void testLogin() {
-        String correo = "Alberto@gmail.com";
-        String password = "chanchitofeliz12345678";
+        String correo = "pedro@gmail.com";
+        String password = "pedrin321";
         int id  = -1;
         boolean flag= false;
         UsuarioDaoImpl usuarioBaseDatos = new UsuarioDaoImpl();
