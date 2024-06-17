@@ -40,19 +40,12 @@ public class VentanaAdministradorPresentacion extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         bienvenida = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         btnRegresar = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         btnUsuarios = new javax.swing.JButton();
         btnRoles = new javax.swing.JButton();
         btnSocios = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -60,51 +53,11 @@ public class VentanaAdministradorPresentacion extends javax.swing.JFrame {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel3.setFont(new java.awt.Font("Eras Demi ITC", 1, 36)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Eras Demi ITC", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("INTERFAZ DE ADMINISTRADOR");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, 600, 50));
+        jLabel3.setText("ACCIONES SOBRE LA CAJA");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 130, 270, 50));
         jPanel1.add(bienvenida, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 650, 410));
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setText("de abajo de ayudarán con esas tareas."); // NOI18N
-        jLabel1.setToolTipText("");
-        jLabel1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 260, 300, 30));
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel2.setText("SELECCIONA ALGUNA DE LAS OPCIONES DE ABAJO PARA COMENZAR A "); // NOI18N
-        jLabel2.setToolTipText("");
-        jLabel2.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 110, 550, 30));
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel4.setText("ADMINISTRAR LA CAJA DE AHORRO."); // NOI18N
-        jLabel4.setToolTipText("");
-        jLabel4.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 130, 390, 30));
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel5.setText("*Si deseas realizar modificaciones en las areas de Usuarios, Roles, Socios y "); // NOI18N
-        jLabel5.setToolTipText("");
-        jLabel5.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 220, 510, 30));
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel6.setText("todo lo relacionado con las personas involucradas en el sistema, las opciones"); // NOI18N
-        jLabel6.setToolTipText("");
-        jLabel6.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 240, 520, 30));
 
         btnRegresar.setBackground(new java.awt.Color(131, 46, 5));
         btnRegresar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -128,31 +81,7 @@ public class VentanaAdministradorPresentacion extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 460, 150, 40));
-
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel7.setText("*Si deseas realizar acciones dentro de la caja de ahorro como definir"); // NOI18N
-        jLabel7.setToolTipText("");
-        jLabel7.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 370, 510, 30));
-
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel8.setText("parametros de préstamos, intereses y todo lo estadistico con el sistema, las "); // NOI18N
-        jLabel8.setToolTipText("");
-        jLabel8.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 390, 520, 30));
-
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel9.setText("opciones de abajo te ayudarán con esas configuraciones."); // NOI18N
-        jLabel9.setToolTipText("");
-        jLabel9.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 410, 300, 30));
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 320, 410, 50));
 
         btnUsuarios.setBackground(new java.awt.Color(131, 46, 5));
         btnUsuarios.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -164,7 +93,7 @@ public class VentanaAdministradorPresentacion extends javax.swing.JFrame {
                 btnUsuariosActionPerformed(evt);
             }
         });
-        jPanel1.add(btnUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 300, 150, 40));
+        jPanel1.add(btnUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 170, 410, 50));
 
         btnRoles.setBackground(new java.awt.Color(131, 46, 5));
         btnRoles.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -176,7 +105,7 @@ public class VentanaAdministradorPresentacion extends javax.swing.JFrame {
                 btnRolesActionPerformed(evt);
             }
         });
-        jPanel1.add(btnRoles, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 300, 150, 40));
+        jPanel1.add(btnRoles, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 220, 410, 50));
 
         btnSocios.setBackground(new java.awt.Color(131, 46, 5));
         btnSocios.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -188,7 +117,12 @@ public class VentanaAdministradorPresentacion extends javax.swing.JFrame {
                 btnSociosActionPerformed(evt);
             }
         });
-        jPanel1.add(btnSocios, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 300, 150, 40));
+        jPanel1.add(btnSocios, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 270, 410, 50));
+
+        jLabel10.setFont(new java.awt.Font("Eras Demi ITC", 1, 36)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("INTERFAZ DE ADMINISTRADOR");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, 600, 50));
 
         fondo.setIcon(new javax.swing.ImageIcon("C:\\Users\\Jonatan Eduardo\\Documents\\GitHub\\Caja-De-Ahorro\\CajaDeAhorroPresentacion\\src\\main\\java\\Img\\fondo2.jpg")); // NOI18N
         fondo.setText("Admin");
@@ -284,15 +218,8 @@ public class VentanaAdministradorPresentacion extends javax.swing.JFrame {
     private javax.swing.JButton btnUsuarios;
     private javax.swing.JLabel fondo;
     private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

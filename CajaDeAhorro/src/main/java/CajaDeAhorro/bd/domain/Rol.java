@@ -44,5 +44,10 @@ public class Rol {
     public void setDescripcion(String nuevaDescrip) {
         this.descripcion = nuevaDescrip;
     }
+    
+    @Override
+    public String toString() {
+        return this.nombre;
+    }
 
 }

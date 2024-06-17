@@ -4,11 +4,19 @@
  */
 package usuarioPresentacion;
 
+import CajaDeAhorro.bd.domain.Rol;
+import CajaDeAhorro.dao.rol.RolDaoImpl;
+import java.awt.List;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.DefaultComboBoxModel;
+
 /**
  *
  * @author Jonatan Eduardo
  */
 public class InsertarUsuario extends javax.swing.JFrame {
+    Map<String, Integer> MapitaRoles = new HashMap<>();  //variable global
 
     /**
      * Creates new form InsertarUsuario
@@ -18,6 +26,7 @@ public class InsertarUsuario extends javax.swing.JFrame {
         setTitle("Insertar Usuario"); // Añade un título a la ventana
         setLocationRelativeTo(null); // Centra la ventana en la pantalla
         setResizable(false); // Hace que el tamaño de la ventana sea fijo
+        cargarRoles();
     }
 
     /**
@@ -38,7 +47,7 @@ public class InsertarUsuario extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         txtContraseña = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        listaRoles = new javax.swing.JComboBox<>();
+        ComboxRoles = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         btnRegresar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -83,8 +92,7 @@ public class InsertarUsuario extends javax.swing.JFrame {
         jLabel2.setText("Contraseña:");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 270, -1, -1));
 
-        listaRoles.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(listaRoles, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 160, -1));
+        jPanel1.add(ComboxRoles, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 160, -1));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
@@ -166,8 +174,31 @@ public class InsertarUsuario extends javax.swing.JFrame {
             }
         });
     }
+    public void cargarRoles()
+    {
+        RolDaoImpl rolBaseDatos = new RolDaoImpl();
+        java.util.List<Rol> listaDeRoles = rolBaseDatos.obtenerTodosLosRoles();
+        
+        // Crear un modelo para el combo box
+        DefaultComboBoxModel<String> modeloComboRoles = new DefaultComboBoxModel<>();
+        
+        //Limpiamos el mapa
+        MapitaRoles.clear();
+        
+        //Iteramos sobre la lista de roles
+        for (Rol rol: listaDeRoles){
+            modeloComboRoles.addElement(rol.getNombre());//añadimos al comnbobox
+            MapitaRoles.put(rol.getNombre(), rol.getIdRol());//añadimos a nuestro mapa
+        }
+       ComboxRoles.setModel(modeloComboRoles);
+    }
+    
+   
+
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> ComboxRoles;
     private javax.swing.JButton btnInsertar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel jLabel1;
@@ -177,7 +208,6 @@ public class InsertarUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JComboBox<String> listaRoles;
     private javax.swing.JTextField txtContraseña;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtNombre;
