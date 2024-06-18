@@ -170,7 +170,7 @@ public class ConfiguracionRol extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Seleccione:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -247,7 +247,7 @@ public class ConfiguracionRol extends javax.swing.JFrame {
                 filtroActionPerformed(evt);
             }
         });
-        jPanel1.add(filtro, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 90, 100, 30));
+        jPanel1.add(filtro, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, 100, 30));
 
         btnEliminar1.setBackground(new java.awt.Color(131, 46, 5));
         btnEliminar1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -374,7 +374,7 @@ public class ConfiguracionRol extends javax.swing.JFrame {
             tablaRoles.setModel(modeloTabla);
         }
         if (tipoBusqueda.equalsIgnoreCase("ID Rol")) {
-            if (txtBuscar.getText().isEmpty() || txtBuscar.getText().matches(".*\\d.*[a-zA-Z].*|.*[a-zA-Z].*\\d.*")) {
+            if (txtBuscar.getText().isEmpty() || !txtBuscar.getText().matches("\\d+")) {
                 JOptionPane.showMessageDialog(this, "El campo de búsqueda no puede estar vacío y no puede ser letra si busca por ID Rol", "Error al buscar", JOptionPane.ERROR_MESSAGE);
             } else {
                 Rol rolEncontrado = enlace.obtenerRolPorId(Integer.parseInt(txtBuscar.getText()));

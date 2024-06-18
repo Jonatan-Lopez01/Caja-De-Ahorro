@@ -28,6 +28,7 @@ public class ConfiguracionUsuario extends javax.swing.JFrame {
 
     Map<String, Integer> MapitaRoles = new HashMap<>();  //variable global
     String rolSeleccionado = "Seleccione una opción";
+    String tipoBusqueda = "ID Usuario";
 
     /**
      * Creates new form ConfiguracionUsuario
@@ -90,6 +91,9 @@ public class ConfiguracionUsuario extends javax.swing.JFrame {
         btnActualizar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         ComboxRoles = new javax.swing.JComboBox<>();
+        btnEliminar1 = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        filtro = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -139,7 +143,7 @@ public class ConfiguracionUsuario extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tablaUsuarios);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, 560, 260));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 240, 560, 260));
         jPanel1.add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 420, 270, -1));
 
         txtIdUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -157,7 +161,7 @@ public class ConfiguracionUsuario extends javax.swing.JFrame {
                 btnNuevoActionPerformed(evt);
             }
         });
-        jPanel1.add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 470, 170, 40));
+        jPanel1.add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 500, 170, 40));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -189,6 +193,11 @@ public class ConfiguracionUsuario extends javax.swing.JFrame {
         btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
         btnBuscar.setText("BUSCAR");
         btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 120, 100, 40));
 
         btnEliminar.setBackground(new java.awt.Color(131, 46, 5));
@@ -229,6 +238,38 @@ public class ConfiguracionUsuario extends javax.swing.JFrame {
             }
         });
         jPanel1.add(ComboxRoles, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 260, 270, 30));
+
+        btnEliminar1.setBackground(new java.awt.Color(7, 58, 33));
+        btnEliminar1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnEliminar1.setForeground(new java.awt.Color(255, 255, 255));
+        btnEliminar1.setText("LIstar todos los usuarios");
+        btnEliminar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEliminar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminar1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnEliminar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 210, 560, 30));
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Seleccione:");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, -1, -1));
+
+        filtro.setBackground(new java.awt.Color(153, 51, 0));
+        filtro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID Usuario", "Nombre" }));
+        filtro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        filtro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                filtroMouseClicked(evt);
+            }
+        });
+        filtro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filtroActionPerformed(evt);
+            }
+        });
+        jPanel1.add(filtro, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, 100, 30));
 
         jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Jonatan Eduardo\\Documents\\GitHub\\Caja-De-Ahorro\\CajaDeAhorroPresentacion\\src\\main\\java\\Img\\fondo2.jpg")); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 570));
@@ -368,6 +409,58 @@ public class ConfiguracionUsuario extends javax.swing.JFrame {
         rolSeleccionado = (String) ComboxRoles.getModel().getSelectedItem();
     }//GEN-LAST:event_ComboxRolesActionPerformed
 
+    private void btnEliminar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminar1ActionPerformed
+        tablaUsuarios.removeAll();
+        cargarListaUsuarios();
+    }//GEN-LAST:event_btnEliminar1ActionPerformed
+
+    private void filtroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_filtroMouseClicked
+
+    }//GEN-LAST:event_filtroMouseClicked
+
+    private void filtroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtroActionPerformed
+        // TODO add your handling code here:
+        tipoBusqueda = (String) filtro.getSelectedItem();
+        System.out.println(tipoBusqueda);
+    }//GEN-LAST:event_filtroActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+        UsuarioDaoImpl enlace = new UsuarioDaoImpl();
+        DefaultTableModel modeloTabla = new DefaultTableModel();
+        modeloTabla.addColumn("ID Usuario");
+        modeloTabla.addColumn("ID Rol");
+        modeloTabla.addColumn("Nombre");
+        modeloTabla.addColumn("Correo");
+        modeloTabla.addColumn("Contraseña");
+        if (tipoBusqueda.equalsIgnoreCase("Nombre")) {
+            java.util.List<Usuario> listaDeUsuarios = enlace.obtenerUsuarioPorNombre(txtBuscar.getText());
+            for (Usuario usuario : listaDeUsuarios) {
+                modeloTabla.addRow(new Object[]{usuario.getIdUsuario(), usuario.getIdRol(), usuario.getNombre(), usuario.getCorreo(), usuario.getContraseña()});
+            }
+            tablaUsuarios.setModel(modeloTabla);
+        }
+        if (tipoBusqueda.equalsIgnoreCase("ID Usuario")) {
+            if (txtBuscar.getText().isEmpty() || !txtBuscar.getText().matches("\\d+")) {
+                JOptionPane.showMessageDialog(this, "El campo de búsqueda no puede estar vacío y solo se permiten numeros enteros", "Error al buscar", JOptionPane.ERROR_MESSAGE);
+            } else {
+                Usuario UsuarioEncontrado = enlace.obtenerUsuarioPorId(Integer.parseInt(txtBuscar.getText()));
+                if (UsuarioEncontrado != null) {
+                    modeloTabla.addRow(new Object[]{UsuarioEncontrado.getIdUsuario(), UsuarioEncontrado.getIdRol(), UsuarioEncontrado.getNombre(), UsuarioEncontrado.getCorreo(), UsuarioEncontrado.getContraseña()});
+                    tablaUsuarios.setModel(modeloTabla);
+                }else
+                {
+                    System.out.println("Hay que limpiar la tabla");
+                    modeloTabla.addRow(new Object[]{"", "", ""});
+                    tablaUsuarios.setModel(modeloTabla);
+                }
+
+            }
+
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -457,8 +550,10 @@ public class ConfiguracionUsuario extends javax.swing.JFrame {
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnEliminar1;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnRegresar;
+    private javax.swing.JComboBox<String> filtro;
     private javax.swing.JLabel imgbuscar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -467,6 +562,7 @@ public class ConfiguracionUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tablaUsuarios;
