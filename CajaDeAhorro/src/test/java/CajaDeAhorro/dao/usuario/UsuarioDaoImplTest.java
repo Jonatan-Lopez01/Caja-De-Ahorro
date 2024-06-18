@@ -193,6 +193,28 @@ public class UsuarioDaoImplTest {
     }
     
     @Test
+    public void testObtenerUsuariosByNombre() {
+        UsuarioDaoImpl usuarioBaseDatos = new UsuarioDaoImpl();
+
+        // El metodo obtenerTodosLosUsuarios devuelve una lista vacia sino encuentra nada en la base de datos
+        List<Usuario> listaDeUsuario = usuarioBaseDatos.obtenerUsuarioPorNombre("Pedro");
+
+        // Definimos las condiciones de fallo
+        assertFalse("La lista de usuario está vacía", listaDeUsuario.isEmpty());
+
+        // Mandamos a imprimir los detalles de cada usuario a consola
+        System.out.println("\nListado de los usuarios: \n");
+        for (Usuario usuarioIndividual : listaDeUsuario) {
+            System.out.println("Id Usuario: " + usuarioIndividual.getIdUsuario());
+            System.out.println("Id Rol: " + usuarioIndividual.getIdRol());
+            System.out.println("Nombre: " + usuarioIndividual.getNombre());
+            System.out.println("Correo: " + usuarioIndividual.getCorreo());
+            System.out.println("Contraseña: " + usuarioIndividual.getContraseña());
+            System.out.println("\n");
+        }
+    }
+    
+    @Test
     public void testLogin() {
         String correo = "pedro@gmail.com";
         String password = "pedrin321";

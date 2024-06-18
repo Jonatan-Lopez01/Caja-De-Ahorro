@@ -66,4 +66,10 @@ public class UsuarioDaoImpl implements UsuarioDao {
         UsuarioConexion conexion = new UsuarioConexion();
         return conexion.login(correo, password);//devuelve true o false
     }
+    @Override
+    public List<Usuario> obtenerUsuarioPorNombre(String nombre)
+    {
+       UsuarioConexion conexion = new UsuarioConexion();
+       return conexion.obtenerUsuarioPorNombre(nombre);
+    }
 }

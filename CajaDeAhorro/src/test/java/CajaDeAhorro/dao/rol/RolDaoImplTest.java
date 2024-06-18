@@ -124,6 +124,27 @@ public class RolDaoImplTest {
             System.out.println("\n");
         }
     }
+    
+    @Test
+    public void testObtenerRolesByNombre() {
+
+        RolDaoImpl rolBaseDatos = new RolDaoImpl();
+
+        // El metodo obtenerTodosLosRoles devuelve una lista vacia sino encuentra nada en la base de datos
+        List<Rol> listaDeRoles = rolBaseDatos.obtenerRolesByNombre("Admin");
+
+        // Definimos las condiciones de fallo
+        assertFalse("La lista de roles está vacía", listaDeRoles.isEmpty());
+
+        // Mandamos a imprimir los detalles de cada rol a consola
+        System.out.println("\nListado de los roles: \n");
+        for (Rol rolIndividual : listaDeRoles) {
+            System.out.println("ID: " + rolIndividual.getIdRol());
+            System.out.println("Nombre: " + rolIndividual.getNombre());
+            System.out.println("Descripción: " + rolIndividual.getDescripcion());
+            System.out.println("\n");
+        }
+    }
 
     @Test
     public void testActualizarRol() {

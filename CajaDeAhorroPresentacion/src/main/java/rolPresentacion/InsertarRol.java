@@ -2,35 +2,27 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package usuarioPresentacion;
+package rolPresentacion;
 
 import CajaDeAhorro.bd.domain.Rol;
-import CajaDeAhorro.bd.domain.Usuario;
 import CajaDeAhorro.dao.rol.RolDaoImpl;
-import CajaDeAhorro.dao.usuario.UsuarioDaoImpl;
-import java.awt.List;
-import java.util.HashMap;
-import java.util.Map;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Jonatan Eduardo
  */
-public class InsertarUsuario extends javax.swing.JFrame {
-    Map<String, Integer> MapitaRoles = new HashMap<>();  //variable global
-    String rolSeleccionado= "Seleccione una opción";
-
+public class InsertarRol extends javax.swing.JFrame {
     /**
      * Creates new form InsertarUsuario
      */
-    public InsertarUsuario() {
+    public InsertarRol() {
         initComponents();
         setTitle("Insertar Usuario"); // Añade un título a la ventana
         setLocationRelativeTo(null); // Centra la ventana en la pantalla
         setResizable(false); // Hace que el tamaño de la ventana sea fijo
-        cargarRoles();
+       
+
     }
 
     /**
@@ -46,14 +38,11 @@ public class InsertarUsuario extends javax.swing.JFrame {
         btnInsertar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        txtCorreo = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        txtContraseña = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        ComboxRoles = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         btnRegresar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtDescripcion = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -71,44 +60,23 @@ public class InsertarUsuario extends javax.swing.JFrame {
                 btnInsertarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnInsertar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 330, 110, 40));
+        jPanel1.add(btnInsertar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 370, 110, 40));
 
         jLabel7.setFont(new java.awt.Font("Leelawadee UI", 1, 28)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("INSERTAR NUEVO USUARIO");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 390, 40));
-        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 180, 270, -1));
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Elige un rol para el usuario:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, -1, -1));
-        jPanel1.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 230, 270, -1));
+        jLabel7.setText("INSERTAR NUEVO ROL");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 310, 40));
+        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 290, -1));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Correo:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 210, -1, -1));
-        jPanel1.add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 290, 270, -1));
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Contraseña:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 270, -1, -1));
-
-        ComboxRoles.setBackground(new java.awt.Color(153, 51, 0));
-        ComboxRoles.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        ComboxRoles.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ComboxRolesActionPerformed(evt);
-            }
-        });
-        jPanel1.add(ComboxRoles, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 160, -1));
+        jLabel6.setText("Descripción del Rol");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 200, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Nombre:");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 160, -1, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, -1, -1));
 
         btnRegresar.setBackground(new java.awt.Color(131, 46, 5));
         btnRegresar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -121,6 +89,12 @@ public class InsertarUsuario extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 110, 40));
+
+        txtDescripcion.setColumns(20);
+        txtDescripcion.setRows(5);
+        jScrollPane1.setViewportView(txtDescripcion);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, 290, 130));
 
         jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Jonatan Eduardo\\Documents\\GitHub\\Caja-De-Ahorro\\CajaDeAhorroPresentacion\\src\\main\\java\\Img\\fondo2.jpg")); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 570, 450));
@@ -140,38 +114,31 @@ public class InsertarUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
-        //verificar que no esten vacios los campos
-        int IdRol= MapitaRoles.get(rolSeleccionado);
-        
-        if(txtNombre.getText().trim().isEmpty() || txtCorreo.getText().trim().isEmpty() || txtContraseña.getText().trim().isEmpty() || IdRol==-1)
+        if(txtNombre.getText().equalsIgnoreCase("") || txtDescripcion.getText().equalsIgnoreCase("") )
         {
-            JOptionPane.showMessageDialog(this, "Debe rellenar todos los campos y seleccionar un rol.", "Error al insertar", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Debe rellenar todos los campos", "Error al insertar", JOptionPane.ERROR_MESSAGE);
         }else
         {
-            Usuario nuevoUsuario = new Usuario();
-            nuevoUsuario.setNombre(txtNombre.getText());
-            nuevoUsuario.setCorreo(txtCorreo.getText());
-            nuevoUsuario.setContraseña(txtContraseña.getText());
-            nuevoUsuario.setIdRol(IdRol);
+            Rol nuevoRol = new Rol();
             
-            UsuarioDaoImpl conexionBd = new  UsuarioDaoImpl();
-            conexionBd.crearUsuario(nuevoUsuario);
-            JOptionPane.showMessageDialog(this, "Usuario insertado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-            LimpiarCampos();
+            nuevoRol.setNombre(txtNombre.getText());
+            nuevoRol.setDescripcion(txtDescripcion.getText());
+            
+            RolDaoImpl conexion = new RolDaoImpl();
+            conexion.crearRol(nuevoRol);
+            JOptionPane.showMessageDialog(this, "Rol insertado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            txtNombre.setText("");
+            txtDescripcion.setText("");
         }
+        
     }//GEN-LAST:event_btnInsertarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
-        ConfiguracionUsuario abrir= new ConfiguracionUsuario();
+        ConfiguracionRol abrir= new ConfiguracionRol();
         abrir.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnRegresarActionPerformed
-
-    private void ComboxRolesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboxRolesActionPerformed
-        // TODO add your handling code here:
-        rolSeleccionado= (String) ComboxRoles.getModel().getSelectedItem();        
-    }//GEN-LAST:event_ComboxRolesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -190,67 +157,38 @@ public class InsertarUsuario extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InsertarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InsertarRol.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InsertarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InsertarRol.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InsertarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InsertarRol.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InsertarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InsertarRol.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new InsertarUsuario().setVisible(true);
+                new InsertarRol().setVisible(true);
             }
         });
     }
-    public void cargarRoles()
-    {
-        RolDaoImpl rolBaseDatos = new RolDaoImpl();
-        java.util.List<Rol> listaDeRoles = rolBaseDatos.obtenerTodosLosRoles();
-        
-        // Crear un modelo para el combo box
-        DefaultComboBoxModel<String> modeloComboRoles = new DefaultComboBoxModel<>();
-        
-        //Limpiamos el mapa
-        MapitaRoles.clear();
-        
-        //Inicializamos la primer opcion del combobox
-        modeloComboRoles.addElement("Seleccione una opción");//añadimos al comnbobox
-        MapitaRoles.put("Seleccione una opción", -1);
-        
-        //Iteramos sobre la lista de roles
-        for (Rol rol: listaDeRoles){
-            modeloComboRoles.addElement(rol.getNombre());//añadimos al comnbobox
-            MapitaRoles.put(rol.getNombre(), rol.getIdRol());//añadimos a nuestro mapa
-        }
-       ComboxRoles.setModel(modeloComboRoles);
-    }
-    public void LimpiarCampos(){
-    txtNombre.setText("");
-    txtCorreo.setText("");
-    txtContraseña.setText("");
-    }
-   
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> ComboxRoles;
     private javax.swing.JButton btnInsertar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txtContraseña;
-    private javax.swing.JTextField txtCorreo;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }

@@ -50,7 +50,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="120" y="130" width="560" height="30"/>
+              <AbsoluteConstraints x="120" y="130" width="430" height="30"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -92,35 +92,23 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="120" y="240" width="560" height="260"/>
+              <AbsoluteConstraints x="120" y="230" width="430" height="250"/>
             </Constraint>
           </Constraints>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="tablaUsuarios">
+            <Component class="javax.swing.JTable" name="tablaRoles">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="5" rowCount="4">
-                    <Column editable="true" title="ID Usuario" type="java.lang.Object"/>
-                    <Column editable="true" title="ID Rol" type="java.lang.Object"/>
-                    <Column editable="true" title="Nombre" type="java.lang.Object"/>
-                    <Column editable="true" title="Correo" type="java.lang.Object"/>
-                    <Column editable="true" title="Contrase&#xf1;a" type="java.lang.Object"/>
+                  <Table columnCount="3" rowCount="0">
+                    <Column editable="false" title="ID Rol" type="java.lang.Object"/>
+                    <Column editable="false" title="Nombre" type="java.lang.Object"/>
+                    <Column editable="false" title="Descripci&#xf3;n" type="java.lang.String"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title/>
-                      <Editor/>
-                      <Renderer/>
-                    </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title/>
-                      <Editor/>
-                      <Renderer/>
-                    </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>
@@ -145,23 +133,18 @@
                   <Color blue="0" green="33" red="99" type="rgb"/>
                 </Property>
                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-                  <TableHeader reorderingAllowed="false" resizingAllowed="false"/>
+                  <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tablaUsuariosMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tablaRolesMouseClicked"/>
+                <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tablaRolesMouseExited"/>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tablaRolesMousePressed"/>
               </Events>
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JTextField" name="txtContrase&#xf1;a">
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="700" y="420" width="270" height="-1"/>
-            </Constraint>
-          </Constraints>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtIdUsuario">
+        <Component class="javax.swing.JTextField" name="txtIdRol">
           <Properties>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Hand Cursor"/>
@@ -169,21 +152,14 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="700" y="210" width="270" height="-1"/>
+              <AbsoluteConstraints x="570" y="220" width="270" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
         <Component class="javax.swing.JTextField" name="txtNombre">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="700" y="310" width="270" height="-1"/>
-            </Constraint>
-          </Constraints>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtCorreo">
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="700" y="360" width="270" height="-1"/>
+              <AbsoluteConstraints x="570" y="270" width="270" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -208,23 +184,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="320" y="500" width="170" height="40"/>
-            </Constraint>
-          </Constraints>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel2">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="12" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Contrase&#xf1;a:"/>
-          </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="700" y="400" width="-1" height="-1"/>
+              <AbsoluteConstraints x="120" y="490" width="180" height="40"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -236,11 +196,11 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="ID Usuario:"/>
+            <Property name="text" type="java.lang.String" value="Seleccione:"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="700" y="190" width="-1" height="-1"/>
+              <AbsoluteConstraints x="120" y="70" width="-1" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -252,11 +212,11 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Rol del Usuario:"/>
+            <Property name="text" type="java.lang.String" value="Nombre"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="700" y="240" width="-1" height="-1"/>
+              <AbsoluteConstraints x="570" y="250" width="-1" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -268,27 +228,11 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Nombre:"/>
+            <Property name="text" type="java.lang.String" value="Descripcion"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="700" y="290" width="-1" height="-1"/>
-            </Constraint>
-          </Constraints>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel6">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="12" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Correo:"/>
-          </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="700" y="340" width="-1" height="-1"/>
+              <AbsoluteConstraints x="570" y="300" width="-1" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -313,14 +257,14 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="700" y="120" width="100" height="40"/>
+              <AbsoluteConstraints x="560" y="120" width="100" height="40"/>
             </Constraint>
           </Constraints>
         </Component>
         <Component class="javax.swing.JButton" name="btnEliminar">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="5" green="2e" red="83" type="rgb"/>
+              <Color blue="21" green="3a" red="7" type="rgb"/>
             </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="1"/>
@@ -328,7 +272,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="ELIMINAR"/>
+            <Property name="text" type="java.lang.String" value="LIstar todos los roles"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Hand Cursor"/>
             </Property>
@@ -338,7 +282,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="850" y="460" width="120" height="40"/>
+              <AbsoluteConstraints x="120" y="190" width="430" height="30"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -363,7 +307,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="710" y="460" width="120" height="40"/>
+              <AbsoluteConstraints x="580" y="490" width="120" height="40"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -375,7 +319,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="PANEL DE CONTROL DE USUARIOS"/>
+            <Property name="text" type="java.lang.String" value="PANEL DE CONTROL DE ROLES"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -383,59 +327,27 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JComboBox" name="ComboxRoles">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="33" red="99" type="rgb"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="0"/>
-            </Property>
-            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Hand Cursor"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ComboxRolesActionPerformed"/>
-          </Events>
+        <Container class="javax.swing.JScrollPane" name="jScrollPane2">
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="700" y="260" width="270" height="30"/>
+              <AbsoluteConstraints x="570" y="320" width="370" height="140"/>
             </Constraint>
           </Constraints>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnEliminar1">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="21" green="3a" red="7" type="rgb"/>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="LIstar todos los usuarios"/>
-            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Hand Cursor"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEliminar1ActionPerformed"/>
-          </Events>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="120" y="210" width="560" height="30"/>
-            </Constraint>
-          </Constraints>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel8">
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <SubComponents>
+            <Component class="javax.swing.JTextArea" name="txtDescripcion">
+              <Properties>
+                <Property name="columns" type="int" value="20"/>
+                <Property name="rows" type="int" value="5"/>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="12" style="1"/>
@@ -443,11 +355,11 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Seleccione:"/>
+            <Property name="text" type="java.lang.String" value="ID Rol:"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="120" y="70" width="-1" height="-1"/>
+              <AbsoluteConstraints x="570" y="200" width="-1" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -458,7 +370,7 @@
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="2">
-                <StringItem index="0" value="ID Usuario"/>
+                <StringItem index="0" value="ID Rol"/>
                 <StringItem index="1" value="Nombre"/>
               </StringArray>
             </Property>
@@ -476,6 +388,31 @@
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="120" y="90" width="100" height="30"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnEliminar1">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="5" green="2e" red="83" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="ELIMINAR"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Hand Cursor"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEliminar1ActionPerformed"/>
+          </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="740" y="490" width="120" height="40"/>
             </Constraint>
           </Constraints>
         </Component>
