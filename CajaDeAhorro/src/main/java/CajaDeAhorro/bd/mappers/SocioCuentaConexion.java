@@ -30,7 +30,7 @@ public class SocioCuentaConexion implements SocioCuentaInterface {
 
             lineaParametros.setInt(1, socioCuenta.getId_socio());
             lineaParametros.setInt(2, socioCuenta.getId_cuenta());
-        
+
             int flag = lineaParametros.executeUpdate();
             if (flag > 0) {
                 System.out.println("SocioCuenta insertado Correctamente... ");
@@ -44,48 +44,22 @@ public class SocioCuentaConexion implements SocioCuentaInterface {
     }
 
     @Override
-public void actualizarSocioCuenta(SocioCuenta socioCuenta) {
-    try {
-        ConexionBd enlace = new ConexionBd();
-        Connection enlaceActivo = enlace.Conectar();
-        String sql = "UPDATE socio_Cuenta SET id_socio = ?, id_cuenta = ? WHERE id_socio_cuenta = ?";
-        PreparedStatement lineaParametros = enlaceActivo.prepareStatement(sql);
-        lineaParametros.setInt(1, socioCuenta.getId_socio());
-        lineaParametros.setInt(2, socioCuenta.getId_cuenta());
-        lineaParametros.setInt(3, socioCuenta.getId_socio_cuenta());
-        
-
-
-        int flag = lineaParametros.executeUpdate();
-
-        if (flag > 0) {
-            System.out.println("SocioCuenta actualizado correctamente.");
-        } else {
-            System.out.println("No se pudo actualizar el socioCuenta.");
-        }
-        enlace.Desconectar();
-    } catch (SQLException e) {
-        System.out.println(e);
-    }
-}
-
-
-    @Override
-    public void eliminarSocioCuenta(int id) {
+    public void actualizarSocioCuenta(int id,SocioCuenta socioCuenta) {
         try {
             ConexionBd enlace = new ConexionBd();
             Connection enlaceActivo = enlace.Conectar();
-            String sql = "DELETE FROM socio_Cuenta WHERE id_socioCuenta = ?";
+            String sql = "UPDATE socio_cuenta SET id_socio = ?, id_cuenta = ? WHERE id_socio_cuenta = ?";
             PreparedStatement lineaParametros = enlaceActivo.prepareStatement(sql);
-
-            lineaParametros.setInt(1, id);
+            lineaParametros.setInt(1, socioCuenta.getId_socio());
+            lineaParametros.setInt(2, socioCuenta.getId_cuenta());
+            lineaParametros.setInt(3, id);
 
             int flag = lineaParametros.executeUpdate();
 
             if (flag > 0) {
-                System.out.println("SocioCuenta eliminado correctamente.");
+                System.out.println("SocioCuenta actualizado correctamente.");
             } else {
-                System.out.println("No se pudo eliminar el socioCuenta.");
+                System.out.println("No se pudo actualizar el socioCuenta.");
             }
             enlace.Desconectar();
         } catch (SQLException e) {
@@ -94,12 +68,48 @@ public void actualizarSocioCuenta(SocioCuenta socioCuenta) {
     }
 
     @Override
+    public SocioCuenta eliminarSocioCuenta(int id) {
+        SocioCuenta socioCuentaEliminado = null;
+
+        try {
+            ConexionBd enlace = new ConexionBd();
+            Connection enlaceActivo = enlace.Conectar();
+
+            // Primero, obtenemos los datos del socioCuenta antes de eliminarlo
+            socioCuentaEliminado = this.obtenerSocioCuentaPorId(id);
+
+            // Si el socioCuenta existe, procede a eliminarlo
+            if (socioCuentaEliminado != null) {
+                String deleteSql = "DELETE FROM socio_cuenta WHERE id_socio_cuenta = ?";
+                PreparedStatement lineaParametros = enlaceActivo.prepareStatement(deleteSql);
+                lineaParametros.setInt(1, id);
+                int flag = lineaParametros.executeUpdate();
+
+                if (flag > 0) {
+                    System.out.println("SocioCuenta eliminado correctamente.");
+                } else {
+                    System.out.println("No se pudo eliminar el SocioCuenta.");
+                    socioCuentaEliminado = null; // Si no se pudo eliminar, no devolvemos el socioCuenta
+                }
+            } else {
+                System.out.println("No se encontró el SocioCuenta con el ID proporcionado.");
+            }
+
+            enlace.Desconectar();
+        } catch (SQLException e) {
+            System.out.println("SQL Exception:: " + e);
+        }
+
+        return socioCuentaEliminado;
+    }
+
+    @Override
     public SocioCuenta obtenerSocioCuentaPorId(int id) {
         SocioCuenta consultarSocioCuenta = null;
         try {
             ConexionBd enlace = new ConexionBd();
             Connection enlaceActivo = enlace.Conectar();
-            String sql = "SELECT * FROM socio_Cuenta WHERE id_socioCuenta = ?";
+            String sql = "SELECT * FROM socio_cuenta WHERE id_socio_cuenta = ?";
             PreparedStatement lineaParametros = enlaceActivo.prepareStatement(sql);
             lineaParametros.setInt(1, id);
 
@@ -126,7 +136,7 @@ public void actualizarSocioCuenta(SocioCuenta socioCuenta) {
         try {
             ConexionBd enlace = new ConexionBd();
             Connection enlaceActivo = enlace.Conectar();
-            String sql = "SELECT * FROM socio_Cuenta";
+            String sql = "SELECT * FROM socio_cuenta";
             PreparedStatement lineaParametros = enlaceActivo.prepareStatement(sql);
 
             ResultSet resultado = lineaParametros.executeQuery();

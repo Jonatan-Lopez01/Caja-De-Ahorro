@@ -3,22 +3,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
 package CajaDeAhorro.bd.mappers;
+
 import CajaDeAhorro.bd.domain.SocioCuenta;
 import java.util.List;
 
 /**
  *
- * @author Kevin Caballero
+ * @author Jonatan Eduardo
  */
 public interface SocioCuentaInterface {
-    // Método para crear un nuevo socioCuenta
+        // Método para crear un nuevo socioCuenta
     void crearSocioCuenta(SocioCuenta socioCuenta);
     // Método para actualizar un socioCuenta existente
 
-    void actualizarSocioCuenta(SocioCuenta socioCuenta);
+    void actualizarSocioCuenta(int id, SocioCuenta socioCuenta);
 
     // Método para eliminar un socioCuenta por su id
-    void eliminarSocioCuenta(int id);
+    SocioCuenta eliminarSocioCuenta(int id);
 
     // Método para obtener un socioCuenta por su id
     SocioCuenta obtenerSocioCuentaPorId(int id);
