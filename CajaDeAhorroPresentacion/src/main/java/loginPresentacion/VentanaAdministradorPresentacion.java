@@ -47,6 +47,8 @@ public class VentanaAdministradorPresentacion extends javax.swing.JFrame {
         btnRoles = new javax.swing.JButton();
         btnSocios = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -75,14 +77,14 @@ public class VentanaAdministradorPresentacion extends javax.swing.JFrame {
         jButton4.setBackground(new java.awt.Color(131, 46, 5));
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("REPORTE GENERAL");
+        jButton4.setText("TAZA DE INTERESES DE AHORRO  (CU 15) GIZZ");
         jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 320, 410, 50));
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 420, 410, 50));
 
         btnUsuarios.setBackground(new java.awt.Color(131, 46, 5));
         btnUsuarios.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -111,7 +113,7 @@ public class VentanaAdministradorPresentacion extends javax.swing.JFrame {
         btnSocios.setBackground(new java.awt.Color(131, 46, 5));
         btnSocios.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnSocios.setForeground(new java.awt.Color(255, 255, 255));
-        btnSocios.setText("PANEL DE SOCIOS");
+        btnSocios.setText("PANEL DE SOCIOS  (CU 1,2,3) KEVIN");
         btnSocios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSocios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,6 +126,30 @@ public class VentanaAdministradorPresentacion extends javax.swing.JFrame {
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("INTERFAZ DE ADMINISTRADOR");
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, 600, 50));
+
+        jButton5.setBackground(new java.awt.Color(131, 46, 5));
+        jButton5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton5.setForeground(new java.awt.Color(255, 255, 255));
+        jButton5.setText("CAMBIO DE TIPO DE CUENTA DE AHORRO  (CU 14) KEVIN");
+        jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 320, 410, 50));
+
+        jButton6.setBackground(new java.awt.Color(131, 46, 5));
+        jButton6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton6.setForeground(new java.awt.Color(255, 255, 255));
+        jButton6.setText("REGISTRO DE PAGOS Y SALDO PENDIENTE  (CU 21) KEVIN");
+        jButton6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 370, 410, 50));
 
         fondo.setIcon(new javax.swing.ImageIcon("C:\\Users\\Jonatan Eduardo\\Documents\\GitHub\\Caja-De-Ahorro\\CajaDeAhorroPresentacion\\src\\main\\java\\Img\\fondo2.jpg")); // NOI18N
         fondo.setText("Admin");
@@ -171,6 +197,14 @@ public class VentanaAdministradorPresentacion extends javax.swing.JFrame {
     private void btnSociosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSociosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSociosActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -222,6 +256,8 @@ public class VentanaAdministradorPresentacion extends javax.swing.JFrame {
     private javax.swing.JButton btnUsuarios;
     private javax.swing.JLabel fondo;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
