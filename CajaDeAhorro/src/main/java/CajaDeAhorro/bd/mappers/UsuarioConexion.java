@@ -44,7 +44,6 @@ public class UsuarioConexion implements UsuarioInterface {
         } catch (SQLException e) {
             System.out.println("SQL Exception" + e);
         }
-
     }
 
     @Override
@@ -136,7 +135,38 @@ public class UsuarioConexion implements UsuarioInterface {
             System.out.println("SQL Exception:: " + e);
         }
         return consultarUsuario;
+    }
 
+    @Override
+    public List<Usuario> obtenerUsuarioPorNombre(String nombre) {
+        List<Usuario> listaUsuarios = new ArrayList<>();
+        try {
+            ConexionBd enlace = new ConexionBd();
+            Connection enlaceActivo = enlace.Conectar();
+            String sql = "SELECT * FROM usuario WHERE nombre LIKE ?";
+            PreparedStatement lineaParametros = enlaceActivo.prepareStatement(sql);
+
+            // Establecer el parámetro con comodines
+            lineaParametros.setString(1, "%" + nombre + "%");
+
+            ResultSet resultado = lineaParametros.executeQuery();
+
+            while (resultado.next()) {
+                Usuario usuario = new Usuario();
+                usuario.setIdUsuario(resultado.getInt("id_usuario"));
+                usuario.setIdRol(resultado.getInt("id_rol"));
+                usuario.setNombre(resultado.getString("nombre"));
+                usuario.setCorreo(resultado.getString("correo"));
+                usuario.setContraseña(resultado.getString("password"));
+
+                listaUsuarios.add(usuario);
+            }
+            enlace.Desconectar();
+        } catch (SQLException e) {
+            System.out.println("No se obtuvo la lista de roles");
+            System.out.println(e);
+        }
+        return listaUsuarios;
     }
 
     @Override

@@ -30,5 +30,7 @@ public interface UsuarioDao {
     
     //Metodo para iniciar sesion
     int login (String correo,String password );
+    
+    List<Usuario> obtenerUsuarioPorNombre(String nombre);
 
 }

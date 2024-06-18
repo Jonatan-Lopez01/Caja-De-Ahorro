@@ -57,4 +57,13 @@ public class RolDaoImpl implements RolDao {
         ultimoRol= conexion.obtenerUltimoRol();
         return ultimoRol;   
     }
+    @Override
+    public List<Rol> obtenerRolesByNombre(String nombre)
+    {
+        List listaDeRoles = null;
+        RolConexion conexion = new RolConexion();
+        listaDeRoles = conexion.obtenerRolesByNombre(nombre);
+        return listaDeRoles;
+        
+    }
 }

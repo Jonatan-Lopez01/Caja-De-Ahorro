@@ -32,5 +32,6 @@ public interface RolDao {
     //esto lo hacemos asi debido a que en la DATABASE el id_rol es autoincrementable :)
     
     Rol obtenerUltimoRol();
+    List<Rol> obtenerRolesByNombre(String nombre);
 
 }

@@ -8,6 +8,7 @@ import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import rolPresentacion.ConfiguracionRol;
 import usuarioPresentacion.ConfiguracionUsuario;
 
 /**
@@ -57,7 +58,7 @@ public class VentanaAdministradorPresentacion extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("ACCIONES SOBRE LA CAJA");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 130, 270, 50));
-        jPanel1.add(bienvenida, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 650, 410));
+        jPanel1.add(bienvenida, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 710, 410));
 
         btnRegresar.setBackground(new java.awt.Color(131, 46, 5));
         btnRegresar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -162,6 +163,9 @@ public class VentanaAdministradorPresentacion extends javax.swing.JFrame {
 
     private void btnRolesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRolesActionPerformed
         // TODO add your handling code here:
+        ConfiguracionRol abrir = new ConfiguracionRol();
+        abrir.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnRolesActionPerformed
 
     private void btnSociosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSociosActionPerformed

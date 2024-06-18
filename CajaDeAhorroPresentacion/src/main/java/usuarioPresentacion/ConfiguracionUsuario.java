@@ -4,11 +4,20 @@
  */
 package usuarioPresentacion;
 
+import CajaDeAhorro.bd.domain.Rol;
+import CajaDeAhorro.bd.domain.Usuario;
+import CajaDeAhorro.dao.rol.RolDaoImpl;
+import CajaDeAhorro.dao.usuario.UsuarioDaoImpl;
 import loginPresentacion.LoginPresentacion;
 import java.awt.Image;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import loginPresentacion.VentanaAdministradorPresentacion;
 
 /**
@@ -16,6 +25,9 @@ import loginPresentacion.VentanaAdministradorPresentacion;
  * @author Jonatan Eduardo
  */
 public class ConfiguracionUsuario extends javax.swing.JFrame {
+
+    Map<String, Integer> MapitaRoles = new HashMap<>();  //variable global
+    String rolSeleccionado = "Seleccione una opción";
 
     /**
      * Creates new form ConfiguracionUsuario
@@ -26,6 +38,26 @@ public class ConfiguracionUsuario extends javax.swing.JFrame {
         setLocationRelativeTo(null); // Centra la ventana en la pantalla
         setResizable(false); // Hace que el tamaño de la ventana sea fijo
         SetImageLabel(imgbuscar, "src/main/java/Img/lupa.png");//para autopajustar laimagen al labael
+        cargarListaUsuarios();
+        cargarRoles();
+        txtIdUsuario.setEditable(false);
+    }
+
+    public void cargarListaUsuarios() {
+        UsuarioDaoImpl enlace = new UsuarioDaoImpl();
+        java.util.List<Usuario> listaDeUsuarios = enlace.obtenerTodosLosUsuarios();
+
+        DefaultTableModel modeloTabla = new DefaultTableModel();
+        modeloTabla.addColumn("ID Usuario");
+        modeloTabla.addColumn("ID Rol");
+        modeloTabla.addColumn("Nombre");
+        modeloTabla.addColumn("Correo");
+        modeloTabla.addColumn("Contraseña");
+
+        for (Usuario usuario : listaDeUsuarios) {
+            modeloTabla.addRow(new Object[]{usuario.getIdUsuario(), usuario.getIdRol(), usuario.getNombre(), usuario.getCorreo(), usuario.getContraseña()});
+        }
+        tablaUsuarios.setModel(modeloTabla);
     }
 
     /**
@@ -45,7 +77,6 @@ public class ConfiguracionUsuario extends javax.swing.JFrame {
         tablaUsuarios = new javax.swing.JTable();
         txtContraseña = new javax.swing.JTextField();
         txtIdUsuario = new javax.swing.JTextField();
-        txtIdRol = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
         txtCorreo = new javax.swing.JTextField();
         btnNuevo = new javax.swing.JButton();
@@ -58,6 +89,7 @@ public class ConfiguracionUsuario extends javax.swing.JFrame {
         btnEliminar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
+        ComboxRoles = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -96,12 +128,22 @@ public class ConfiguracionUsuario extends javax.swing.JFrame {
                 "ID Usuario", "ID Rol", "Nombre", "Correo", "Contraseña"
             }
         ));
+        tablaUsuarios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tablaUsuarios.setSelectionBackground(new java.awt.Color(153, 51, 0));
+        tablaUsuarios.getTableHeader().setResizingAllowed(false);
+        tablaUsuarios.getTableHeader().setReorderingAllowed(false);
+        tablaUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaUsuariosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaUsuarios);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, 560, 260));
         jPanel1.add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 420, 270, -1));
+
+        txtIdUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel1.add(txtIdUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 210, 270, -1));
-        jPanel1.add(txtIdRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 260, 270, -1));
         jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 310, 270, -1));
         jPanel1.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 360, 270, -1));
 
@@ -115,7 +157,7 @@ public class ConfiguracionUsuario extends javax.swing.JFrame {
                 btnNuevoActionPerformed(evt);
             }
         });
-        jPanel1.add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 470, 150, 40));
+        jPanel1.add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 470, 170, 40));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -129,7 +171,7 @@ public class ConfiguracionUsuario extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("ID Rol:");
+        jLabel4.setText("Rol del Usuario:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 240, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -178,6 +220,16 @@ public class ConfiguracionUsuario extends javax.swing.JFrame {
         jLabel7.setText("PANEL DE CONTROL DE USUARIOS");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 520, 40));
 
+        ComboxRoles.setBackground(new java.awt.Color(153, 51, 0));
+        ComboxRoles.setForeground(new java.awt.Color(255, 255, 255));
+        ComboxRoles.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        ComboxRoles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboxRolesActionPerformed(evt);
+            }
+        });
+        jPanel1.add(ComboxRoles, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 260, 270, 30));
+
         jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Jonatan Eduardo\\Documents\\GitHub\\Caja-De-Ahorro\\CajaDeAhorroPresentacion\\src\\main\\java\\Img\\fondo2.jpg")); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 570));
 
@@ -216,11 +268,105 @@ public class ConfiguracionUsuario extends javax.swing.JFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
+        if (txtIdUsuario.getText().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(this, "Seleccione un elemento de la tabla", "Error al eliminar", JOptionPane.ERROR_MESSAGE);
+        } else {
+            int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de eliminar este Usuario?", "Eliminar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                Usuario usuarioEliminado = new Usuario();
+                // Usuario ha seleccionado "Sí" (Eliminar)
+                UsuarioDaoImpl enlace = new UsuarioDaoImpl();
+                usuarioEliminado = enlace.eliminarUsuario(Integer.parseInt(txtIdUsuario.getText()));
+                JOptionPane.showMessageDialog(this, "Rol eliminado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                cargarListaUsuarios();
+                cargarRoles();
+                limpiar();
+
+            } else {
+                // Usuario ha seleccionado "No" (Cancelar)
+                System.out.println("El usuario ha cancelado la eliminación del rol.");
+            }
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
+        if (txtIdUsuario.getText().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(this, "Seleccione un elemento de la tabla", "Error al actualizar", JOptionPane.ERROR_MESSAGE);
+        } else {
+            int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de querer actualizar este usuario?", "Actualizar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                Usuario nuevoUsuario = new Usuario();
+                int IdRol= MapitaRoles.get(rolSeleccionado);
+                if(IdRol==-1){
+                    JOptionPane.showMessageDialog(this, "Seleccione un rol para el usuario", "Error al actualizar", JOptionPane.ERROR_MESSAGE);
+                }else
+                {
+                   nuevoUsuario.setIdRol(IdRol);
+                   nuevoUsuario.setCorreo(txtCorreo.getText());
+                   nuevoUsuario.setNombre(txtNombre.getText());
+                   nuevoUsuario.setContraseña(txtContraseña.getText());
+                   UsuarioDaoImpl enlace =  new UsuarioDaoImpl();
+                   enlace.actualizarUsuario(Integer.parseInt(txtIdUsuario.getText()), nuevoUsuario);
+                   JOptionPane.showMessageDialog(this, "Usuarop actualizado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                   limpiar();
+                   cargarRoles();
+                   cargarListaUsuarios();
+                }
+            } else {
+                // Usuario ha seleccionado "No" (Cancelar)
+                System.out.println("El usuario ha cancelado la actualizacion del rol.");
+            }
+        
+
+    }
     }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void tablaUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaUsuariosMouseClicked
+        // TODO add your handling code here:
+        // Obtener el índice de la fila seleccionada
+        int filaSeleccionada = tablaUsuarios.getSelectedRow();
+
+        // Verificar que la fila seleccionada sea válida
+        if (filaSeleccionada != -1) {
+            // Obtener los valores de las celdas de la fila seleccionada
+            Object idUsuario = tablaUsuarios.getValueAt(filaSeleccionada, 0);
+            Object idRol = tablaUsuarios.getValueAt(filaSeleccionada, 1);
+            Object nombre = tablaUsuarios.getValueAt(filaSeleccionada, 2);
+            Object correo = tablaUsuarios.getValueAt(filaSeleccionada, 3);
+            Object contraseña = tablaUsuarios.getValueAt(filaSeleccionada, 4);
+
+            // Buscar el nombre del rol utilizando el Map
+            String nombreRol = "";
+            for (Map.Entry<String, Integer> entry : MapitaRoles.entrySet()) {
+                if (entry.getValue() == idRol) {
+                    nombreRol = entry.getKey();
+                    break; // Terminar el bucle una vez encontrado el nombre del rol
+                }
+            }
+
+            // Iterar sobre las opciones del JComboBox para encontrar el índice del elemento
+            for (int i = 0; i < ComboxRoles.getItemCount(); i++) {
+                String item = (String) ComboxRoles.getItemAt(i); // Obtener el elemento en la posición i
+                if (item.equals(nombreRol)) {
+                    ComboxRoles.setSelectedIndex(i); // Establecer el elemento seleccionado en el JComboBox
+                    break; // Terminar el bucle una vez encontrado el elemento
+                }
+            }
+
+            // Mostrar los valores en los JTextField correspondientes
+            txtIdUsuario.setText(idUsuario.toString());
+            txtNombre.setText(nombre.toString());
+            txtCorreo.setText(correo.toString());
+            txtContraseña.setText(contraseña.toString());
+        }
+    }//GEN-LAST:event_tablaUsuariosMouseClicked
+
+    private void ComboxRolesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboxRolesActionPerformed
+        // TODO add your handling code here:
+        rolSeleccionado = (String) ComboxRoles.getModel().getSelectedItem();
+    }//GEN-LAST:event_ComboxRolesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -236,16 +382,28 @@ public class ConfiguracionUsuario extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                }
+
+}
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ConfiguracionUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ConfiguracionUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ConfiguracionUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ConfiguracionUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConfiguracionUsuario.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+} catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(ConfiguracionUsuario.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+} catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(ConfiguracionUsuario.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+} catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(ConfiguracionUsuario.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -264,7 +422,38 @@ public class ConfiguracionUsuario extends javax.swing.JFrame {
         this.repaint();
     }
 
+    public void cargarRoles() {
+        RolDaoImpl rolBaseDatos = new RolDaoImpl();
+        java.util.List<Rol> listaDeRoles = rolBaseDatos.obtenerTodosLosRoles();
+
+        // Crear un modelo para el combo box
+        DefaultComboBoxModel<String> modeloComboRoles = new DefaultComboBoxModel<>();
+
+        //Limpiamos el mapa
+        MapitaRoles.clear();
+
+        //Inicializamos la primer opcion del combobox
+        modeloComboRoles.addElement("Seleccione una opción");//añadimos al comnbobox
+        MapitaRoles.put("Seleccione una opción", -1);
+
+        //Iteramos sobre la lista de roles
+        for (Rol rol : listaDeRoles) {
+            modeloComboRoles.addElement(rol.getNombre());//añadimos al comnbobox
+            MapitaRoles.put(rol.getNombre(), rol.getIdRol());//añadimos a nuestro mapa
+        }
+        ComboxRoles.setModel(modeloComboRoles);
+    }
+
+    public void limpiar() {
+        txtIdUsuario.setText("");
+        txtNombre.setText("");
+        txtCorreo.setText("");
+        txtContraseña.setText("");
+        
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> ComboxRoles;
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEliminar;
@@ -284,7 +473,6 @@ public class ConfiguracionUsuario extends javax.swing.JFrame {
     private javax.swing.JTextField txtBuscar;
     private javax.swing.JTextField txtContraseña;
     private javax.swing.JTextField txtCorreo;
-    private javax.swing.JTextField txtIdRol;
     private javax.swing.JTextField txtIdUsuario;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables

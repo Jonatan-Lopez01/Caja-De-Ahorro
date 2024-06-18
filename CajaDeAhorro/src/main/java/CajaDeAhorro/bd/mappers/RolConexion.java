@@ -156,6 +156,36 @@ public class RolConexion implements RolInterface {
         }
         return listaRoles;
     }
+    
+    @Override
+    public List<Rol> obtenerRolesByNombre(String nombre) {
+
+        List<Rol> listaRoles = new ArrayList<>();
+        try {
+            ConexionBd enlace = new ConexionBd();
+            Connection enlaceActivo = enlace.Conectar();
+            String sql = "SELECT * FROM rol WHERE nombre LIKE ?";
+            PreparedStatement lineaParametros = enlaceActivo.prepareStatement(sql);
+
+            // Establecer el parámetro con comodines
+            lineaParametros.setString(1, "%" + nombre + "%");
+            ResultSet resultado = lineaParametros.executeQuery();
+
+            while (resultado.next()) {
+                Rol rol = new Rol();
+                rol.setIdRol(resultado.getInt("id_rol"));
+                rol.setNombre(resultado.getString("nombre"));
+                rol.setDescripcion(resultado.getString("descripcion"));
+                listaRoles.add(rol);
+                
+            } 
+            enlace.Desconectar();
+        } catch (SQLException e) {
+            System.out.println("No se obtuvo la lista de roles");
+            System.out.println(e);
+        }
+        return listaRoles;
+    }
 
     @Override
     public Rol obtenerUltimoRol() {
