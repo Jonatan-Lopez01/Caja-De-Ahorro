@@ -9,17 +9,17 @@ import java.util.List;
 
 /**
  *
- * @author Jonatan Eduardo
+ * @author Kevin Caballero
  */
 public interface SocioInterface {
-       // Método para crear un nuevo socio
+    // Método para crear un nuevo socio
     void crearSocio(Socio socio);
     // Método para actualizar un socio existente
 
-    void actualizarSocio(int id, Socio socio);
+    void actualizarSocio(Socio socio);
 
     // Método para eliminar un socio por su id
-    Socio eliminarSocio(int id);
+    void eliminarSocio(int id);
 
     // Método para obtener un socio por su id
     Socio obtenerSocioPorId(int id);

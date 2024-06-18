@@ -6,14 +6,18 @@ package CajaDeAhorro.bd.domain;
 
 /**
  *
- * @author Jonatan Eduardo
+ * @author Kevin Caballero
  */
 public class SocioCuenta {
-       private int id_socio_cuenta;
+    private int id_socio_cuenta;
     private int id_socio;
     private int id_cuenta;
 
-
+    public SocioCuenta(int id_socio_cuenta, int id_socio, int id_cuenta) {
+        this.id_socio_cuenta = id_socio_cuenta;
+        this.id_socio = id_socio;
+        this.id_cuenta = id_cuenta;
+    }
 
     public SocioCuenta() {
     }
@@ -42,5 +46,4 @@ public class SocioCuenta {
         this.id_cuenta = id_cuenta;
     }
 
-    
 }

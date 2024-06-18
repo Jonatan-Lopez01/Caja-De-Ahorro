@@ -6,10 +6,9 @@ package CajaDeAhorro.bd.domain;
 
 /**
  *
- * @author Jonatan Eduardo
+ * @author Kevin Caballero
  */
 public class Socio {
-
     private int id_socio;
     private String nombre;
     private String apellidos;
@@ -17,10 +16,18 @@ public class Socio {
     private String telefono;
     private String correo;
 
-
+    public Socio(int id_socio, String nombres, String apellidos, String direccion, String telefono, String correo) {
+        this.id_socio = id_socio;
+        this.nombre = nombres;
+        this.apellidos = apellidos;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.correo = correo;
+    }
 
     public Socio() {
     }
+    
 
     public int getId_socio() {
         return id_socio;
