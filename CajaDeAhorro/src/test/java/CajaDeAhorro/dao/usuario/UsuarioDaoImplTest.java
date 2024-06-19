@@ -48,7 +48,7 @@ public class UsuarioDaoImplTest {
     @Test
     public void testCrearUsuario() {
 
-        Usuario nuevoUsuario = crearUsuario(25, "Kevin Ivan Jimenez", "kevin@gmail.com", "kevin23");
+        Usuario nuevoUsuario = crearUsuario(1, "Kevin Ivan Jimenez", "kevin@gmail.com", "kevin23");
         System.out.println("\n El usuario insertado a la base de datos es : \n");
         System.out.println("id_usuario: " + nuevoUsuario.getIdUsuario());
         System.out.println("id_rol: " + nuevoUsuario.getIdRol());
@@ -59,7 +59,7 @@ public class UsuarioDaoImplTest {
 
     @Test
     public void testActualizarUsuario() {
-        int id = 4; // id del usuario a actualizar
+        int id = 1; // id del usuario a actualizar
 
         // Obtener el rol actual de la base de datos
         UsuarioDaoImpl usuarioBaseDatos = new UsuarioDaoImpl();
@@ -79,7 +79,7 @@ public class UsuarioDaoImplTest {
         // Definir los cambios para actualizar
         Usuario usuarioLocal = new Usuario();
         usuarioLocal.setIdUsuario(id);
-        usuarioLocal.setIdRol(24);
+        usuarioLocal.setIdRol(1);
         usuarioLocal.setNombre("Mario Alberto Perez Cortes");
         usuarioLocal.setCorreo("Alberto@gmail.com");
         usuarioLocal.setContraseña("chanchitofeliz12345678");
@@ -115,7 +115,7 @@ public class UsuarioDaoImplTest {
     @Test
     public void testEliminarUsuario() {
         // Crear un nuevo rol antes de eliminarlo
-        Usuario usuarioCreado = crearUsuario(27, "Jonatan Eduardo Ramirez", "jony@gmail.com", "jon1qwe%1");
+        Usuario usuarioCreado = crearUsuario(1, "Jonatan Eduardo Ramirez", "jony@gmail.com", "jon1qwe%1");
 
         // Ahora procedemos a eliminar el usuario recién creado
         int id = usuarioCreado.getIdUsuario(); // obtenemos el id del rol creado
@@ -149,7 +149,7 @@ public class UsuarioDaoImplTest {
 
     @Test
     public void testObtenerUsuarioPorId() {
-        int id = 4; // id del usuario a buscar
+        int id = 1; // id del usuario a buscar
         System.out.println("Buscando el usuario con id_usuario= " + id + "\n");
 
         // Instanciar la clase UsuarioDaoImpl
@@ -193,12 +193,40 @@ public class UsuarioDaoImplTest {
     }
     
     @Test
-    public void testLogin() {
-        String correo = "Alberto@gmail.com";
-        String password = "chanchitofeliz12345678";
-        boolean flag = false;
+    public void testObtenerUsuariosByNombre() {
         UsuarioDaoImpl usuarioBaseDatos = new UsuarioDaoImpl();
-        flag = usuarioBaseDatos.login(correo, password);
+
+        // El metodo obtenerTodosLosUsuarios devuelve una lista vacia sino encuentra nada en la base de datos
+        List<Usuario> listaDeUsuario = usuarioBaseDatos.obtenerUsuarioPorNombre("Pedro");
+
+        // Definimos las condiciones de fallo
+        assertFalse("La lista de usuario está vacía", listaDeUsuario.isEmpty());
+
+        // Mandamos a imprimir los detalles de cada usuario a consola
+        System.out.println("\nListado de los usuarios: \n");
+        for (Usuario usuarioIndividual : listaDeUsuario) {
+            System.out.println("Id Usuario: " + usuarioIndividual.getIdUsuario());
+            System.out.println("Id Rol: " + usuarioIndividual.getIdRol());
+            System.out.println("Nombre: " + usuarioIndividual.getNombre());
+            System.out.println("Correo: " + usuarioIndividual.getCorreo());
+            System.out.println("Contraseña: " + usuarioIndividual.getContraseña());
+            System.out.println("\n");
+        }
+    }
+    
+    @Test
+    public void testLogin() {
+        String correo = "pedro@gmail.com";
+        String password = "pedrin321";
+        int id  = -1;
+        boolean flag= false;
+        UsuarioDaoImpl usuarioBaseDatos = new UsuarioDaoImpl();
+        id = usuarioBaseDatos.login(correo, password);
+        System.out.println("EL ID DEL USUARIO EN EL LOGIN: " + id );
+        if(id != -1)
+        {
+            flag=true;
+        }
         assertTrue("El login debería ser exitoso", flag);
         System.out.println("Logueo exitoso");
     }
