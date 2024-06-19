@@ -147,6 +147,11 @@ public class ConfiguracionUsuario extends javax.swing.JFrame {
         jPanel1.add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 420, 270, -1));
 
         txtIdUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        txtIdUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIdUsuarioActionPerformed(evt);
+            }
+        });
         jPanel1.add(txtIdUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 210, 270, -1));
         jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 310, 270, -1));
         jPanel1.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 360, 270, -1));
@@ -460,6 +465,10 @@ public class ConfiguracionUsuario extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void txtIdUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdUsuarioActionPerformed
 
     /**
      * @param args the command line arguments

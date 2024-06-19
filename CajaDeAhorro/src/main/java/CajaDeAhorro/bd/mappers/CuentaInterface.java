@@ -24,5 +24,5 @@ public interface CuentaInterface {
     // Método para obtener todas las cuentas
     List<Cuenta> obtenerTodasLasCuentas();
     
-     Cuenta obtenerUltimaCuenta();
+    Cuenta obtenerUltimaCuenta();
 }

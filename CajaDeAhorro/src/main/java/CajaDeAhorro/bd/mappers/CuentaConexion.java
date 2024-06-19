@@ -62,12 +62,12 @@ public class CuentaConexion {
         }
     }
 
-   public Cuenta eliminarCuenta(int numeroCuenta) {
+    public Cuenta eliminarCuenta(int numeroCuenta) {
         Cuenta cuentaEliminada = obtenerCuentaPorNumero(numeroCuenta); // Obtener los datos antes de eliminar
         if (cuentaEliminada == null) {
             return null; // La cuenta no existe
         }
-        
+
         try {
             ConexionBd enlace = new ConexionBd();
             Connection enlaceActivo = enlace.Conectar();
@@ -132,14 +132,14 @@ public class CuentaConexion {
                 cuenta.setEstatusCuenta(resultado.getInt("estatus_cuenta"));
                 cuenta.setSaldo(resultado.getFloat("saldo"));
                 listaCuentas.add(cuenta);
-                }
-                enlace.Desconectar();
-                } catch (SQLException e) {
-                System.out.println("SQLException: " + e);
-                }
-                return listaCuentas;
-                }
-    
+            }
+            enlace.Desconectar();
+        } catch (SQLException e) {
+            System.out.println("SQLException: " + e);
+        }
+        return listaCuentas;
+    }
+
     public Cuenta obtenerUltimaCuenta() {
         Cuenta ultimaCuenta = null;
         try {
@@ -165,4 +165,6 @@ public class CuentaConexion {
         }
         return ultimaCuenta;
     }
+
+
 }

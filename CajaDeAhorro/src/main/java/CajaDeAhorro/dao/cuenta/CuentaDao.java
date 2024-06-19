@@ -29,4 +29,5 @@ public interface CuentaDao {
     
      // Método para obtener la última cuenta creada
     Cuenta obtenerUltimaCuenta();
+    
 }
