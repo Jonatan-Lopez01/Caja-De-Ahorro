@@ -4,6 +4,7 @@
  */
 package loginPresentacion;
 
+import cuentasLiquidadasPresentacion.VentanaLiquidarPrestamo;
 import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -207,6 +208,9 @@ public class VentanaCajeroPresentacion extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        VentanaLiquidarPrestamo abrir = new VentanaLiquidarPrestamo();
+        abrir.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed

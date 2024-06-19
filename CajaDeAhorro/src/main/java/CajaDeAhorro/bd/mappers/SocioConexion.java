@@ -4,6 +4,7 @@
  */
 package CajaDeAhorro.bd.mappers;
 
+import CajaDeAhorro.bd.domain.Cuenta;
 import CajaDeAhorro.bd.domain.Socio;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -73,7 +74,7 @@ public class SocioConexion implements SocioInterface {
         }
     }
 
-   // Método para eliminar un socio por su ID
+    // Método para eliminar un socio por su ID
     public Socio eliminarSocio(int id) {
         Socio socioEliminado = obtenerSocioPorId(id); // Obtener el socio antes de eliminarlo
 
@@ -85,7 +86,7 @@ public class SocioConexion implements SocioInterface {
                 PreparedStatement lineaParametros = enlaceActivo.prepareStatement(sql);
                 lineaParametros.setInt(1, id);
                 int flag = lineaParametros.executeUpdate();
-                
+
                 if (flag > 0) {
                     System.out.println("Socio eliminado correctamente.");
                 } else {
@@ -190,4 +191,69 @@ public class SocioConexion implements SocioInterface {
         return consultarSocio;
     }
 
+    @Override
+    public List<Socio> obtenerSociosByNombre(String nombre) {
+
+        List<Socio> listaSocios = new ArrayList<>();
+        try {
+            ConexionBd enlace = new ConexionBd();
+            Connection enlaceActivo = enlace.Conectar();
+            String sql = "SELECT * FROM socio WHERE nombre LIKE ?";
+            PreparedStatement lineaParametros = enlaceActivo.prepareStatement(sql);
+
+            // Establecer el parámetro con comodines
+            lineaParametros.setString(1, "%" + nombre + "%");
+            ResultSet resultado = lineaParametros.executeQuery();
+
+            while (resultado.next()) {
+                Socio socio = new Socio();
+                socio.setId_socio(resultado.getInt("id_socio"));
+                socio.setNombre(resultado.getString("nombre"));
+                socio.setApellidos(resultado.getString("apellidos"));
+                socio.setDireccion(resultado.getString("direccion"));
+                socio.setTelefono(resultado.getString("telefono"));
+                socio.setCorreo(resultado.getString("correo"));
+
+                listaSocios.add(socio);
+
+            }
+            enlace.Desconectar();
+        } catch (SQLException e) {
+            System.out.println("No se obtuvo la lista de socios");
+            System.out.println(e);
+        }
+        return listaSocios;
+    }
+
+    public List<Cuenta> obtenerCuentasPorIdSocio(int idSocio) {
+        List<Cuenta> listaCuentas = new ArrayList<>();
+        try {
+            ConexionBd enlace = new ConexionBd();
+            Connection enlaceActivo = enlace.Conectar();
+
+            String sql = "SELECT c.numero_cuenta, c.tasa_interes, c.estatus_cuenta, c.saldo "
+                    + "FROM socio s "
+                    + "JOIN socio_cuenta sc ON s.id_socio = sc.id_socio "
+                    + "JOIN cuenta c ON sc.id_cuenta = c.numero_cuenta "
+                    + "WHERE s.id_socio = ?";
+
+            PreparedStatement lineaParametros = enlaceActivo.prepareStatement(sql);
+            lineaParametros.setInt(1, idSocio);
+
+            ResultSet resultado = lineaParametros.executeQuery();
+            while (resultado.next()) {
+                Cuenta cuenta = new Cuenta();
+                cuenta.setNumeroCuenta(resultado.getInt("numero_cuenta"));
+                cuenta.setTasaInteres(resultado.getFloat("tasa_interes"));
+                cuenta.setEstatusCuenta(resultado.getInt("estatus_cuenta"));
+                cuenta.setSaldo(resultado.getFloat("saldo"));
+                listaCuentas.add(cuenta);
+            }
+
+            enlace.Desconectar();
+        } catch (SQLException e) {
+            System.out.println("SQLException: " + e);
+        }
+        return listaCuentas;
+    }
 }

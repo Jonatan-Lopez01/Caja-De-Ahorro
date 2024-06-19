@@ -4,7 +4,9 @@
  */
 package CajaDeAhorro.dao.Socio;
 
+import CajaDeAhorro.bd.domain.Cuenta;
 import CajaDeAhorro.bd.domain.Socio;
+import CajaDeAhorro.bd.mappers.CuentaConexion;
 import CajaDeAhorro.bd.mappers.SocioConexion;
 import java.util.List;
 
@@ -23,7 +25,7 @@ public class SocioDaoImpl implements SocioDao {
     @Override
     public void actualizarSocio(int id, Socio socio) {
         SocioConexion conexion = new SocioConexion();
-        conexion.actualizarSocio(id,socio);
+        conexion.actualizarSocio(id, socio);
     }
 
     @Override
@@ -49,6 +51,19 @@ public class SocioDaoImpl implements SocioDao {
         SocioConexion conexion = new SocioConexion();
         return conexion.obtenerUltimoSocio();
     }
-    
+
+    @Override
+    public List<Socio> obtenerSociosByNombre(String nombre) {
+        SocioConexion conexion = new SocioConexion();
+        return conexion.obtenerSociosByNombre(nombre);
+    }
+
+    @Override
+    public List<Cuenta> obtenerCuentasPorIdSocio(int idSocio) {
+        List<Cuenta> listaDeCuentas = null;
+        SocioConexion conexion = new SocioConexion();
+        listaDeCuentas = conexion.obtenerCuentasPorIdSocio(idSocio);
+        return listaDeCuentas;
+    }
 
 }

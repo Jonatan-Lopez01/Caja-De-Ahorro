@@ -4,6 +4,7 @@
  */
 package CajaDeAhorro.bd.mappers;
 
+import CajaDeAhorro.bd.domain.Cuenta;
 import CajaDeAhorro.bd.domain.Socio;
 import java.util.List;
 
@@ -28,5 +29,9 @@ public interface SocioInterface {
     List<Socio> obtenerTodosLosSocios();
     
     Socio obtenerUltimoSocio();
+    
+    List<Socio> obtenerSociosByNombre(String nombre);
+    
+    List<Cuenta> obtenerCuentasPorIdSocio(int idSocio);
     
 }

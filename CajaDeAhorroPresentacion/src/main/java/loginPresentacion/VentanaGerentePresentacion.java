@@ -4,10 +4,28 @@
  */
 package loginPresentacion;
 
+import CajaDeAhorro.bd.domain.Cuenta;
+import CajaDeAhorro.bd.domain.Rol;
+import CajaDeAhorro.bd.domain.Socio;
+import CajaDeAhorro.bd.domain.SolicitudPrestamo;
+import CajaDeAhorro.bd.domain.Usuario;
+import CajaDeAhorro.dao.Socio.SocioDaoImpl;
+import CajaDeAhorro.dao.cuenta.CuentaDaoImpl;
+import CajaDeAhorro.dao.rol.RolDaoImpl;
+import CajaDeAhorro.dao.solicitudprestamo.SolicitudPrestamoDaoImpl;
+import CajaDeAhorro.dao.usuario.UsuarioDaoImpl;
+import com.itextpdf.text.BaseColor;
 import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.FileOutputStream;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -140,7 +158,7 @@ public class VentanaGerentePresentacion extends javax.swing.JFrame {
         jButton13.setBackground(new java.awt.Color(131, 46, 5));
         jButton13.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton13.setForeground(new java.awt.Color(255, 255, 255));
-        jButton13.setText("CREAR INFORME GENERAL DE LA BANCA  (CU 21)  JONA");
+        jButton13.setText("CREAR INFORME GENERAL DE LA BANCA");
         jButton13.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -193,7 +211,184 @@ public class VentanaGerentePresentacion extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        // TODO add your handling code here:
+        int respuesta = JOptionPane.showConfirmDialog(null, "¿Realmente deseas generar un reporte de la caja de ahorro?", "Ventana de confirmación", JOptionPane.YES_NO_OPTION);
+        // Procesar la respuesta de la pregunta
+        if (respuesta == JOptionPane.YES_OPTION) {
+            Document reporteGeneral = new Document();
+            Font fuenteAzul = new Font(Font.FontFamily.HELVETICA, 19, Font.NORMAL, BaseColor.BLUE);
+            try {
+                String rutaDeExportacion = System.getProperty("user.home");
+                PdfWriter.getInstance(reporteGeneral, new FileOutputStream(rutaDeExportacion + "/Desktop/Reporte_General.pdf"));
+                reporteGeneral.setMargins(28.35f, 28.35f, 28.35f, 28.35f);
+                reporteGeneral.open();
+
+                //INICIO DE LA TABLA DE USUARIOS----------------------------------------------------------------
+                // Crear el título y agregarlo al documento
+                Paragraph titulo = new Paragraph("Lista de Usuarios de la Caja de Ahorro",fuenteAzul);
+                titulo.setAlignment(Paragraph.ALIGN_CENTER);
+                reporteGeneral.add(titulo);
+
+                // Espacio después del título
+                reporteGeneral.add(new Paragraph(" "));
+
+                // Crear la tabla y agregarla al documento
+                PdfPTable tablaUsuarios = new PdfPTable(5);
+                tablaUsuarios.setWidthPercentage(100);
+                tablaUsuarios.addCell("ID USUARIO");
+                tablaUsuarios.addCell("ID ROL");
+                tablaUsuarios.addCell("NOMBRE DE USUARIO");
+                tablaUsuarios.addCell("CORREO");
+                tablaUsuarios.addCell("CONTRASEÑA");
+
+                UsuarioDaoImpl enlace = new UsuarioDaoImpl();
+                java.util.List<Usuario> listaUsuarios = enlace.obtenerTodosLosUsuarios();
+
+                for (Usuario usuario : listaUsuarios) {
+                    tablaUsuarios.addCell("" + usuario.getIdUsuario());
+                    tablaUsuarios.addCell("" + usuario.getIdRol());
+                    tablaUsuarios.addCell("" + usuario.getNombre());
+                    tablaUsuarios.addCell("" + usuario.getCorreo());
+                    tablaUsuarios.addCell("" + usuario.getContraseña());
+                }
+                reporteGeneral.add(tablaUsuarios);
+                 //FIN DE LA TABLA DE USUARIOS----------------------------------------------------------------
+                
+                 //INICIO DE LA TABLA DE SOCIOS---------------------------------------------------------------
+                reporteGeneral.add(new Paragraph(" "));
+                Paragraph titulo2 = new Paragraph("Lista de Socios de la Caja de Ahorro",fuenteAzul);
+                titulo2.setAlignment(Paragraph.ALIGN_CENTER);
+                reporteGeneral.add(titulo2);
+
+                // Espacio después del título
+                reporteGeneral.add(new Paragraph(" "));
+
+                // Crear la tabla y agregarla al documento
+                PdfPTable tablaSocios = new PdfPTable(6);
+                tablaSocios.setWidthPercentage(100);
+                tablaSocios.addCell("ID SOCIO");
+                tablaSocios.addCell("NOMBRE");
+                tablaSocios.addCell("APELLIDOS");
+                tablaSocios.addCell("DIRECCION");
+                tablaSocios.addCell("TELEFONO");
+                tablaSocios.addCell("CORREO");
+
+                SocioDaoImpl enlace2 = new SocioDaoImpl();
+                java.util.List<Socio> listaSocios = enlace2.obtenerTodosLosSocios();
+
+                for (Socio socio : listaSocios) {
+                    tablaSocios.addCell("" + socio.getId_socio());
+                    tablaSocios.addCell("" + socio.getNombre());
+                    tablaSocios.addCell("" + socio.getApellidos());
+                    tablaSocios.addCell("" + socio.getDireccion());
+                    tablaSocios.addCell("" + socio.getTelefono());
+                    tablaSocios.addCell("" + socio.getCorreo());
+                }
+                reporteGeneral.add(tablaSocios);               
+                 //FIN DE LA TABLA DE SOCIOS------------------------------------------------------------------
+                 
+                 
+                //INICIO DE LA TABLA DE SOLICITUDES DE PRESTAMO---------------------------------------------------------------
+                reporteGeneral.add(new Paragraph(" "));
+                Paragraph titulo3 = new Paragraph("Lista de Solicitudes de Préstamo",fuenteAzul);
+                titulo3.setAlignment(Paragraph.ALIGN_CENTER);
+                reporteGeneral.add(titulo3);
+
+                // Espacio después del título
+                reporteGeneral.add(new Paragraph(" "));
+
+                // Crear la tabla y agregarla al documento
+                PdfPTable tablaSoliPrestamo = new PdfPTable(9);
+                tablaSoliPrestamo.setWidthPercentage(100);
+                tablaSoliPrestamo.addCell("ID SOLICITUD PRESTAMO");
+                tablaSoliPrestamo.addCell("ID SOCIO");
+                tablaSoliPrestamo.addCell("MONTO PRESTADO");
+                tablaSoliPrestamo.addCell("TIPO DE PRESTAMO");
+                tablaSoliPrestamo.addCell("FECHA DE SOLICITUD");
+                tablaSoliPrestamo.addCell("PLAZO");
+                tablaSoliPrestamo.addCell("# DE MONTOS");
+                tablaSoliPrestamo.addCell("DESCRIPCION");
+                tablaSoliPrestamo.addCell("ESTADO");
+
+                SolicitudPrestamoDaoImpl enlace3 = new SolicitudPrestamoDaoImpl();
+                java.util.List<SolicitudPrestamo> listaSolicitudes = enlace3.obtenerTodasLasSolicitudesPrestamo();
+
+                for (SolicitudPrestamo soli : listaSolicitudes) {
+                    tablaSoliPrestamo.addCell("" + soli.getIdSolicitudPrestamo());
+                    tablaSoliPrestamo.addCell("" + soli.getIdSocio());
+                    tablaSoliPrestamo.addCell("" + soli.getMontoPrestado());
+                    tablaSoliPrestamo.addCell("" + soli.getTipoPrestamo());
+                    tablaSoliPrestamo.addCell("" + soli.getFechaSolicitud());
+                    tablaSoliPrestamo.addCell("" + soli.getPlazo());
+                    tablaSoliPrestamo.addCell("" + soli.getNumMontos());
+                    tablaSoliPrestamo.addCell("" + soli.getDescripcion());
+                    tablaSoliPrestamo.addCell("" + soli.getEstado());
+                }
+                reporteGeneral.add(tablaSoliPrestamo);               
+                 //FIN DE LA TABLA DE SOLICITUDES DE PRESTAMO------------------------------------------------------------------
+                 
+                 
+                 //INICIO DE LA TABLA DE ROLES DE LA CAJA DE AHORRO---------------------------------------------------------------
+                reporteGeneral.add(new Paragraph(" "));
+                Paragraph titulo4 = new Paragraph("Lista de Roles en la caja de Ahorro",fuenteAzul);
+                titulo4.setAlignment(Paragraph.ALIGN_CENTER);
+                reporteGeneral.add(titulo4);
+
+                // Espacio después del título
+                reporteGeneral.add(new Paragraph(" "));
+
+                // Crear la tabla y agregarla al documento
+                PdfPTable tablaRoles = new PdfPTable(3);
+                tablaRoles.setWidthPercentage(100);
+                tablaRoles.addCell("ID DEL ROL");
+                tablaRoles.addCell("NOMBRE");
+                tablaRoles.addCell("DESCRIPCION");
+
+                RolDaoImpl enlace4 = new RolDaoImpl();
+                java.util.List<Rol> listaRoles = enlace4.obtenerTodosLosRoles();
+
+                for (Rol rol : listaRoles) {
+                    tablaRoles.addCell("" + rol.getIdRol());
+                    tablaRoles.addCell("" + rol.getNombre());
+                    tablaRoles.addCell("" + rol.getDescripcion());
+                }
+                reporteGeneral.add(tablaRoles);               
+                 //FIN DE LA TABLA DE ROLES DE LA CAJA DE AHORRO------------------------------------------------------------------
+                 
+                 //INICIO DE LA TABLA DE ROLES DE LA CAJA DE AHORRO---------------------------------------------------------------
+                reporteGeneral.add(new Paragraph(" "));
+                Paragraph titulo5 = new Paragraph("Lista de Cuentas Activas en la Caja de Ahorro",fuenteAzul);
+                titulo5.setAlignment(Paragraph.ALIGN_CENTER);
+                reporteGeneral.add(titulo5);
+
+                // Espacio después del título
+                reporteGeneral.add(new Paragraph(" "));
+
+                // Crear la tabla y agregarla al documento
+                PdfPTable tablaCuentas = new PdfPTable(4);
+                tablaCuentas.setWidthPercentage(100);
+                tablaCuentas.addCell("# DE CUENTA");
+                tablaCuentas.addCell("TAZA DE INTERES APLICADO");
+                tablaCuentas.addCell("ESTATUS DE LA CUENTA");
+                tablaCuentas.addCell("SALDO ACTUAL");
+
+                CuentaDaoImpl enlace5 = new CuentaDaoImpl();
+                java.util.List<Cuenta> listaCuentas = enlace5.obtenerTodasLasCuentas();
+
+                for (Cuenta cuenta : listaCuentas) {
+                    tablaCuentas.addCell("" + cuenta.getNumeroCuenta());
+                    tablaCuentas.addCell("" + cuenta.getTasaInteres());
+                    tablaCuentas.addCell("" + cuenta.getEstatusCuenta());
+                    tablaCuentas.addCell("" + cuenta.getSaldo());
+                }
+                reporteGeneral.add(tablaCuentas);               
+                 //FIN DE LA TABLA DE ROLES DE LA CAJA DE AHORRO------------------------------------------------------------------
+                reporteGeneral.close();
+
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+            JOptionPane.showMessageDialog(null, "Reporte Generado Exitosamente", "Ventana de Éxito", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_jButton13ActionPerformed
 
     /**
@@ -233,7 +428,8 @@ public class VentanaGerentePresentacion extends javax.swing.JFrame {
             }
         });
     }
-        private void SetImageLabel(JLabel Nombrelabel, String root) {
+
+    private void SetImageLabel(JLabel Nombrelabel, String root) {
         ImageIcon image = new ImageIcon(root);
         Icon icon = new ImageIcon(image.getImage().getScaledInstance(Nombrelabel.getWidth(), Nombrelabel.getHeight(), Image.SCALE_DEFAULT));
         Nombrelabel.setIcon(icon);
