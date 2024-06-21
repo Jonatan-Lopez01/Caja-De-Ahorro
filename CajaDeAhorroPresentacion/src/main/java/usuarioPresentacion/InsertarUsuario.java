@@ -121,8 +121,6 @@ public class InsertarUsuario extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 110, 40));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Jonatan Eduardo\\Documents\\GitHub\\Caja-De-Ahorro\\CajaDeAhorroPresentacion\\src\\main\\java\\Img\\fondo2.jpg")); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 570, 450));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

@@ -4,13 +4,15 @@
  */
 package loginPresentacion;
 
+import cambiaCuentaPresentacion.cambiaCuentaPresentacion;
+import estadoPrestamoPresentacion.estadoPrestamoPresentacion;
 import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import rolPresentacion.ConfiguracionRol;
 import usuarioPresentacion.ConfiguracionUsuario;
-
+import socioPresentacion.socioPresentacion;
 /**
  *
  * @author Jonatan Eduardo
@@ -196,14 +198,23 @@ public class VentanaAdministradorPresentacion extends javax.swing.JFrame {
 
     private void btnSociosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSociosActionPerformed
         // TODO add your handling code here:
+        socioPresentacion abrir = new socioPresentacion();
+        abrir.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnSociosActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+        cambiaCuentaPresentacion abrir = new cambiaCuentaPresentacion();
+        abrir.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
+        estadoPrestamoPresentacion abrir = new estadoPrestamoPresentacion();
+        abrir.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     /**

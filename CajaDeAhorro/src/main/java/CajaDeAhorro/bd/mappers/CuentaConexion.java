@@ -19,12 +19,14 @@ public class CuentaConexion {
         try {
             ConexionBd enlace = new ConexionBd();
             Connection enlaceActivo = enlace.Conectar();
-            String sql = "INSERT INTO cuenta (tasa_interes, estatus_cuenta, saldo) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO cuenta (tasa_interes, estatus_cuenta, saldo,tipo) VALUES (?, ?, ?,?)";
             PreparedStatement lineaParametros = enlaceActivo.prepareStatement(sql);
 
             lineaParametros.setFloat(1, cuenta.getTasaInteres());
             lineaParametros.setInt(2, cuenta.getEstatusCuenta());
             lineaParametros.setFloat(3, cuenta.getSaldo());
+            lineaParametros.setString(4, cuenta.getTipo());
+            
 
             int flag = lineaParametros.executeUpdate();
             if (flag > 0) {
@@ -42,13 +44,14 @@ public class CuentaConexion {
         try {
             ConexionBd enlace = new ConexionBd();
             Connection enlaceActivo = enlace.Conectar();
-            String sql = "UPDATE cuenta SET tasa_interes = ?, estatus_cuenta = ?, saldo = ? WHERE numero_cuenta = ?";
+            String sql = "UPDATE cuenta SET tasa_interes = ?, estatus_cuenta = ?, saldo = ?, tipo =? WHERE numero_cuenta = ?";
             PreparedStatement lineaParametros = enlaceActivo.prepareStatement(sql);
 
             lineaParametros.setFloat(1, cuenta.getTasaInteres());
             lineaParametros.setInt(2, cuenta.getEstatusCuenta());
             lineaParametros.setFloat(3, cuenta.getSaldo());
-            lineaParametros.setInt(4, numeroCuenta);
+            lineaParametros.setString(4,cuenta.getTipo());
+            lineaParametros.setInt(5, numeroCuenta);
 
             int flag = lineaParametros.executeUpdate();
             if (flag > 0) {
@@ -108,6 +111,7 @@ public class CuentaConexion {
                 cuenta.setTasaInteres(resultado.getFloat("tasa_interes"));
                 cuenta.setEstatusCuenta(resultado.getInt("estatus_cuenta"));
                 cuenta.setSaldo(resultado.getFloat("saldo"));
+                cuenta.setTipo(resultado.getString("tipo"));
             }
             enlace.Desconectar();
         } catch (SQLException e) {
@@ -131,6 +135,8 @@ public class CuentaConexion {
                 cuenta.setTasaInteres(resultado.getFloat("tasa_interes"));
                 cuenta.setEstatusCuenta(resultado.getInt("estatus_cuenta"));
                 cuenta.setSaldo(resultado.getFloat("saldo"));
+                cuenta.setTipo(resultado.getString("tipo"));
+
                 listaCuentas.add(cuenta);
                 }
                 enlace.Desconectar();
@@ -156,6 +162,8 @@ public class CuentaConexion {
                 ultimaCuenta.setTasaInteres(resultado.getFloat("tasa_interes"));
                 ultimaCuenta.setEstatusCuenta(resultado.getInt("estatus_cuenta"));
                 ultimaCuenta.setSaldo(resultado.getFloat("saldo"));
+                ultimaCuenta.setTipo(resultado.getString("tipo"));
+
             }
             System.out.println("Se obtuvo correctamente la última cuenta");
             enlace.Desconectar();

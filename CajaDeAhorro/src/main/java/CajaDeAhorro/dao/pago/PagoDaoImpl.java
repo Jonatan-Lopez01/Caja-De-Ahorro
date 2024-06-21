@@ -6,6 +6,7 @@ package CajaDeAhorro.dao.pago;
 
 import CajaDeAhorro.bd.domain.Pago;
 import CajaDeAhorro.bd.mappers.PagoConexion;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -51,5 +52,8 @@ public class PagoDaoImpl implements PagoDao {
         PagoConexion conexion = new PagoConexion();
         return conexion.obtenerUltimoPago();
     }
-
+    public List<Pago>  pagosRealizadosPorSocio(int idPrestamo,LocalDateTime fecha){
+        PagoConexion conexion = new PagoConexion();
+        return conexion.pagosRealizadosPorSocio(idPrestamo, fecha);
+    }
 }
