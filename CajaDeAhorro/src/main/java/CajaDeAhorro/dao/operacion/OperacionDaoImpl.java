@@ -47,4 +47,14 @@ public class OperacionDaoImpl implements OperacionDao{
         OperacionConexion conexion = new OperacionConexion();
         return conexion.obtenerUltimaOperacion();
     }
+    @Override
+    public void realizarDeposito(int numeroCuenta, double cantidad) {
+        OperacionConexion conexion = new OperacionConexion();
+        conexion.realizarDeposito(numeroCuenta, cantidad);
+    }
+     @Override
+    public void realizarRetiro(int numeroCuenta, double cantidad) {
+        OperacionConexion conexion = new OperacionConexion();
+        conexion.realizarRetiro(numeroCuenta, cantidad);
+    }
 }

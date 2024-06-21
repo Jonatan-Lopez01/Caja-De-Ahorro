@@ -35,4 +35,9 @@ public interface OperacionDao {
     // Este método ordena las operaciones de forma ascendente y toma el id_operacion mayor del ordenamiento
     // Esto se debe a que en la base de datos el id_operacion es autoincrementable
     Operacion obtenerUltimaOperacion();
+    
+    void realizarDeposito(int numeroCuenta, double cantidad);
+    
+    void realizarRetiro(int numeroCuenta, double cantidad);
+    
 }

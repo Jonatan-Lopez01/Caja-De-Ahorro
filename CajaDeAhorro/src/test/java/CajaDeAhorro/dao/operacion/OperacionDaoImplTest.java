@@ -1,12 +1,17 @@
 package CajaDeAhorro.dao.operacion;
 
+import CajaDeAhorro.bd.domain.Cuenta;
 import CajaDeAhorro.bd.domain.Operacion;
+import CajaDeAhorro.bd.mappers.CuentaConexion;
 import java.util.List;
+import org.junit.After;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
 
 public class OperacionDaoImplTest {
+    private OperacionDaoImpl operacionDao;  // Variable operacionDao declarada aquí
+    private CuentaConexion cuentaConexion;
 
     public OperacionDaoImplTest() {
     }
@@ -148,4 +153,82 @@ public class OperacionDaoImplTest {
         System.out.println("Número de Cuenta: " + operacionDeLaBaseDeDatos.getNumeroCuenta());
         System.out.println("Nombre: " + operacionDeLaBaseDeDatos.getNombre());
     }
+    
+ @Before
+    public void setUp() {
+        operacionDao = new OperacionDaoImpl();
+        cuentaConexion = new CuentaConexion();
+    }
+
+   @After
+    public void tearDown() {
+        operacionDao = null;
+        cuentaConexion = null;
+    }
+
+    @Test
+    public void testRealizarDeposito() {
+        int numeroCuenta = 1; // Número de cuenta en la que se realizará el depósito
+        double cantidad = 100.0; // Cantidad a depositar
+
+        // Obtener la cuenta antes del depósito
+        Cuenta cuentaAntes = cuentaConexion.obtenerCuentaPorNumero(numeroCuenta);
+        double saldoAntes = cuentaAntes.getSaldo();
+
+        // Realizar el depósito
+        operacionDao.realizarDeposito(numeroCuenta, cantidad);
+
+        // Obtener la cuenta después del depósito
+        Cuenta cuentaDespues = cuentaConexion.obtenerCuentaPorNumero(numeroCuenta);
+        double saldoDespues = cuentaDespues.getSaldo();
+
+        // Verificar que el saldo se haya actualizado correctamente
+        assertEquals("El saldo después del depósito no coincide", saldoAntes + cantidad, saldoDespues, 0.001);
+
+        // Obtener la última operación de depósito realizada en la cuenta
+        Operacion ultimaOperacionDeposito = operacionDao.obtenerUltimaOperacion();
+
+        // Verificar que la operación de depósito se haya registrado correctamente
+        assertNotNull("Fallo: La operación de depósito es nula", ultimaOperacionDeposito);
+        assertEquals("El número de cuenta no coincide", numeroCuenta, ultimaOperacionDeposito.getNumeroCuenta());
+        assertEquals("El nombre de la operación no coincide", "Deposito", ultimaOperacionDeposito.getNombre());
+
+        // Mostrar los detalles de la última operación de depósito en consola
+        System.out.println("\nDetalles de la última operación de depósito:\n");
+        System.out.println("ID de la operación: " + ultimaOperacionDeposito.getIdOperacion());
+        System.out.println("Número de cuenta: " + ultimaOperacionDeposito.getNumeroCuenta());
+        System.out.println("Nombre de la operación: " + ultimaOperacionDeposito.getNombre());
+    }
+    
+    @Test
+    public void testRealizarRetiro() {
+        int numeroCuenta = 1;
+        double cantidad = 50.0;
+
+        Cuenta cuentaAntes = cuentaConexion.obtenerCuentaPorNumero(numeroCuenta);
+        double saldoAntes = cuentaAntes.getSaldo();
+
+        if (saldoAntes >= cantidad) {
+            operacionDao.realizarRetiro(numeroCuenta, cantidad);
+
+            Cuenta cuentaDespues = cuentaConexion.obtenerCuentaPorNumero(numeroCuenta);
+            double saldoDespues = cuentaDespues.getSaldo();
+
+            assertEquals("El saldo después del retiro no coincide", saldoAntes - cantidad, saldoDespues, 0.001);
+
+            Operacion ultimaOperacionRetiro = operacionDao.obtenerUltimaOperacion();
+
+            assertNotNull("Fallo: La operación de retiro es nula", ultimaOperacionRetiro);
+            assertEquals("El número de cuenta no coincide", numeroCuenta, ultimaOperacionRetiro.getNumeroCuenta());
+            assertEquals("El nombre de la operación no coincide", "Retiro", ultimaOperacionRetiro.getNombre());
+
+            System.out.println("\nDetalles de la última operación de retiro:\n");
+            System.out.println("ID de la operación: " + ultimaOperacionRetiro.getIdOperacion());
+            System.out.println("Número de cuenta: " + ultimaOperacionRetiro.getNumeroCuenta());
+            System.out.println("Nombre de la operación: " + ultimaOperacionRetiro.getNombre());
+        } else {
+            System.out.println("Saldo insuficiente para realizar el retiro.");
+        }
+    }
+
 }

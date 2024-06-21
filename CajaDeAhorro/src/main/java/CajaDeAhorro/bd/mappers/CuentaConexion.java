@@ -165,4 +165,28 @@ public class CuentaConexion {
         }
         return ultimaCuenta;
     }
+    
+    public double obtenerSaldo(int numeroCuenta) {
+        double saldo = 0.0;
+        try {
+            ConexionBd enlace = new ConexionBd();
+            Connection conexion = enlace.Conectar();
+            
+            String sql = "SELECT saldo FROM cuenta WHERE numero_cuenta = ?";
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, numeroCuenta);
+            
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                saldo = rs.getDouble("saldo");
+            } else {
+                System.out.println("No se encontró la cuenta con número de cuenta: " + numeroCuenta);
+            }
+            
+            enlace.Desconectar();
+        } catch (SQLException e) {
+            System.out.println("Error al obtener el saldo: " + e);
+        }
+        return saldo;
+    }
 }
