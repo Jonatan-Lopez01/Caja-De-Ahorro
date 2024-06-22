@@ -4,11 +4,32 @@
  */
 package cuentasLiquidadasPresentacion;
 
+import CajaDeAhorro.bd.domain.Cuenta;
+import CajaDeAhorro.bd.domain.CuentasLiquidadas;
+import CajaDeAhorro.bd.domain.Socio;
+import CajaDeAhorro.dao.Socio.SocioDaoImpl;
+import CajaDeAhorro.dao.cuenta.CuentaDaoImpl;
+import CajaDeAhorro.dao.cuentas_Liquidadas.CuentasLiquidadasDaoImpl;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Jonatan Eduardo
  */
 public class VentanaConfirmacionPrestamo extends javax.swing.JFrame {
+    private int numeroCuenta;
+    private int id_del_socio;
+    
+    private String tipoLiquidez = "Transferencia";
+    public void setNumeroCuenta(int numero_cuenta)
+    {
+        this.numeroCuenta= numero_cuenta;
+    }
+    
+    public void setIdDelSocio(int idsocioo)
+    {
+        this.id_del_socio= idsocioo;
+    }
 
     /**
      * Creates new form VentanaConfirmacionPrestamo
@@ -33,7 +54,7 @@ public class VentanaConfirmacionPrestamo extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         filtro = new javax.swing.JComboBox<>();
         jLabel12 = new javax.swing.JLabel();
-        txtIdUsuario = new javax.swing.JTextField();
+        txtFolio = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
         btnEliminar1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -69,8 +90,8 @@ public class VentanaConfirmacionPrestamo extends javax.swing.JFrame {
         jLabel12.setText("Seleccione el modo de liquidez:");
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
 
-        txtIdUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel1.add(txtIdUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 310, 30));
+        txtFolio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel1.add(txtFolio, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 310, 30));
 
         jButton3.setBackground(new java.awt.Color(131, 46, 5));
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -94,7 +115,7 @@ public class VentanaConfirmacionPrestamo extends javax.swing.JFrame {
                 btnEliminar1ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnEliminar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 300, 230, 70));
+        jPanel1.add(btnEliminar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, 260, 70));
 
         jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\Jonatan Eduardo\\Documents\\GitHub\\Caja-De-Ahorro\\CajaDeAhorroPresentacion\\src\\main\\java\\Img\\palomita.png")); // NOI18N
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 100, 350, 320));
@@ -121,15 +142,38 @@ public class VentanaConfirmacionPrestamo extends javax.swing.JFrame {
     }//GEN-LAST:event_filtroMouseClicked
 
     private void filtroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtroActionPerformed
-
+        tipoLiquidez = (String) filtro.getSelectedItem();
+        System.out.println(tipoLiquidez);
     }//GEN-LAST:event_filtroActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        VentanaLiquidarPrestamo abrir = new VentanaLiquidarPrestamo();
+        abrir.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void btnEliminar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminar1ActionPerformed
+        if(txtFolio.getText().equalsIgnoreCase(""))
+        {
+            JOptionPane.showMessageDialog(this, "El campo de Folio es obligatorio", "Error al Liquidar", JOptionPane.ERROR_MESSAGE);
+        }else
+        {
+            CuentaDaoImpl enlace = new CuentaDaoImpl();
+            Cuenta cuentaEliminada = new Cuenta();
+            cuentaEliminada= enlace.eliminarCuenta(this.numeroCuenta);
+            
+            CuentasLiquidadas cuentaLiqui= new CuentasLiquidadas();
+            cuentaLiqui.setNumero_cuenta(numeroCuenta);
+            cuentaLiqui.setFolio_pago_liquidez(txtFolio.getText());
+            cuentaLiqui.setTipo_liquidez(tipoLiquidez);
+            cuentaLiqui.setIdSocio(id_del_socio);
 
+            
+            CuentasLiquidadasDaoImpl enlace2 = new CuentasLiquidadasDaoImpl();
+            enlace2.crearCuentaLiquidada(cuentaLiqui);
+            JOptionPane.showMessageDialog(this, "Cuenta liquidada Correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_btnEliminar1ActionPerformed
 
     /**
@@ -176,6 +220,6 @@ public class VentanaConfirmacionPrestamo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txtIdUsuario;
+    private javax.swing.JTextField txtFolio;
     // End of variables declaration//GEN-END:variables
 }

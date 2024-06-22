@@ -23,7 +23,7 @@ public class TransaccionDaoImplTest {
     public void testCrearTransaccion() {
         // Crear una nueva transacción localmente
         Transaccion nuevaTransaccion = new Transaccion();
-        nuevaTransaccion.setIdOperacion(1);
+        nuevaTransaccion.setIdOperacion(2);
         nuevaTransaccion.setMonto(100.0);
         nuevaTransaccion.setFecha("2024-05-28");
 
@@ -46,7 +46,7 @@ public class TransaccionDaoImplTest {
 
     @Test
     public void testObtenerTransaccionPorId() {
-        int idTransaccion = 1; // ID de la transacción a buscar
+        int idTransaccion = 120; // ID de la transacción a buscar
         System.out.println("Buscando la transacción con ID = " + idTransaccion + "\n");
 
         // Instanciar la clase TransaccionConexion
@@ -121,11 +121,11 @@ public class TransaccionDaoImplTest {
 
     @Test
     public void testActualizarTransaccion() {
-        int idTransaccion = 2; // ID de la transacción a actualizar
+        int idTransaccion = 120; // ID de la transacción a actualizar
 
         // Crear una nueva transacción localmente con cambios simulados
         Transaccion transaccionLocal = new Transaccion();
-        transaccionLocal.setIdOperacion(3);
+        transaccionLocal.setIdOperacion(7);
         transaccionLocal.setMonto(500.0);
         transaccionLocal.setFecha("2024-05-29");
 

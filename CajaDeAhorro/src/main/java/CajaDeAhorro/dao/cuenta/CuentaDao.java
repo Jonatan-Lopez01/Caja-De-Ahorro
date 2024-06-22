@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package CajaDeAhorro.dao.cuenta;
 
 import CajaDeAhorro.bd.domain.Cuenta;
@@ -30,4 +26,5 @@ public interface CuentaDao {
      // Método para obtener la última cuenta creada
     Cuenta obtenerUltimaCuenta();
     
+    List<Object[]> obtenerTransaccionesPorNumeroCuenta(int numeroCuenta);
 }

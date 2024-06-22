@@ -148,6 +148,11 @@ public class ConfiguracionRol extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tablaRoles);
+        if (tablaRoles.getColumnModel().getColumnCount() > 0) {
+            tablaRoles.getColumnModel().getColumn(0).setResizable(false);
+            tablaRoles.getColumnModel().getColumn(1).setResizable(false);
+            tablaRoles.getColumnModel().getColumn(2).setResizable(false);
+        }
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 230, 430, 250));
 
@@ -401,6 +406,14 @@ public class ConfiguracionRol extends javax.swing.JFrame {
 
     private void btnEliminar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminar1ActionPerformed
         // TODO add your handling code here:
+        RolDaoImpl enlace = new RolDaoImpl();
+        Rol roleliminado = new Rol();
+        
+        roleliminado = enlace.eliminarRol(Integer.parseInt(txtIdRol.getText()));
+        
+        JOptionPane.showMessageDialog(this, "Rol eliminado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        cargarlistaRoles();
+        limpiar();
     }//GEN-LAST:event_btnEliminar1ActionPerformed
 
     /**

@@ -57,5 +57,13 @@ public class CuentasLiquidadasDaoImpl implements CuentasLiquidadasDao {
         ultimaCuentaLiquidada = conexion.obtenerUltimaCuentaLiquidada();
         return ultimaCuentaLiquidada;
     }
+    @Override
+    public List<CuentasLiquidadas> obteneCuentasLiquidadasByIdSocio(int idSocio)
+    {
+        List<CuentasLiquidadas> listaCuentasLiquidadas;
+        CuentasLiquidadasConexion conexion = new CuentasLiquidadasConexion();
+        listaCuentasLiquidadas = conexion.obteneCuentasLiquidadasByIdSocio(idSocio);
+        return listaCuentasLiquidadas;
+    }
 
 }

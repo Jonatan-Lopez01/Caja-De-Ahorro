@@ -5,9 +5,11 @@
 package cuentasLiquidadasPresentacion;
 
 import CajaDeAhorro.bd.domain.Cuenta;
+import CajaDeAhorro.bd.domain.CuentasLiquidadas;
 import CajaDeAhorro.bd.domain.Socio;
 import CajaDeAhorro.dao.Socio.SocioDaoImpl;
 import CajaDeAhorro.dao.cuenta.CuentaDaoImpl;
+import CajaDeAhorro.dao.cuentas_Liquidadas.CuentasLiquidadasDaoImpl;
 import CajaDeAhorro.dao.usuario.UsuarioDaoImpl;
 import loginPresentacion.*;
 import java.awt.Image;
@@ -66,7 +68,7 @@ public class VentanaLiquidarPrestamo extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         txtApellidos = new javax.swing.JTextField();
-        txtNombre2y = new javax.swing.JTextField();
+        txtSaldo = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaSocios = new javax.swing.JTable();
@@ -75,9 +77,12 @@ public class VentanaLiquidarPrestamo extends javax.swing.JFrame {
         btnBuscar1 = new javax.swing.JButton();
         txtNombre = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        y = new javax.swing.JTextField();
+        txtNumeroCuenta = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         btnEliminar2 = new javax.swing.JButton();
+        btnBuscarCuentas1 = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tablaLiquidez = new javax.swing.JTable();
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -134,7 +139,7 @@ public class VentanaLiquidarPrestamo extends javax.swing.JFrame {
                 btnBuscarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 520, 300, 50));
+        jPanel1.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 330, 300, 50));
 
         btnBuscarCuentas.setBackground(new java.awt.Color(7, 58, 33));
         btnBuscarCuentas.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -146,16 +151,24 @@ public class VentanaLiquidarPrestamo extends javax.swing.JFrame {
                 btnBuscarCuentasActionPerformed(evt);
             }
         });
-        jPanel1.add(btnBuscarCuentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 150, 580, 30));
+        jPanel1.add(btnBuscarCuentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 80, 580, 30));
 
         tablaCuentas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Número de Cuenta", "Taza de Interés", "Estatus de la Cuenta", "Saldo"
+                "Número de Cuenta", "Taza de Interés", "Estatus de la Cuenta", ""
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tablaCuentas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tablaCuentas.setSelectionBackground(new java.awt.Color(153, 51, 0));
         tablaCuentas.getTableHeader().setResizingAllowed(false);
@@ -166,8 +179,14 @@ public class VentanaLiquidarPrestamo extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tablaCuentas);
+        if (tablaCuentas.getColumnModel().getColumnCount() > 0) {
+            tablaCuentas.getColumnModel().getColumn(0).setResizable(false);
+            tablaCuentas.getColumnModel().getColumn(1).setResizable(false);
+            tablaCuentas.getColumnModel().getColumn(2).setResizable(false);
+            tablaCuentas.getColumnModel().getColumn(3).setResizable(false);
+        }
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 180, 580, 260));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 110, 580, 160));
         jPanel1.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 590, 270, -1));
         jPanel1.add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 540, 270, -1));
 
@@ -177,7 +196,7 @@ public class VentanaLiquidarPrestamo extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Saldo:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 460, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 270, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -200,7 +219,7 @@ public class VentanaLiquidarPrestamo extends javax.swing.JFrame {
         jLabel9.setText("Teléfono:");
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 570, -1, -1));
         jPanel1.add(txtApellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, 270, -1));
-        jPanel1.add(txtNombre2y, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 480, 270, -1));
+        jPanel1.add(txtSaldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 290, 270, -1));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -214,7 +233,15 @@ public class VentanaLiquidarPrestamo extends javax.swing.JFrame {
             new String [] {
                 "ID Socio", "Nombre", "Apellidos", "Dirección", "Teléfono", "Correo"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tablaSocios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tablaSocios.setSelectionBackground(new java.awt.Color(153, 51, 0));
         tablaSocios.getTableHeader().setResizingAllowed(false);
@@ -226,6 +253,11 @@ public class VentanaLiquidarPrestamo extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tablaSocios);
         if (tablaSocios.getColumnModel().getColumnCount() > 0) {
+            tablaSocios.getColumnModel().getColumn(0).setResizable(false);
+            tablaSocios.getColumnModel().getColumn(1).setResizable(false);
+            tablaSocios.getColumnModel().getColumn(2).setResizable(false);
+            tablaSocios.getColumnModel().getColumn(3).setResizable(false);
+            tablaSocios.getColumnModel().getColumn(4).setResizable(false);
             tablaSocios.getColumnModel().getColumn(5).setResizable(false);
         }
 
@@ -257,12 +289,12 @@ public class VentanaLiquidarPrestamo extends javax.swing.JFrame {
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setText("Nombre:");
         jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, -1, -1));
-        jPanel1.add(y, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 480, 270, -1));
+        jPanel1.add(txtNumeroCuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 290, 270, -1));
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setText("Número de Cuenta: ");
-        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 460, -1, -1));
+        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 270, -1, -1));
 
         btnEliminar2.setBackground(new java.awt.Color(7, 58, 33));
         btnEliminar2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -275,6 +307,52 @@ public class VentanaLiquidarPrestamo extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnEliminar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 400, 30));
+
+        btnBuscarCuentas1.setBackground(new java.awt.Color(7, 58, 33));
+        btnBuscarCuentas1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnBuscarCuentas1.setForeground(new java.awt.Color(255, 255, 255));
+        btnBuscarCuentas1.setText("Obtener cuentas liquidadas del socio");
+        btnBuscarCuentas1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBuscarCuentas1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarCuentas1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnBuscarCuentas1, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 430, 580, 30));
+
+        tablaLiquidez.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Número de Cuenta", "Tipo de Liquidez", "Folio de Pago"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tablaLiquidez.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tablaLiquidez.setSelectionBackground(new java.awt.Color(153, 51, 0));
+        tablaLiquidez.getTableHeader().setResizingAllowed(false);
+        tablaLiquidez.getTableHeader().setReorderingAllowed(false);
+        tablaLiquidez.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaLiquidezMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(tablaLiquidez);
+        if (tablaLiquidez.getColumnModel().getColumnCount() > 0) {
+            tablaLiquidez.getColumnModel().getColumn(0).setResizable(false);
+            tablaLiquidez.getColumnModel().getColumn(1).setResizable(false);
+            tablaLiquidez.getColumnModel().getColumn(2).setResizable(false);
+        }
+
+        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 460, 580, 170));
 
         fondo.setIcon(new javax.swing.ImageIcon("C:\\Users\\Jonatan Eduardo\\Documents\\GitHub\\Caja-De-Ahorro\\CajaDeAhorroPresentacion\\src\\main\\java\\Img\\fondo2.jpg")); // NOI18N
         jPanel1.add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1250, 680));
@@ -314,7 +392,11 @@ public class VentanaLiquidarPrestamo extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBuscarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-
+        VentanaConfirmacionPrestamo abrir = new VentanaConfirmacionPrestamo();
+        abrir.setVisible(true);
+        abrir.setNumeroCuenta(Integer.parseInt(txtNumeroCuenta.getText()));
+        abrir.setIdDelSocio(Integer.parseInt(txtIdSocio.getText()));
+        this.setVisible(false);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnBuscarCuentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarCuentasActionPerformed
@@ -337,7 +419,18 @@ public class VentanaLiquidarPrestamo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarCuentasActionPerformed
 
     private void tablaCuentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaCuentasMouseClicked
+        int filaSeleccionada = tablaCuentas.getSelectedRow();
 
+        // Verificar que la fila seleccionada sea válida
+        if (filaSeleccionada != -1) {
+            // Obtener los valores de las celdas de la fila seleccionada
+            Object numeroCuenta = tablaCuentas.getValueAt(filaSeleccionada, 0);
+            Object saldo = tablaCuentas.getValueAt(filaSeleccionada, 3);
+
+            // Mostrar los valores en los JTextField correspondientes
+            txtNumeroCuenta.setText(numeroCuenta.toString());
+            txtSaldo.setText(saldo.toString());
+        }
     }//GEN-LAST:event_tablaCuentasMouseClicked
 
     private void tablaSociosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaSociosMouseClicked
@@ -407,6 +500,21 @@ public class VentanaLiquidarPrestamo extends javax.swing.JFrame {
         cargarListaSocios();
     }//GEN-LAST:event_btnEliminar2ActionPerformed
 
+    private void btnBuscarCuentas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarCuentas1ActionPerformed
+        // TODO add your handling code here:
+        if(txtIdSocio.getText().equalsIgnoreCase(""))
+        {
+            JOptionPane.showMessageDialog(this, "Seleccione un elemento de la tabla", "Error al buscar", JOptionPane.ERROR_MESSAGE);
+        }else
+        {
+            cargarListaCuentasLiquidadas(Integer.parseInt(txtIdSocio.getText()));
+        }
+    }//GEN-LAST:event_btnBuscarCuentas1ActionPerformed
+
+    private void tablaLiquidezMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaLiquidezMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tablaLiquidezMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -469,12 +577,27 @@ public class VentanaLiquidarPrestamo extends javax.swing.JFrame {
         }
         tablaSocios.setModel(modeloTabla);
     }
+    public void cargarListaCuentasLiquidadas(int idSocio)
+    {
+        CuentasLiquidadasDaoImpl enlace = new CuentasLiquidadasDaoImpl();
+        java.util.List<CuentasLiquidadas> listaCuentasLiqui = enlace.obteneCuentasLiquidadasByIdSocio(idSocio);
 
+        DefaultTableModel modeloTabla = new DefaultTableModel();
+        modeloTabla.addColumn("Número de Cuenta");
+        modeloTabla.addColumn("Tipo de Liquidez");
+        modeloTabla.addColumn("Folio de Pago");
+        
+        for (CuentasLiquidadas cuenta : listaCuentasLiqui) {
+            modeloTabla.addRow(new Object[]{cuenta.getNumero_cuenta(), cuenta.getTipo_liquidez(), cuenta.getFolio_pago_liquidez()});
+        }
+        tablaLiquidez.setModel(modeloTabla);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnBuscar1;
     private javax.swing.JButton btnBuscarCuentas;
+    private javax.swing.JButton btnBuscarCuentas1;
     private javax.swing.JButton btnEliminar2;
     private javax.swing.JComboBox<String> filtro;
     private javax.swing.JLabel fondo;
@@ -493,7 +616,9 @@ public class VentanaLiquidarPrestamo extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable tablaCuentas;
+    private javax.swing.JTable tablaLiquidez;
     private javax.swing.JTable tablaSocios;
     private javax.swing.JTextField txtApellidos;
     private javax.swing.JTextField txtBuscar;
@@ -501,8 +626,8 @@ public class VentanaLiquidarPrestamo extends javax.swing.JFrame {
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtIdSocio;
     private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtNombre2y;
+    private javax.swing.JTextField txtNumeroCuenta;
+    private javax.swing.JTextField txtSaldo;
     private javax.swing.JTextField txtTelefono;
-    private javax.swing.JTextField y;
     // End of variables declaration//GEN-END:variables
 }

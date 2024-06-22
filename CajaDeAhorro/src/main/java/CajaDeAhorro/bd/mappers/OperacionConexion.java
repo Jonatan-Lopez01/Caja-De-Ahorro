@@ -9,8 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Clase que implementa la interfaz OperacionInterface para realizar operaciones CRUD en la tabla de operaciones de la base de datos.
- * 
+ * Clase que implementa la interfaz OperacionInterface para realizar operaciones
+ * CRUD en la tabla de operaciones de la base de datos.
+ *
  * @author Ramses
  */
 public class OperacionConexion implements OperacionInterface {
@@ -163,5 +164,102 @@ public class OperacionConexion implements OperacionInterface {
             System.out.println(e);
         }
         return consultarOperacion;
+    }
+
+    @Override
+    public void realizarDeposito(int numeroCuenta, double cantidad) {
+        try {
+            CuentaConexion cuentaConexion = new CuentaConexion();
+            double saldoAntes = cuentaConexion.obtenerSaldo(numeroCuenta);
+
+            if (saldoAntes == 0.0) {
+                System.out.println("No se encontró la cuenta con número de cuenta: " + numeroCuenta);
+                return;
+            }
+
+            // Continuar con el depósito
+            ConexionBd enlace = new ConexionBd();
+            Connection conexion = enlace.Conectar();
+
+            double nuevoSaldo = saldoAntes + cantidad;
+
+            String sqlActualizarSaldo = "UPDATE cuenta SET saldo = ? WHERE numero_cuenta = ?";
+            PreparedStatement psActualizarSaldo = conexion.prepareStatement(sqlActualizarSaldo);
+            psActualizarSaldo.setDouble(1, nuevoSaldo);
+            psActualizarSaldo.setInt(2, numeroCuenta);
+            psActualizarSaldo.executeUpdate();
+
+            // Registrar la operación de depósito
+            String sqlInsertarOperacion = "INSERT INTO operacion (numero_cuenta, nombre) VALUES (?, ?)";
+            PreparedStatement psInsertarOperacion = conexion.prepareStatement(sqlInsertarOperacion);
+            psInsertarOperacion.setInt(1, numeroCuenta);
+            psInsertarOperacion.setString(2, "Deposito");
+            psInsertarOperacion.executeUpdate();
+
+            System.out.println("Depósito realizado correctamente.");
+
+            // Desconectar la conexión
+            enlace.Desconectar();
+
+            // Obtener el saldo después del depósito
+            double saldoDespues = cuentaConexion.obtenerSaldo(numeroCuenta);
+            System.out.println("Saldo antes del depósito: " + saldoAntes);
+            System.out.println("Saldo después del depósito: " + saldoDespues);
+
+        } catch (SQLException e) {
+            System.out.println("Error al realizar el depósito: " + e);
+        }
+    }
+
+    @Override
+    public boolean realizarRetiro(int numeroCuenta, double cantidad) {
+        try {
+            CuentaConexion cuentaConexion = new CuentaConexion();
+            double saldoAntes = cuentaConexion.obtenerSaldo(numeroCuenta);
+
+            if (saldoAntes == 0.0) {
+                System.out.println("No se encontró la cuenta con número de cuenta: " + numeroCuenta);
+                return false;
+            }
+
+            if (saldoAntes < cantidad) {
+                System.out.println("Saldo insuficiente para realizar el retiro.");
+                return false;
+            }
+
+            // Continuar con el retiro
+            ConexionBd enlace = new ConexionBd();
+            Connection conexion = enlace.Conectar();
+
+            double nuevoSaldo = saldoAntes - cantidad;
+
+            String sqlActualizarSaldo = "UPDATE cuenta SET saldo = ? WHERE numero_cuenta = ?";
+            PreparedStatement psActualizarSaldo = conexion.prepareStatement(sqlActualizarSaldo);
+            psActualizarSaldo.setDouble(1, nuevoSaldo);
+            psActualizarSaldo.setInt(2, numeroCuenta);
+            psActualizarSaldo.executeUpdate();
+
+            // Registrar la operación de retiro
+            String sqlInsertarOperacion = "INSERT INTO operacion (numero_cuenta, nombre) VALUES (?, ?)";
+            PreparedStatement psInsertarOperacion = conexion.prepareStatement(sqlInsertarOperacion);
+            psInsertarOperacion.setInt(1, numeroCuenta);
+            psInsertarOperacion.setString(2, "Retiro");
+            psInsertarOperacion.executeUpdate();
+
+            System.out.println("Retiro realizado correctamente.");
+
+            // Desconectar la conexión
+            enlace.Desconectar();
+
+            // Obtener el saldo después del retiro
+            double saldoDespues = cuentaConexion.obtenerSaldo(numeroCuenta);
+            System.out.println("Saldo antes del retiro: " + saldoAntes);
+            System.out.println("Saldo después del retiro: " + saldoDespues);
+
+            return true; // Retiro exitoso
+        } catch (SQLException e) {
+            System.out.println("Error al realizar el retiro: " + e);
+            return false; // Error al realizar el retiro
+        }
     }
 }

@@ -1,5 +1,3 @@
-package CajaDeAhorro.bd.mappers;
-
 import CajaDeAhorro.bd.domain.Cuenta;
 import java.util.List;
 
@@ -25,4 +23,6 @@ public interface CuentaInterface {
     List<Cuenta> obtenerTodasLasCuentas();
     
     Cuenta obtenerUltimaCuenta();
+    
+    List<Object[]> obtenerTransaccionesPorNumeroCuenta(int numeroCuenta);
 }

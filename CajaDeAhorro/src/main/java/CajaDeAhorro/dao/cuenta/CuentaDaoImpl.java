@@ -1,4 +1,4 @@
-package CajaDeAhorro.dao.cuenta;
+ package CajaDeAhorro.dao.cuenta;
 
 import CajaDeAhorro.bd.domain.Cuenta;
 import CajaDeAhorro.bd.mappers.CuentaConexion;
@@ -52,6 +52,12 @@ public class CuentaDaoImpl implements CuentaDao {
         CuentaConexion conexion = new CuentaConexion();
         ultimaCuenta = conexion.obtenerUltimaCuenta();
         return ultimaCuenta;
+    }
+    
+    @Override
+    public List<Object[]> obtenerTransaccionesPorNumeroCuenta(int numeroCuenta) {
+        CuentaConexion conexion = new CuentaConexion();
+        return conexion.obtenerTransaccionesPorNumeroCuenta(numeroCuenta);
     }
 
 }

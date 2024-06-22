@@ -4,11 +4,15 @@
  */
 package loginPresentacion;
 
+import cambiaCuentaPresentacion.cambiaCuentaPresentacion;
+import cuentaPresentacion.VentanaCuenta;
+import estadoPrestamoPresentacion.estadoPrestamoPresentacion;
 import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import rolPresentacion.ConfiguracionRol;
+import socioPresentacion.socioPresentacion;
 import usuarioPresentacion.ConfiguracionUsuario;
 
 /**
@@ -26,7 +30,7 @@ public class VentanaAdministradorPresentacion extends javax.swing.JFrame {
         setLocationRelativeTo(null); // Centra la ventana en la pantalla
         setResizable(false); // Hace que el tamaño de la ventana sea fijo
         SetImageLabel(bienvenida, "src/main/java/Img/bienvenida2.jpg");//para autopajustar laimagen al labael
-        
+
     }
 
     /**
@@ -42,13 +46,13 @@ public class VentanaAdministradorPresentacion extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         bienvenida = new javax.swing.JLabel();
         btnRegresar = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
         btnUsuarios = new javax.swing.JButton();
         btnRoles = new javax.swing.JButton();
         btnSocios = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        btnSocios1 = new javax.swing.JButton();
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -73,18 +77,6 @@ public class VentanaAdministradorPresentacion extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 130, 40));
-
-        jButton4.setBackground(new java.awt.Color(131, 46, 5));
-        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("TAZA DE INTERESES DE AHORRO  (CU 15) GIZZ");
-        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 420, 410, 50));
 
         btnUsuarios.setBackground(new java.awt.Color(131, 46, 5));
         btnUsuarios.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -113,14 +105,14 @@ public class VentanaAdministradorPresentacion extends javax.swing.JFrame {
         btnSocios.setBackground(new java.awt.Color(131, 46, 5));
         btnSocios.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnSocios.setForeground(new java.awt.Color(255, 255, 255));
-        btnSocios.setText("PANEL DE SOCIOS  (CU 1,2,3) KEVIN");
+        btnSocios.setText("PANEL DE CUENTAS");
         btnSocios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSocios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSociosActionPerformed(evt);
             }
         });
-        jPanel1.add(btnSocios, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 270, 410, 50));
+        jPanel1.add(btnSocios, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 320, 410, 50));
 
         jLabel10.setFont(new java.awt.Font("Eras Demi ITC", 1, 36)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -130,26 +122,38 @@ public class VentanaAdministradorPresentacion extends javax.swing.JFrame {
         jButton5.setBackground(new java.awt.Color(131, 46, 5));
         jButton5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setText("CAMBIO DE TIPO DE CUENTA DE AHORRO  (CU 14) KEVIN");
+        jButton5.setText("CAMBIO DE TIPO DE CUENTA DE AHORRO");
         jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 320, 410, 50));
+        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 370, 410, 50));
 
         jButton6.setBackground(new java.awt.Color(131, 46, 5));
         jButton6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setText("REGISTRO DE PAGOS Y SALDO PENDIENTE  (CU 21) KEVIN");
+        jButton6.setText("TABLA DE PAGOS Y SALDO PENDIENTE");
         jButton6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 370, 410, 50));
+        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 420, 410, 50));
+
+        btnSocios1.setBackground(new java.awt.Color(131, 46, 5));
+        btnSocios1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnSocios1.setForeground(new java.awt.Color(255, 255, 255));
+        btnSocios1.setText("PANEL DE SOCIOS ");
+        btnSocios1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSocios1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSocios1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnSocios1, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 270, 410, 50));
 
         fondo.setIcon(new javax.swing.ImageIcon("C:\\Users\\Jonatan Eduardo\\Documents\\GitHub\\Caja-De-Ahorro\\CajaDeAhorroPresentacion\\src\\main\\java\\Img\\fondo2.jpg")); // NOI18N
         fondo.setText("Admin");
@@ -176,10 +180,6 @@ public class VentanaAdministradorPresentacion extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnRegresarActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
-
     private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
         // TODO add your handling code here:
         ConfiguracionUsuario abrir = new ConfiguracionUsuario();
@@ -195,16 +195,32 @@ public class VentanaAdministradorPresentacion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRolesActionPerformed
 
     private void btnSociosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSociosActionPerformed
-        // TODO add your handling code here:
+       VentanaCuenta abrir =  new VentanaCuenta();
+       abrir.setVisible(true);
+       this.setVisible(false);
     }//GEN-LAST:event_btnSociosActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+        // TODO add your handling code here:
+        cambiaCuentaPresentacion abrir = new cambiaCuentaPresentacion();
+        abrir.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
+        estadoPrestamoPresentacion abrir = new estadoPrestamoPresentacion();
+        abrir.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void btnSocios1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSocios1ActionPerformed
+        // TODO add your handling code here:
+        socioPresentacion abrir = new socioPresentacion();
+        abrir.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnSocios1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -240,7 +256,8 @@ public class VentanaAdministradorPresentacion extends javax.swing.JFrame {
             }
         });
     }
-        private void SetImageLabel(JLabel Nombrelabel, String root) {
+
+    private void SetImageLabel(JLabel Nombrelabel, String root) {
         ImageIcon image = new ImageIcon(root);
         Icon icon = new ImageIcon(image.getImage().getScaledInstance(Nombrelabel.getWidth(), Nombrelabel.getHeight(), Image.SCALE_DEFAULT));
         Nombrelabel.setIcon(icon);
@@ -253,9 +270,9 @@ public class VentanaAdministradorPresentacion extends javax.swing.JFrame {
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnRoles;
     private javax.swing.JButton btnSocios;
+    private javax.swing.JButton btnSocios1;
     private javax.swing.JButton btnUsuarios;
     private javax.swing.JLabel fondo;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel10;

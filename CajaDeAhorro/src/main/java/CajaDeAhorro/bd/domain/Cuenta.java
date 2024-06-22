@@ -14,6 +14,15 @@ public class Cuenta {
     private float tasa_interes = 0.0f;
     private int estatus_cuenta = -1;
     private float saldo = 0;
+    private String tipo ="";
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
 
     // Constructor
     public Cuenta() {

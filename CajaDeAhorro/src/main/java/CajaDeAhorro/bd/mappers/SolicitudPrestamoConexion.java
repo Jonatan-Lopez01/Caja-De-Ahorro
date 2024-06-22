@@ -15,17 +15,18 @@ public class SolicitudPrestamoConexion implements SolicitudPrestamoInterface {
         try {
             ConexionBd enlace = new ConexionBd();
             Connection enlaceActivo = enlace.Conectar();
-            String sql = "INSERT INTO solicitud_prestamo (id_socio, monto_prestado, tipo_prestamo, fecha_solicitud, plazo, num_montos, descripcion, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO solicitud_prestamo (id_socio, monto_prestado,numCuenta, tipo_prestamo, fecha_solicitud, plazo, num_montos, descripcion, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?)";
             PreparedStatement lineaParametros = enlaceActivo.prepareStatement(sql);
 
             lineaParametros.setInt(1, solicitudPrestamo.getIdSocio());
             lineaParametros.setDouble(2, solicitudPrestamo.getMontoPrestado());
-            lineaParametros.setString(3, solicitudPrestamo.getTipoPrestamo());
-            lineaParametros.setTimestamp(4, solicitudPrestamo.getFechaSolicitud());
-            lineaParametros.setInt(5, solicitudPrestamo.getPlazo());
-            lineaParametros.setInt(6, solicitudPrestamo.getNumMontos());
-            lineaParametros.setString(7, solicitudPrestamo.getDescripcion());
-            lineaParametros.setString(8, solicitudPrestamo.getEstado());
+            lineaParametros.setInt(3, solicitudPrestamo.getnumCuenta());
+            lineaParametros.setString(4, solicitudPrestamo.getTipoPrestamo());
+            lineaParametros.setTimestamp(5, solicitudPrestamo.getFechaSolicitud());
+            lineaParametros.setInt(6, solicitudPrestamo.getPlazo());
+            lineaParametros.setInt(7, solicitudPrestamo.getNumMontos());
+            lineaParametros.setString(8, solicitudPrestamo.getDescripcion());
+            lineaParametros.setString(9, solicitudPrestamo.getEstado());
 
             int flag = lineaParametros.executeUpdate();
             if (flag > 0) {
@@ -44,18 +45,19 @@ public class SolicitudPrestamoConexion implements SolicitudPrestamoInterface {
         try {
             ConexionBd enlace = new ConexionBd();
             Connection enlaceActivo = enlace.Conectar();
-            String sql = "UPDATE solicitud_prestamo SET id_socio = ?, monto_prestado = ?, tipo_prestamo = ?, fecha_solicitud = ?, plazo = ?, num_montos = ?, descripcion = ?, estado = ? WHERE id_solicitud_prestamo = ?";
+            String sql = "UPDATE solicitud_prestamo SET id_socio = ?, monto_prestado = ?,numCuenta =?, tipo_prestamo = ?, fecha_solicitud = ?, plazo = ?, num_montos = ?, descripcion = ?, estado = ? WHERE id_solicitud_prestamo = ?";
             PreparedStatement lineaParametros = enlaceActivo.prepareStatement(sql);
 
             lineaParametros.setInt(1, solicitudPrestamo.getIdSocio());
             lineaParametros.setDouble(2, solicitudPrestamo.getMontoPrestado());
-            lineaParametros.setString(3, solicitudPrestamo.getTipoPrestamo());
-            lineaParametros.setTimestamp(4, solicitudPrestamo.getFechaSolicitud());
-            lineaParametros.setInt(5, solicitudPrestamo.getPlazo());
-            lineaParametros.setInt(6, solicitudPrestamo.getNumMontos());
-            lineaParametros.setString(7, solicitudPrestamo.getDescripcion());
-            lineaParametros.setString(8, solicitudPrestamo.getEstado());
-            lineaParametros.setInt(9, id);
+            lineaParametros.setInt(3, solicitudPrestamo.getnumCuenta());
+            lineaParametros.setString(4, solicitudPrestamo.getTipoPrestamo());
+            lineaParametros.setTimestamp(5, solicitudPrestamo.getFechaSolicitud());
+            lineaParametros.setInt(6, solicitudPrestamo.getPlazo());
+            lineaParametros.setInt(7, solicitudPrestamo.getNumMontos());
+            lineaParametros.setString(8, solicitudPrestamo.getDescripcion());
+            lineaParametros.setString(9, solicitudPrestamo.getEstado());
+            lineaParametros.setInt(10, id);
 
             int flag = lineaParametros.executeUpdate();
 
@@ -110,6 +112,7 @@ public class SolicitudPrestamoConexion implements SolicitudPrestamoInterface {
                 consultarSolicitudPrestamo.setIdSolicitudPrestamo(resultado.getInt("id_solicitud_prestamo"));
                 consultarSolicitudPrestamo.setIdSocio(resultado.getInt("id_socio"));
                 consultarSolicitudPrestamo.setMontoPrestado(resultado.getDouble("monto_prestado"));
+                consultarSolicitudPrestamo.setnumCuenta(resultado.getInt("numCuenta"));
                 consultarSolicitudPrestamo.setTipoPrestamo(resultado.getString("tipo_prestamo"));
                 consultarSolicitudPrestamo.setFechaSolicitud(resultado.getTimestamp("fecha_solicitud"));
                 consultarSolicitudPrestamo.setPlazo(resultado.getInt("plazo"));
@@ -141,6 +144,7 @@ public class SolicitudPrestamoConexion implements SolicitudPrestamoInterface {
                 solicitudPrestamo.setIdSolicitudPrestamo(resultado.getInt("id_solicitud_prestamo"));
                 solicitudPrestamo.setIdSocio(resultado.getInt("id_socio"));
                 solicitudPrestamo.setMontoPrestado(resultado.getDouble("monto_prestado"));
+                solicitudPrestamo.setnumCuenta(resultado.getInt("numCuenta"));
                 solicitudPrestamo.setTipoPrestamo(resultado.getString("tipo_prestamo"));
                 solicitudPrestamo.setFechaSolicitud(resultado.getTimestamp("fecha_solicitud"));
                 solicitudPrestamo.setPlazo(resultado.getInt("plazo"));
@@ -196,6 +200,7 @@ public class SolicitudPrestamoConexion implements SolicitudPrestamoInterface {
                 ultimaSolicitudPrestamo.setIdSolicitudPrestamo(resultado.getInt("id_solicitud_prestamo"));
                 ultimaSolicitudPrestamo.setIdSocio(resultado.getInt("id_socio"));
                 ultimaSolicitudPrestamo.setMontoPrestado(resultado.getDouble("monto_prestado"));
+                ultimaSolicitudPrestamo.setnumCuenta(resultado.getInt("numCuenta"));
                 ultimaSolicitudPrestamo.setTipoPrestamo(resultado.getString("tipo_prestamo"));
                 ultimaSolicitudPrestamo.setFechaSolicitud(resultado.getTimestamp("fecha_solicitud"));
                 ultimaSolicitudPrestamo.setPlazo(resultado.getInt("plazo"));

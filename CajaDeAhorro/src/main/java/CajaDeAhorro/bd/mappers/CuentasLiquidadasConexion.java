@@ -22,12 +22,13 @@ public class CuentasLiquidadasConexion {
         try {
             ConexionBd enlace = new ConexionBd();
             Connection enlaceActivo = enlace.Conectar();
-            String sql = "INSERT INTO cuentas_liquidadas (numero_cuenta, tipo_liquidez, folio_pago_liquidez) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO cuentas_liquidadas (numero_cuenta, tipo_liquidez, folio_pago_liquidez, id_socio) VALUES (?, ?, ?, ?)";
             PreparedStatement lineaParametros = enlaceActivo.prepareStatement(sql);
 
             lineaParametros.setInt(1, cuentaLiquidada.getNumero_cuenta());
             lineaParametros.setString(2, cuentaLiquidada.getTipo_liquidez());
             lineaParametros.setString(3, cuentaLiquidada.getFolio_pago_liquidez());
+            lineaParametros.setInt(4, cuentaLiquidada.getIdSocio());
 
             int flag = lineaParametros.executeUpdate();
             if (flag > 0) {
@@ -46,13 +47,14 @@ public class CuentasLiquidadasConexion {
         try {
             ConexionBd enlace = new ConexionBd();
             Connection enlaceActivo = enlace.Conectar();
-            String sql = "UPDATE cuentas_liquidadas SET numero_cuenta = ?, tipo_liquidez = ?, folio_pago_liquidez = ? WHERE id_cuenta_liquidada = ?";
+            String sql = "UPDATE cuentas_liquidadas SET numero_cuenta = ?, tipo_liquidez = ?, folio_pago_liquidez = ?, id_socio= ? WHERE id_cuenta_liquidada = ?";
             PreparedStatement lineaParametros = enlaceActivo.prepareStatement(sql);
 
             lineaParametros.setInt(1, cuentaLiquidada.getNumero_cuenta());
             lineaParametros.setString(2, cuentaLiquidada.getTipo_liquidez());
             lineaParametros.setString(3, cuentaLiquidada.getFolio_pago_liquidez());
-            lineaParametros.setInt(4, idCuentaLiquidada);
+            lineaParametros.setInt(4, cuentaLiquidada.getIdSocio());
+            lineaParametros.setInt(5, idCuentaLiquidada);
 
             int flag = lineaParametros.executeUpdate();
             if (flag > 0) {
@@ -121,6 +123,7 @@ public class CuentasLiquidadasConexion {
         }
         return cuentaLiquidada;
     }
+    
     // Método para obtener todas las cuentas liquidadas
 
     public List<CuentasLiquidadas> obtenerTodasLasCuentasLiquidadas() {
@@ -146,6 +149,36 @@ public class CuentasLiquidadasConexion {
         }
         return listaCuentasLiquidadas;
     }
+    
+    public List<CuentasLiquidadas> obteneCuentasLiquidadasByIdSocio(int idSocio) {
+        List<CuentasLiquidadas> listaCuentasLiquidadas = new ArrayList<>();
+        try {
+            ConexionBd enlace = new ConexionBd();
+            Connection enlaceActivo = enlace.Conectar();
+            String sql = "SELECT * FROM cuentas_liquidadas WHERE id_socio = ?";
+            PreparedStatement lineaParametros = enlaceActivo.prepareStatement(sql);
+            
+            lineaParametros.setInt(1, idSocio);
+
+            ResultSet resultado = lineaParametros.executeQuery();
+            while (resultado.next()) {
+                CuentasLiquidadas cuentaLiquidada = new CuentasLiquidadas();
+                cuentaLiquidada.setId_cuenta_liquidada(resultado.getInt("id_cuenta_liquidada"));
+                cuentaLiquidada.setNumero_cuenta(resultado.getInt("numero_cuenta"));
+                cuentaLiquidada.setTipo_liquidez(resultado.getString("tipo_liquidez"));
+                cuentaLiquidada.setFolio_pago_liquidez(resultado.getString("folio_pago_liquidez"));
+                cuentaLiquidada.setIdSocio(resultado.getInt("id_socio"));
+                listaCuentasLiquidadas.add(cuentaLiquidada);
+            }
+            enlace.Desconectar();
+        } catch (SQLException e) {
+            System.out.println("SQLException: " + e);
+        }
+        return listaCuentasLiquidadas;
+    }
+    
+    
+    
 // Método para obtener la última cuenta liquidada
 
     public CuentasLiquidadas obtenerUltimaCuentaLiquidada() {

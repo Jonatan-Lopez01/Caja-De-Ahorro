@@ -29,4 +29,6 @@ public interface SocioCuentaInterface {
     
     SocioCuenta obtenerUltimoSocioCuenta();
     
+    void actualizarSocioCuentaPorNumeroCuenta(int numeroCuenta, int idSocioOriginal, int nuevoIdSocio);
+    
 }

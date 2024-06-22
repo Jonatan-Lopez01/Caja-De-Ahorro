@@ -43,7 +43,7 @@ public class CuentaDaoImplTest {
 
     @Test
     public void testObtenerCuentaPorNumero() {
-        int numeroCuenta = 1; // Número de cuenta a buscar
+        int numeroCuenta = 2; // Número de cuenta a buscar
         System.out.println("Buscando la cuenta con número de cuenta = " + numeroCuenta + "\n");
 
         // Instanciar la clase CuentaConexion

@@ -26,6 +26,7 @@ public class CuentasLiquidadasDaoImplTest {
         cuentaLiquidada.setFolio_pago_liquidez("fdsfdsfsd45434534");
         cuentaLiquidada.setTipo_liquidez("DFDFDFDSFDSFD");
         cuentaLiquidada.setNumero_cuenta(5645656);
+        cuentaLiquidada.setIdSocio(1);
         instance.crearCuentaLiquidada(cuentaLiquidada);
     }
 
@@ -37,6 +38,7 @@ public class CuentasLiquidadasDaoImplTest {
         cuentaLiquidada.setId_cuenta_liquidada(idCuentaLiquidada);
         cuentaLiquidada.setFolio_pago_liquidez("NuevoFolio123");
         cuentaLiquidada.setTipo_liquidez("NuevoTipo");
+        cuentaLiquidada.setIdSocio(1);
 
         CuentasLiquidadasDaoImpl instance = new CuentasLiquidadasDaoImpl();
         instance.actualizarCuentaLiquidada(idCuentaLiquidada, cuentaLiquidada);
@@ -45,7 +47,7 @@ public class CuentasLiquidadasDaoImplTest {
     @Test
     public void testEliminarCuentaLiquidada() {
         System.out.println("eliminarCuentaLiquidada");
-        int idCuentaLiquidada = 4;
+        int idCuentaLiquidada = 2;
         CuentasLiquidadasDaoImpl instance = new CuentasLiquidadasDaoImpl();
         CuentasLiquidadas expResult = null;
         CuentasLiquidadas result = instance.eliminarCuentaLiquidada(idCuentaLiquidada);

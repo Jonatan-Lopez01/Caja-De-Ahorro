@@ -171,7 +171,7 @@ public class PagoConexion {
             PreparedStatement lineaParametros = enlaceActivo.prepareStatement(sql);
 
             ResultSet resultado = lineaParametros.executeQuery(sql);
-            
+             
             if (resultado.next()) {
                 ultimoPago = new Pago();
                 ultimoPago.setIdPago(resultado.getInt("id_pago"));
@@ -186,4 +186,46 @@ public class PagoConexion {
         }
         return ultimoPago;
     }
+    
+    public List<Pago> pagosRealizadosPorSocio(int idPrestamo,LocalDateTime fecha){
+         List<Pago> pagos = new ArrayList<>();
+        try {
+            ConexionBd enlace = new ConexionBd();
+            Connection enlaceActivo = enlace.Conectar();
+            
+ 
+
+           
+            String sql = "SELECT * FROM pago WHERE id_prestamo = ? AND fecha < ?";
+            PreparedStatement lineaParametros = enlaceActivo.prepareStatement(sql);
+            lineaParametros.setInt(1, idPrestamo);
+            lineaParametros.setTimestamp(2, Timestamp.valueOf(fecha));
+
+            
+            ResultSet resultado = lineaParametros.executeQuery();
+            
+
+            while (resultado.next()) {
+                Pago pago = new Pago();
+                
+                pago.setIdPago(resultado.getInt("id_pago"));
+                pago.setIdPrestamo(resultado.getInt("id_prestamo"));
+                pago.setCantidad(resultado.getDouble("cantidad"));
+                Timestamp timestamp = resultado.getTimestamp("fecha");
+                pago.setFecha(timestamp.toLocalDateTime());
+
+                pagos.add(pago);
+            }
+            enlace.Desconectar();
+        } catch (SQLException e) {
+            System.out.println("SQLException " + e);
+        }
+        return pagos;
+    }
+    
+    public static void main(String[] args) {
+        PagoConexion prueba = new PagoConexion();
+        prueba.pagosRealizadosPorSocio(19, LocalDateTime.now());
+    }
+    
 }

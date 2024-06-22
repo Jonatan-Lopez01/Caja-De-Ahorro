@@ -29,5 +29,7 @@ public interface SocioCuentaDao {
     List<SocioCuenta> obtenerTodosLosSocioCuentas();
     
     SocioCuenta obtenerUltimoSocioCuenta();
+    
+    void actualizarSocioCuentaPorNumeroCuenta(int numeroCuenta, int idSocioOriginal, int nuevoIdSocio);
 
 }

@@ -50,5 +50,10 @@ public class SocioCuentaDaoImpl implements SocioCuentaDao {
          SocioCuentaConexion conexion = new SocioCuentaConexion();
          return conexion.obtenerUltimoSocioCuenta();
     }
+    public void actualizarSocioCuentaPorNumeroCuenta(int numeroCuenta, int idSocioOriginal, int nuevoIdSocio)
+    {
+        SocioCuentaConexion conexion = new SocioCuentaConexion();
+        conexion.actualizarSocioCuentaPorNumeroCuenta(numeroCuenta, idSocioOriginal,nuevoIdSocio);       
+    }
 
 }

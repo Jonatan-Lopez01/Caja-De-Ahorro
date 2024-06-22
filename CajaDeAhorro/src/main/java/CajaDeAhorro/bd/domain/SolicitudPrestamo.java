@@ -3,9 +3,10 @@ package CajaDeAhorro.bd.domain;
 import java.sql.Timestamp;
 
 public class SolicitudPrestamo {
-    
+
     private int id_solicitud_prestamo;
     private int id_socio;
+    private int numCuenta;
     private double monto_prestado;
     private String tipo_prestamo;
     private Timestamp fecha_solicitud;
@@ -14,7 +15,16 @@ public class SolicitudPrestamo {
     private String descripcion;
     private String estado;
 
-    public SolicitudPrestamo() {}
+    public SolicitudPrestamo() {
+    }
+
+    public int getnumCuenta() {
+        return numCuenta;
+    }
+
+    public void setnumCuenta(int numCuenta) {
+        this.numCuenta = numCuenta;
+    }
 
     public int getIdSolicitudPrestamo() {
         return id_solicitud_prestamo;

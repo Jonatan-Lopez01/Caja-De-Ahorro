@@ -14,6 +14,7 @@ public class CuentasLiquidadas {
     private int numero_cuenta;
     private String tipo_liquidez;
     private String folio_pago_liquidez;
+    private int id_socio;
 
     // Getter and Setter for id_cuenta_liquidada
     public int getId_cuenta_liquidada() {
@@ -49,6 +50,13 @@ public class CuentasLiquidadas {
 
     public void setFolio_pago_liquidez(String folio_pago_liquidez) {
         this.folio_pago_liquidez = folio_pago_liquidez;
+    }
+    public int getIdSocio() {
+        return id_socio;
+    }
+
+    public void setIdSocio(int idSocio) {
+        this.id_socio=idSocio ;
     }
 
 }

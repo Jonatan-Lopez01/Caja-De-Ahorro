@@ -30,4 +30,6 @@ public interface CuentasLiquidadasInterface {
 
     // Método para obtener la última cuenta liquidada
     CuentasLiquidadas obtenerUltimaCuentaLiquidada();
+    
+    List<CuentasLiquidadas> obteneCuentasLiquidadasByIdSocio(int idSocio);
 }

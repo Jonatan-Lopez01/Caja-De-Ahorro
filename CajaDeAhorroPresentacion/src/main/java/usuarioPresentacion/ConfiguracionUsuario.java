@@ -131,7 +131,15 @@ public class ConfiguracionUsuario extends javax.swing.JFrame {
             new String [] {
                 "ID Usuario", "ID Rol", "Nombre", "Correo", "Contraseña"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tablaUsuarios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tablaUsuarios.setSelectionBackground(new java.awt.Color(153, 51, 0));
         tablaUsuarios.getTableHeader().setResizingAllowed(false);
@@ -142,6 +150,13 @@ public class ConfiguracionUsuario extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tablaUsuarios);
+        if (tablaUsuarios.getColumnModel().getColumnCount() > 0) {
+            tablaUsuarios.getColumnModel().getColumn(0).setResizable(false);
+            tablaUsuarios.getColumnModel().getColumn(1).setResizable(false);
+            tablaUsuarios.getColumnModel().getColumn(2).setResizable(false);
+            tablaUsuarios.getColumnModel().getColumn(3).setResizable(false);
+            tablaUsuarios.getColumnModel().getColumn(4).setResizable(false);
+        }
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 240, 560, 260));
         jPanel1.add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 420, 270, -1));
@@ -364,8 +379,6 @@ public class ConfiguracionUsuario extends javax.swing.JFrame {
                 // Usuario ha seleccionado "No" (Cancelar)
                 System.out.println("El usuario ha cancelado la actualizacion del rol.");
             }
-        
-
     }
     }//GEN-LAST:event_btnActualizarActionPerformed
 

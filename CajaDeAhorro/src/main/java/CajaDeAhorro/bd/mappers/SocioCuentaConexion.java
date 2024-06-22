@@ -44,7 +44,7 @@ public class SocioCuentaConexion implements SocioCuentaInterface {
     }
 
     @Override
-    public void actualizarSocioCuenta(int id,SocioCuenta socioCuenta) {
+    public void actualizarSocioCuenta(int id, SocioCuenta socioCuenta) {
         try {
             ConexionBd enlace = new ConexionBd();
             Connection enlaceActivo = enlace.Conectar();
@@ -180,4 +180,32 @@ public class SocioCuentaConexion implements SocioCuentaInterface {
         return socioCuenta;
     }
 
+    @Override
+    public void actualizarSocioCuentaPorNumeroCuenta(int numeroCuenta, int idSocioOriginal, int nuevoIdSocio) {
+        try {
+            ConexionBd enlace = new ConexionBd();
+            Connection enlaceActivo = enlace.Conectar();
+
+            // Consulta para actualizar el id_socio en la tabla socio_cuenta, verificando el id_socio original
+            String actualizarSocioCuentaSql = "UPDATE socio_cuenta SET id_socio = ? WHERE id_cuenta = ? AND id_socio = ?";
+            PreparedStatement actualizarSocioCuentaStmt = enlaceActivo.prepareStatement(actualizarSocioCuentaSql);
+            actualizarSocioCuentaStmt.setInt(1, nuevoIdSocio);
+            actualizarSocioCuentaStmt.setInt(2, numeroCuenta);
+            actualizarSocioCuentaStmt.setInt(3, idSocioOriginal);
+
+            int flag = actualizarSocioCuentaStmt.executeUpdate();
+
+            if (flag > 0) {
+                System.out.println("SocioCuenta actualizado correctamente.");
+            } else {
+                System.out.println("No se pudo actualizar el socioCuenta.");
+            }
+
+            enlace.Desconectar();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
 }
+
